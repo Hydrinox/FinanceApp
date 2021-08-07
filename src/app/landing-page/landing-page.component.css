@@ -1,0 +1,7 @@
+.container{
+    background: url(../../assets/lake-1802337_1920.jpg);
+    background-size: cover;
+    min-height: 100VH;
+    padding: 0rem, 5rem;
+    z-index: 6;
+}
