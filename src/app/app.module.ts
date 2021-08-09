@@ -17,6 +17,7 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
 import { AboutPageComponent } from './about-page/about-page.component';
 import { RetirementPageComponent } from './retirement/retirement-page/retirement-page.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BudgetingPageComponent } from "./budgeting/budgeting-page/budgeting-page.component";
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     RetirementPresentationComponent,
     LandingPageComponent,
     AboutPageComponent,
-    RetirementPageComponent
+    RetirementPageComponent,
+    BudgetingPageComponent
   ],
   imports: [
     BrowserModule,

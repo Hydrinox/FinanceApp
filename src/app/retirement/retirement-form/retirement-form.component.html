@@ -1,13 +1,13 @@
 <div class="container">
 <div class="card">
     <form (ngSubmit)="calculate()">
-        <mat-form-field>
+        <mat-form-field class="formField">
             <input matInput type="number" placeholder="Current Age" [(ngModel)]="currentAge" name="currentAge">
         </mat-form-field>
         <mat-form-field class="formField">
             <input matInput type="number" placeholder="Retirement Age" [(ngModel)]="retirementAge" name="retirementAge"><br>
         </mat-form-field>
-        <mat-form-field>
+        <mat-form-field class="formField">
             <input matInput placeholder="Starting Principal" [(ngModel)]="startAmount" name="startAmount">
             <span matPrefix>$&nbsp;</span>
         </mat-form-field>
@@ -21,6 +21,9 @@
         </mat-form-field>
         <button type="submit">Submit</button>
     </form>
-    <p>{{ retirementNumber | currency:'USD'}}</p>
+    <div class="result">
+        <p>{{ retirementNumber | currency:'USD'}}</p>
+    </div>
+    
 </div>
 </div>

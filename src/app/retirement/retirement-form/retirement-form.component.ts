@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RetirementFormComponent implements OnInit {
 
-  currentAge: number;
+  currentAge: number = 25;
   retirementAge: number = 65;
   growthRate: number = 7;
   startAmount: number = 175000;
