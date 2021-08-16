@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { RetirementCalcService } from "../../services/retirement-calc.service";
+import { RetirementForm } from "../../models/RetirementForm";
 
 @Component({
   selector: 'app-retirement-form',
@@ -6,26 +8,26 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./retirement-form.component.css']
 })
 export class RetirementFormComponent implements OnInit {
+  formModel = new RetirementForm();
+  retirementNumber: number;  
+  @Output() textDisplayEvent = new EventEmitter<string>();
 
-  currentAge: number = 25;
-  retirementAge: number = 65;
-  growthRate: number = 7;
-  startAmount: number = 175000;
-  contribution: number;
-  retirementNumber: number;
-
-  constructor() { }
+  constructor(private retirementCalc: RetirementCalcService) { }
 
   ngOnInit(): void {
+    this.formModel.currentAge = 25;
+    this.formModel.retirementAge = 65;
+    this.formModel.growthRate = 7;
+    this.formModel.startPrincipal = 175000;
+    this.formModel.contributions = 0;
   }
 
-  calculate(){
-    //P(1 + i)n  compounding growth formula
-    let n = this.retirementAge - this.currentAge;
-    let i = this.growthRate / 100;
+  OnSubmit(){
+    this.retirementNumber = this.retirementCalc.calculate(this.formModel);
+  }
 
-    this.retirementNumber = this.startAmount * Math.pow((1 + i), n);
-
+  emitTextValue(event){
+    this.textDisplayEvent.emit(event.target.name);
   }
 
 }

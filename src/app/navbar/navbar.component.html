@@ -1,8 +1,20 @@
-<nav>
+<!-- <nav>
     <h1>John's Finance App</h1>
     <ul class="nav-links">
         <li><a routerLink='/budgeting'>Budgeting</a></li>
         <li><a routerLink='/retirement'>Retirement</a></li>
         <li><a routerLink='/about'>About Me</a></li>
     </ul>
-</nav>
+</nav> -->
+
+    <nav mat-tab-nav-bar mat-align-tabs="end">
+            <a mat-tab-link routerLink='/budgeting' routerLinkActive [routerLinkActiveOptions]="{exact:true}"
+            #rla1="routerLinkActive" 
+            [active]="rla1.isActive">Budgeting</a>
+            <a mat-tab-link routerLink='/retirement' routerLinkActive [routerLinkActiveOptions]="{exact:true}"
+            #rla2="routerLinkActive" 
+            [active]="rla2.isActive">Retirement</a>
+            <a mat-tab-link routerLink='/about' routerLinkActive [routerLinkActiveOptions]="{exact:true}"
+            #rla3="routerLinkActive" 
+            [active]="rla3.isActive">About Me</a>
+    </nav>

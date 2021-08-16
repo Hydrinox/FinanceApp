@@ -4,6 +4,11 @@ import { FormsModule } from "@angular/forms";
 
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatTableModule } from "@angular/material/table";
+import { MatIcon, MatIconModule } from "@angular/material/icon";
+import { MatTooltipModule } from "@angular/material/tooltip";
+import { MatButtonModule } from "@angular/material/button";
+import { MatTabsModule } from "@angular/material/tabs";
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -18,6 +23,7 @@ import { AboutPageComponent } from './about-page/about-page.component';
 import { RetirementPageComponent } from './retirement/retirement-page/retirement-page.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BudgetingPageComponent } from "./budgeting/budgeting-page/budgeting-page.component";
+
 
 @NgModule({
   declarations: [
@@ -38,7 +44,12 @@ import { BudgetingPageComponent } from "./budgeting/budgeting-page/budgeting-pag
     AppRoutingModule,
     BrowserAnimationsModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatTableModule,
+    MatIconModule,
+    MatTooltipModule,
+    MatButtonModule,
+    MatTabsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

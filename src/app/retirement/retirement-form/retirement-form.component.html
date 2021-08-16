@@ -1,29 +1,27 @@
-<div class="container">
-<div class="card">
-    <form (ngSubmit)="calculate()">
-        <mat-form-field class="formField">
-            <input matInput type="number" placeholder="Current Age" [(ngModel)]="currentAge" name="currentAge">
-        </mat-form-field>
-        <mat-form-field class="formField">
-            <input matInput type="number" placeholder="Retirement Age" [(ngModel)]="retirementAge" name="retirementAge"><br>
-        </mat-form-field>
-        <mat-form-field class="formField">
-            <input matInput placeholder="Starting Principal" [(ngModel)]="startAmount" name="startAmount">
-            <span matPrefix>$&nbsp;</span>
-        </mat-form-field>
-        <mat-form-field class="formField">
-            <input matInput placeholder="Monthly Contributions" [(ngModel)]="contribution" name="contribution"><br>
-            <span matPrefix>$&nbsp;</span>
-        </mat-form-field>
-        <mat-form-field class="formField">
-            <input matInput placeholder="Yearly Growth Rate" [(ngModel)]="growthRate" name="growthRate" [value]="growthRate">
-            <span matSuffix>%</span>
-        </mat-form-field>
-        <button type="submit">Submit</button>
-    </form>
-    <div class="result">
-        <p>{{ retirementNumber | currency:'USD'}}</p>
+   <div class="card">
+        <form (ngSubmit)="OnSubmit()">
+            <mat-form-field class="formField">
+                <input matInput type="number" placeholder="Current Age" [(ngModel)]="formModel.currentAge" name="currentAge" (focus)="emitTextValue($event)">
+            </mat-form-field>
+            <mat-form-field class="formField">
+                <input matInput type="number" placeholder="Retirement Age" [(ngModel)]="formModel.retirementAge" name="retirementAge" (focus)="emitTextValue($event)"><br>
+            </mat-form-field>
+            <mat-form-field class="formField">
+                <input matInput placeholder="Starting Principal" [(ngModel)]="formModel.startPrincipal" name="startPrincipal" (focus)="emitTextValue($event)">
+                <span matPrefix>$&nbsp;</span>
+                <span matSuffix><mat-icon matTooltip="Amount currently saved in retirement accounts" aria-hidden="false" aria-label="info">info</mat-icon></span>            
+            </mat-form-field>
+            <mat-form-field class="formField">
+                <input matInput placeholder="Monthly Contributions" type="number" [(ngModel)]="formModel.contributions" name="contributions" (focus)="emitTextValue($event)"><br>
+                <span matPrefix>$&nbsp;</span>
+            </mat-form-field>
+            <mat-form-field class="formField">
+                <input matInput placeholder="Yearly Growth Rate" [(ngModel)]="formModel.growthRate" name="growthRate" [value]="formModel.growthRate" (focus)="emitTextValue($event)">
+                <span matSuffix>%</span>
+            </mat-form-field>
+            <button type="submit" mat-button>Calculate</button>
+        </form>
+        <div class="result">
+            <p>{{ retirementNumber | currency:'USD'}}</p>    
+        </div>        
     </div>
-    
-</div>
-</div>

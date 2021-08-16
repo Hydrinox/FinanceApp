@@ -1,7 +1,8 @@
-nav{
+/* nav{
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin-bottom: 2rem;
 }
 
 .nav-links{
@@ -17,4 +18,13 @@ nav{
 
 a{
     text-decoration: none;
+} */
+
+nav{
+    border-top: none;
+    margin-bottom: 5rem;
+}
+
+.mat-tab-nav-bar {
+    border-bottom: 0;
 }

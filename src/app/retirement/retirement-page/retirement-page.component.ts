@@ -6,10 +6,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./retirement-page.component.css']
 })
 export class RetirementPageComponent implements OnInit {
+  textToDisplayValue = '';
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  setTextDisplayValue(value){
+    this.textToDisplayValue = value;
+  }
 }
