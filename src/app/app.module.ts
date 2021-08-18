@@ -9,6 +9,7 @@ import { MatIcon, MatIconModule } from "@angular/material/icon";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { MatButtonModule } from "@angular/material/button";
 import { MatTabsModule } from "@angular/material/tabs";
+import { MatCardModule } from "@angular/material/card";
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -49,7 +50,8 @@ import { BudgetingPageComponent } from "./budgeting/budgeting-page/budgeting-pag
     MatIconModule,
     MatTooltipModule,
     MatButtonModule,
-    MatTabsModule
+    MatTabsModule,
+    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent]

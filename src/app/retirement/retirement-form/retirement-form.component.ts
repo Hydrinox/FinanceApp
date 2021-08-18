@@ -5,7 +5,7 @@ import { RetirementForm } from "../../models/RetirementForm";
 @Component({
   selector: 'app-retirement-form',
   templateUrl: './retirement-form.component.html',
-  styleUrls: ['./retirement-form.component.css']
+  styleUrls: ['./retirement-form.component.scss']
 })
 export class RetirementFormComponent implements OnInit {
   formModel = new RetirementForm();

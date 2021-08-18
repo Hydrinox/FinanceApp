@@ -4,16 +4,16 @@ import { MatTable } from '@angular/material/table';
 import { BudgetItem } from "../../models/BudgetItem";
 
 const ELEMENT_DATA: BudgetItem[] = [
-  {position: 1, name: 'Car Payment', amount: 2.00, category: 'expense'},
-  {position: 1, name: 'Car Payment', amount: 2.00, category: 'expense'},
-  {position: 1, name: 'Car Payment', amount: 2.00, category: 'expense'},
-  {position: 1, name: 'Car Payment', amount: 2.00, category: 'expense'},
-  {position: 1, name: 'Car Payment', amount: 2.00, category: 'expense'},
-  {position: 1, name: 'Car Payment', amount: 2.00, category: 'expense'},
-  {position: 1, name: 'Car Payment', amount: 2.00, category: 'expense'},
-  {position: 1, name: 'Car Payment', amount: 2.00, category: 'expense'},
-  {position: 1, name: 'Car Payment', amount: 2.00, category: 'expense'},
-  {position: 1, name: 'Car Payment', amount: 2.00, category: 'expense'},];
+  { name: 'Car Payment', amount: 2.00, category: 'expense'},
+  { name: 'Car Payment', amount: 2.00, category: 'expense'},
+  { name: 'Car Payment', amount: 2.00, category: 'expense'},
+  { name: 'Car Payment', amount: 2.00, category: 'expense'},
+  { name: 'Car Payment', amount: 2.00, category: 'expense'},
+  { name: 'Car Payment', amount: 2.00, category: 'expense'},
+  { name: 'Car Payment', amount: 2.00, category: 'expense'},
+  { name: 'Car Payment', amount: 2.00, category: 'expense'},
+  { name: 'Car Payment', amount: 2.00, category: 'expense'},
+  { name: 'Car Payment', amount: 2.00, category: 'expense'},];
 
 @Component({
   selector: 'app-budgeting-form',
@@ -21,7 +21,7 @@ const ELEMENT_DATA: BudgetItem[] = [
   styleUrls: ['./budgeting-form.component.css']
 })
 export class BudgetingFormComponent implements OnInit {
-  displayedColumns: string[] = ['position', 'name', 'amount', 'category'];
+  displayedColumns: string[] = ['name', 'amount'];
   dataSource = ELEMENT_DATA;
 
   constructor() { }
@@ -31,6 +31,10 @@ export class BudgetingFormComponent implements OnInit {
 
   @ViewChild(MatTable) table: MatTable<BudgetItem>;
   
+  getTotalCost() {
+    return this.dataSource.map(t => t.amount).reduce((acc, value) => acc + value, 0);
+  }
+
   addData() {
     const randomElementIndex = Math.floor(Math.random() * ELEMENT_DATA.length);
     this.dataSource.push(ELEMENT_DATA[randomElementIndex]);

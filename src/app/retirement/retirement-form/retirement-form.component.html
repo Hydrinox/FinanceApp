@@ -1,4 +1,4 @@
-   <div class="card">
+   <mat-card backgroundColor="primary" class="card">
         <form (ngSubmit)="OnSubmit()">
             <mat-form-field class="formField">
                 <input matInput type="number" placeholder="Current Age" [(ngModel)]="formModel.currentAge" name="currentAge" (focus)="emitTextValue($event)">
@@ -24,4 +24,4 @@
         <div class="result">
             <p>{{ retirementNumber | currency:'USD'}}</p>    
         </div>        
-    </div>
+    </mat-card>
