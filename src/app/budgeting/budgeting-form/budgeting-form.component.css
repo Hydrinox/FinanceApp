@@ -20,3 +20,15 @@ button {
 .totalFooter{
     font-weight: bold;
 }
+
+.formField{
+    margin:1rem;
+}
+
+.mat-column-amount{
+    text-align: -webkit-right;
+}
+
+.mat-column-action{
+    text-align: end;
+}

@@ -24,6 +24,7 @@ export class RetirementFormComponent implements OnInit {
 
   OnSubmit(){
     this.retirementNumber = this.retirementCalc.calculate(this.formModel);
+    this.textDisplayEvent.emit('calculate');
   }
 
   emitTextValue(event){

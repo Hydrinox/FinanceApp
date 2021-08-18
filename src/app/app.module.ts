@@ -10,12 +10,13 @@ import { MatTooltipModule } from "@angular/material/tooltip";
 import { MatButtonModule } from "@angular/material/button";
 import { MatTabsModule } from "@angular/material/tabs";
 import { MatCardModule } from "@angular/material/card";
+import { MatDialogModule } from "@angular/material/dialog";
 
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
-import { BudgetingFormComponent } from './budgeting/budgeting-form/budgeting-form.component';
+import { BudgetingFormComponent, BudgetFormDialog } from './budgeting/budgeting-form/budgeting-form.component';
 import { BudgetingPresentationComponent } from './budgeting/budgeting-presentation/budgeting-presentation.component';
 import { RetirementFormComponent } from './retirement/retirement-form/retirement-form.component';
 import { RetirementPresentationComponent } from './retirement/retirement-presentation/retirement-presentation.component';
@@ -24,7 +25,6 @@ import { AboutPageComponent } from './about-page/about-page.component';
 import { RetirementPageComponent } from './retirement/retirement-page/retirement-page.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BudgetingPageComponent } from "./budgeting/budgeting-page/budgeting-page.component";
-
 
 @NgModule({
   declarations: [
@@ -37,7 +37,8 @@ import { BudgetingPageComponent } from "./budgeting/budgeting-page/budgeting-pag
     LandingPageComponent,
     AboutPageComponent,
     RetirementPageComponent,
-    BudgetingPageComponent
+    BudgetingPageComponent,
+    BudgetFormDialog
   ],
   imports: [
     BrowserModule,
@@ -51,7 +52,8 @@ import { BudgetingPageComponent } from "./budgeting/budgeting-page/budgeting-pag
     MatTooltipModule,
     MatButtonModule,
     MatTabsModule,
-    MatCardModule
+    MatCardModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]

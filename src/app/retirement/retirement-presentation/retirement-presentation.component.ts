@@ -11,6 +11,7 @@ export class RetirementPresentationComponent implements OnChanges {
   startingPrincipalText: string = "principal text";
   contributionsText: string = "contribution text";
   growthRateText: string = "growth rate text";
+  submittedCalculationText: string = "this is submitted calculation text";
   displayedText: string = '';
   @Input() value = '';
 
@@ -32,6 +33,8 @@ export class RetirementPresentationComponent implements OnChanges {
       case 'growthRate':
         this.displayedText = this.growthRateText;
         break;
+      case 'calculate':
+        this.displayedText = this.submittedCalculationText;
       default:
         break;
   }
