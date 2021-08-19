@@ -23,6 +23,7 @@ const ELEMENT_DATA: BudgetItem[] = [
 export class BudgetingFormComponent implements OnInit {
   displayedColumns: string[] = ['name', 'amount', 'action'];
   dataSource = ELEMENT_DATA;
+  selected = '';
 
   constructor(public dialog: MatDialog) { }
 
@@ -38,29 +39,48 @@ export class BudgetingFormComponent implements OnInit {
   addData(newItem: BudgetItem) {
     if(newItem.name === undefined || newItem.amount === undefined){
       return;
-    }
-    const randomElementIndex = Math.floor(Math.random() * ELEMENT_DATA.length);
+    }    
     this.dataSource.push(newItem);
     this.table.renderRows();
   }
 
-  removeData(item) {
-    this.dataSource.pop();
+  editData(oldItem: BudgetItem, newItem: BudgetItem){
+    if(newItem.name === undefined || newItem.amount === undefined){
+      return;
+    }    
+    this.dataSource.splice(this.dataSource.findIndex(obj => obj.name == oldItem.name), 1, newItem);
+    this.table.renderRows();
+  }
 
+  removeData(item) {
     this.dataSource = this.dataSource.filter(i => i !== item)
     this.table.renderRows();
   }
 
-  openDialog(): void {
-    const dialogRef = this.dialog.open(BudgetFormDialog, {
-      width: '250px',
-      data: {name: this.dataSource['name'], amount: this.dataSource['amount']}
-    });
+  openDialog(item?: BudgetItem): void {
+    if(item){
+      var dialogRef = this.dialog.open(BudgetFormDialog, {
+        width: '250px',
+        data: {name: item.name, amount: item.amount}});
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      this.addData(result)
-    });
+        dialogRef.afterClosed().subscribe(result => {
+          console.log('The dialog was closed');
+          this.editData(item, result)
+        });
+    }
+    else{
+      var dialogRef = this.dialog.open(BudgetFormDialog, {
+        width: '250px',
+        data: {name: this.dataSource['name'], amount: this.dataSource['amount']}
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+        console.log('The dialog was closed');
+        this.addData(result)
+      });
+    }
+  
+    
   }
 
 }

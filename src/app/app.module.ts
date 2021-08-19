@@ -11,6 +11,8 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatTabsModule } from "@angular/material/tabs";
 import { MatCardModule } from "@angular/material/card";
 import { MatDialogModule } from "@angular/material/dialog";
+import { MatExpansionModule } from "@angular/material/expansion";
+import { MatSelectModule } from "@angular/material/select";
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -53,7 +55,9 @@ import { BudgetingPageComponent } from "./budgeting/budgeting-page/budgeting-pag
     MatButtonModule,
     MatTabsModule,
     MatCardModule,
-    MatDialogModule
+    MatDialogModule,
+    MatExpansionModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]
