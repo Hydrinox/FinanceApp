@@ -23,7 +23,8 @@ const ELEMENT_DATA: BudgetItem[] = [
 export class BudgetingFormComponent implements OnInit {
   displayedColumns: string[] = ['name', 'amount', 'action'];
   dataSource = ELEMENT_DATA;
-  selected = '';
+  selected = 'option1';
+  step = 0;
 
   constructor(public dialog: MatDialog) { }
 
@@ -81,6 +82,18 @@ export class BudgetingFormComponent implements OnInit {
     }
   
     
+  }
+
+  setStep(index: number) {
+    this.step = index;
+  }
+
+  nextStep() {
+    this.step++;
+  }
+
+  prevStep() {
+    this.step--;
   }
 
 }

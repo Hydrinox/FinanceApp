@@ -5,8 +5,11 @@
       <input matInput type="text" placeholder="Expense" name="nameField" [(ngModel)]="data.name">
     </mat-form-field>
     <mat-form-field class="formField">
+      <span matPrefix>$&nbsp;</span>
       <input matInput type="number" placeholder="Amount" name="amountField" [(ngModel)]="data.amount">
     </mat-form-field>
-    <button type="submit" mat-raised-button [mat-dialog-close]="data">Submit</button>
+    <div class="button-container">
+      <button type="submit" color="primary" mat-raised-button [mat-dialog-close]="data">Submit</button>
+    </div>
   </form>
 </div>

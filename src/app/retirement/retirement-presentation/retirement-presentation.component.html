@@ -1,7 +1,16 @@
 <main>
-    <h4>This will contain content explaining retirement info</h4>
-
-    <div>
-        {{ displayedText }}
-    </div>
+    <mat-card *ngIf="displayedText" class="explanation-card">
+        <mat-card-header>
+          <div mat-card-avatar class="explanation-header-img"></div>
+          <mat-card-title>Shiba Inu</mat-card-title>
+          <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+        </mat-card-header>
+        <img mat-card-image [src]="cardImageSource" alt="Photo of a Shiba Inu">
+        <mat-card-content>
+          <p>
+            {{ displayedText }}
+            {{ retirementValue }}
+          </p>
+        </mat-card-content>
+      </mat-card>
 </main>

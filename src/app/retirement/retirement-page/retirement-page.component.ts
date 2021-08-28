@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RetirementPageComponent implements OnInit {
   textToDisplayValue = '';
+  numberToDisplay: number;
 
   constructor() { }
 
@@ -15,5 +16,9 @@ export class RetirementPageComponent implements OnInit {
 
   setTextDisplayValue(value){
     this.textToDisplayValue = value;
+  }
+
+  setRetirementNumber(number){
+    this.numberToDisplay = number;
   }
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { BudgetItem } from 'src/app/models/BudgetItem';
 
 @Component({
   selector: 'app-budgeting-page',

@@ -5,7 +5,11 @@ import { RetirementForm } from "../models/RetirementForm";
   providedIn: 'root'
 })
 export class RetirementCalcService {
-  
+  formatter = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+    minimumFractionDigits: 2
+  })
 
   constructor() { }
 
@@ -26,6 +30,6 @@ export class RetirementCalcService {
     return principalTotalGrowth + contributionGrowth;
     }
   //P(1 + i)^n  compounding growth formula if no contributions
-  return principalTotalGrowth;
+  return this.formatter.format(principalTotalGrowth);
   }
 }

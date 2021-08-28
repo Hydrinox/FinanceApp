@@ -1,6 +1,6 @@
 <main>
   <mat-accordion class="example-headers-align" multi>
-    <mat-expansion-panel>
+    <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)">
       <mat-expansion-panel-header>
         <mat-panel-title>
           Income
@@ -15,15 +15,18 @@
         <input matInput placeholder="50,000">
       </mat-form-field>
       <mat-form-field appearance="fill">
-        <mat-label>Frequency</mat-label>
+        <mat-label>Pay Frequency</mat-label>
         <mat-select [(value)]="selected">
           <mat-option value="option1">Yearly</mat-option>
           <mat-option value="option2">Monthly</mat-option>
           <mat-option value="option3">Biweekly</mat-option>
         </mat-select>
       </mat-form-field>
+      <mat-action-row>
+        <button mat-button color="primary" (click)="nextStep()">Next</button>
+      </mat-action-row>
     </mat-expansion-panel>
-    <mat-expansion-panel>
+    <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)">
       <mat-expansion-panel-header>
         <mat-panel-title>
           Expenses
@@ -64,6 +67,10 @@
           <mat-icon>add</mat-icon>
         </button>
       </div>
+      <mat-action-row>
+        <button mat-button color="warn" (click)="prevStep()">Previous</button>
+        <button mat-button color="primary" (click)="nextStep()">Submit</button>
+      </mat-action-row>
     </mat-expansion-panel>
   </mat-accordion>
 </main>

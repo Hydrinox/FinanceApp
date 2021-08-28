@@ -9,13 +9,14 @@ import { RetirementForm } from "../../models/RetirementForm";
 })
 export class RetirementFormComponent implements OnInit {
   formModel = new RetirementForm();
-  retirementNumber: number;  
+   retirementNumber: number;  
   @Output() textDisplayEvent = new EventEmitter<string>();
+  @Output() retirementNumberEvent = new EventEmitter<number>();
 
   constructor(private retirementCalc: RetirementCalcService) { }
 
   ngOnInit(): void {
-    this.formModel.currentAge = 25;
+    // this.formModel.currentAge = 25;
     this.formModel.retirementAge = 65;
     this.formModel.growthRate = 7;
     this.formModel.startPrincipal = 175000;
@@ -24,7 +25,7 @@ export class RetirementFormComponent implements OnInit {
 
   OnSubmit(){
     this.retirementNumber = this.retirementCalc.calculate(this.formModel);
-    this.textDisplayEvent.emit('calculate');
+    this.retirementNumberEvent.emit(this.retirementCalc.calculate(this.formModel));
   }
 
   emitTextValue(event){
