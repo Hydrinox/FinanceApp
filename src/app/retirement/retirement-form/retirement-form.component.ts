@@ -17,10 +17,11 @@ export class RetirementFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.formModel = this.retirementCalc.formFieldValues ? this.retirementCalc.formFieldValues : this.formModel;
-
+    this.formModel.startPrincipal = this.retirementCalc.formFieldValues.startPrincipal ? this.retirementCalc.formFieldValues.startPrincipal : 0;
+    this.formModel.growthRate = this.retirementCalc.formFieldValues.growthRate ? this.retirementCalc.formFieldValues.growthRate : 7;
     // this.formModel.currentAge = 25;
     // this.formModel.retirementAge = 65;
-    // this.formModel.growthRate = 7;
+    //this.formModel.growthRate = 7;
     // this.formModel.startPrincipal = 175000;
     // this.formModel.contributions = 0;
   }
