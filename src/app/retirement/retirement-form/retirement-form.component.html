@@ -7,7 +7,7 @@
                 <input matInput type="number" placeholder="Retirement Age" [(ngModel)]="formModel.retirementAge" name="retirementAge" (focus)="emitTextValue($event)"><br>
             </mat-form-field>
             <mat-form-field class="formField">
-                <input matInput placeholder="Starting Principal" [(ngModel)]="formModel.startPrincipal" name="startPrincipal" (focus)="emitTextValue($event)">
+                <input matInput placeholder="Starting Principal"  type="number" [(ngModel)]="formModel.startPrincipal" name="startPrincipal" (focus)="emitTextValue($event)">
                 <span matPrefix>$&nbsp;</span>
                 <span matSuffix><mat-icon matTooltip="Amount currently saved in retirement accounts" aria-hidden="false" aria-label="info">info</mat-icon></span>            
             </mat-form-field>
@@ -16,7 +16,7 @@
                 <span matPrefix>$&nbsp;</span>
             </mat-form-field>
             <mat-form-field class="formField">
-                <input matInput placeholder="Yearly Growth Rate" [(ngModel)]="formModel.growthRate" name="growthRate" [value]="formModel.growthRate" (focus)="emitTextValue($event)">
+                <input matInput placeholder="Yearly Growth Rate" type="number" [(ngModel)]="formModel.growthRate" name="growthRate" [value]="formModel.growthRate" (focus)="emitTextValue($event)">
                 <span matSuffix>%</span>
             </mat-form-field>
             <button type="submit" mat-raised-button color="primary">Calculate</button>

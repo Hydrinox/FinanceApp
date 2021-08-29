@@ -5,11 +5,13 @@ import { RetirementForm } from "../models/RetirementForm";
   providedIn: 'root'
 })
 export class RetirementCalcService {
-  formatter = new Intl.NumberFormat('en-US', {
+  private formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'USD',
     minimumFractionDigits: 2
   })
+
+  formFieldValues: RetirementForm = new RetirementForm();
 
   constructor() { }
 
@@ -27,9 +29,17 @@ export class RetirementCalcService {
         contributionGrowth += contributions * Math.pow((1 + r), n - i);
       }
       
-    return principalTotalGrowth + contributionGrowth;
+    return this.formatter.format(principalTotalGrowth + contributionGrowth);
     }
   //P(1 + i)^n  compounding growth formula if no contributions
   return this.formatter.format(principalTotalGrowth);
+  }
+
+  saveFormState(form: RetirementForm){
+    this.formFieldValues.currentAge = form.currentAge;
+    this.formFieldValues.retirementAge = form.retirementAge;
+    this.formFieldValues.startPrincipal = form.startPrincipal;
+    this.formFieldValues.contributions = form.contributions;
+    this.formFieldValues.growthRate = form.growthRate;
   }
 }
