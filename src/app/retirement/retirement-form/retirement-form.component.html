@@ -1,5 +1,5 @@
    <mat-card backgroundColor="primary" class="card">
-        <form (ngSubmit)="OnSubmit()">
+        <form (ngSubmit)="OnSubmit()" #retirementForm="ngForm">
             <mat-form-field class="formField">
                 <input matInput type="number" placeholder="Current Age" [(ngModel)]="formModel.currentAge" #currentAge="ngModel" name="currentAge" (focus)="emitTextValue($event)" required minlength="1">
                 <div *ngIf="currentAge.invalid && (currentAge.dirty || currentAge.touched)">
@@ -31,7 +31,7 @@
                 </div>
                 <span matSuffix>%</span>
             </mat-form-field>
-            <button type="submit" mat-raised-button color="primary">Calculate</button>
+            <button type="submit" mat-raised-button color="primary" [disabled]="!retirementForm.form.valid">Calculate</button>
         </form>
         <div class="result">
             <p>{{ retirementNumber }}</p>    

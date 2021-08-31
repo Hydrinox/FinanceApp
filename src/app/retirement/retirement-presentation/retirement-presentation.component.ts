@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { RetirementInfoService } from 'src/app/services/retirement-info.service';
+import { calculateContent, contributionsContent, currentAgeContent, growthRateContent, introContent, retirementAgeContent, startPrincipalContent } from "../retirement-info";
 
 @Component({
   selector: 'app-retirement-presentation',
@@ -9,49 +9,57 @@ import { RetirementInfoService } from 'src/app/services/retirement-info.service'
 export class RetirementPresentationComponent implements OnChanges {
   cardImageSource: string = '';
   displayedText: string = '';
+  cardTitleText: string = '';
   @Input() textValue = '';
   @Input() retirementValue: number;
 
-  constructor(private retireInfo: RetirementInfoService) { }
+  constructor() { }
 
   ngOnInIt(): void {
-    this.displayedText = this.retireInfo.GetBodyText();
+    this.displayedText = introContent.bodyText;
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if(changes.retirementValue){
       if(changes.retirementValue.currentValue === undefined){
-        this.displayedText = this.retireInfo.GetBodyText('Intro');
+        this.cardTitleText = introContent.headerText;
+        this.displayedText = introContent.bodyText
+        this.cardImageSource = introContent.bodyImage;
       }
       else{      
-        this.displayedText = this.retireInfo.GetBodyText('calculate');
+        this.displayedText = calculateContent.bodyText
      }
     }
     
     if(changes.textValue){
     switch (changes.textValue.currentValue) {
       case 'currentAge':
-        this.displayedText = this.retireInfo.GetBodyText('currentAge');
-        this.cardImageSource = '../../../assets/clock-2696234_640.jpg';
+        this.displayedText = currentAgeContent.bodyText;
+        this.cardImageSource = currentAgeContent.bodyImage;
+        this.cardTitleText = currentAgeContent.headerText;
         break;
       case 'retirementAge':
-        this.displayedText = this.retireInfo.GetBodyText('retirementAge'); 
-        this.cardImageSource = '../../../assets/lake-1802337_1920.jpg';
+        this.displayedText = retirementAgeContent.bodyText
+        this.cardImageSource = retirementAgeContent.bodyImage;
+        this.cardTitleText = retirementAgeContent.headerText;
         break;
       case 'startPrincipal': 
-        this.displayedText = this.retireInfo.GetBodyText('startPrincipal');
-        this.cardImageSource = '../../../assets/retirement-3585585_640.jpg';
+        this.displayedText = startPrincipalContent.bodyText;
+        this.cardImageSource = startPrincipalContent.bodyImage;
+        this.cardTitleText = startPrincipalContent.headerText;
         break;
       case 'contributions':
-        this.displayedText = this.retireInfo.GetBodyText('contributions');
-        this.cardImageSource = '../../../assets/piggy-bank-621068_640.jpg';
+        this.displayedText = contributionsContent.bodyText;
+        this.cardImageSource = contributionsContent.bodyImage;
+        this.cardTitleText = contributionsContent.headerText;
         break;
       case 'growthRate':
-        this.displayedText = this.retireInfo.GetBodyText('growthRate');
-        this.cardImageSource = '../../../assets/DJIA_Chart.png';
+        this.displayedText = growthRateContent.bodyText;
+        this.cardImageSource = growthRateContent.bodyImage;
+        this.cardTitleText = growthRateContent.headerText;
         break;
       case 'calculate':
-        this.displayedText = this.retireInfo.GetBodyText('calculate');
+        this.displayedText = calculateContent.bodyText
       default:
         break;
   }

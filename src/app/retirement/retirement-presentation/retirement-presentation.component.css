@@ -2,7 +2,7 @@
     max-width: 400px;
 }
 
-.explanation-header-img{
-    background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
-    background-size: cover;
+.explanation-header{
+    display: inherit;
+    text-align: center;
 }
