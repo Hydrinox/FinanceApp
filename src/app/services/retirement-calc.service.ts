@@ -15,7 +15,7 @@ export class RetirementCalcService {
 
   constructor() { }
 
-  calculate(retirementForm){
+  calculate(retirementForm: RetirementForm){
     let n = retirementForm.retirementAge - retirementForm.currentAge;
     let r = retirementForm.growthRate / 100;
     let contributions = retirementForm.contributions * 12;

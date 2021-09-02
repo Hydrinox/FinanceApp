@@ -53,7 +53,7 @@ export class BudgetingFormComponent implements OnInit {
     this.table.renderRows();
   }
 
-  removeData(item) {
+  removeData(item: BudgetItem): void {
     this.dataSource = this.dataSource.filter(i => i !== item)
     this.table.renderRows();
   }

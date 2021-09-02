@@ -14,11 +14,11 @@ export class RetirementPageComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  setTextDisplayValue(value){
+  setTextDisplayValue(value: string){
     this.textToDisplayValue = value;
   }
 
-  setRetirementNumber(number){
+  setRetirementNumber(number: number){
     this.numberToDisplay = number;
   }
 }

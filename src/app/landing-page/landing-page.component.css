@@ -5,3 +5,12 @@
     padding: 0rem, 5rem;
     z-index: 6;
 }
+
+.card{
+    background-color: #ffddd5;
+    color: black;
+    margin: 30px;
+    max-width: 400px;
+    text-align: center;
+    cursor: pointer;
+}
