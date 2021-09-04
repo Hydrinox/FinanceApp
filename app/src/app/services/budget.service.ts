@@ -18,12 +18,15 @@ url = '';
   }
 
   createExpense(expense: BudgetItem): Observable<BudgetItem> {
-    return this.http.post<BudgetItem>(`${environment.API_URL}/expense`, 
-    { expense });
+    return this.http.post<BudgetItem>(`${environment.API_URL}/expenses`, { expense });
   }
 
   deleteExpense(expense: BudgetItem): Observable<BudgetItem> {
-    return this.http.delete<BudgetItem>(`${environment.API_URL}/expense/${expense._id}`);
+    return this.http.delete<BudgetItem>(`${environment.API_URL}/expenses/${expense._id}`);
+  }
+
+  editExpense(oldExpense: BudgetItem, updatedExpense: BudgetItem): Observable<BudgetItem> {
+    return this.http.patch<BudgetItem>(`${environment.API_URL}/expenses/${oldExpense._id}`, { updatedExpense });
   }
 
 }

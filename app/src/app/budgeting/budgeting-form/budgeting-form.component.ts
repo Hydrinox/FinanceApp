@@ -53,13 +53,23 @@ export class BudgetingFormComponent implements OnInit {
 
   editData(oldItem: BudgetItem, newItem: BudgetItem){
     if(newItem){
-    this.dataSource.splice(this.dataSource.findIndex(obj => obj.name == oldItem.name), 1, newItem);
+    this.budgetService.editExpense(oldItem, newItem)
+      .pipe(
+        mergeMap(() => this.budgetService.getBudgetItems()))
+      .subscribe((expenses: BudgetItem[]) => {
+        this.dataSource = expenses;
+      });
     this.table.renderRows();
     }     
   }
 
   removeData(item: BudgetItem): void {
-    this.dataSource = this.dataSource.filter(i => i !== item)
+    this.budgetService.deleteExpense(item)
+      .pipe(
+        mergeMap(() => this.budgetService.getBudgetItems()))
+        .subscribe((expenses: BudgetItem[]) => {
+          this.dataSource = expenses;
+        });
     this.table.renderRows();
   }
 
