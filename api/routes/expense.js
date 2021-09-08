@@ -5,17 +5,40 @@ const Expense = require('../models/expense');
 
 
 router.get("/", (req, res, next) => {
+//   Expense.aggregate([
+//     {
+//         $group: {
+//         _id: null,
+//         sum:{$sum:"$amount"},
+//         expenses:{$push:{_id:"$_id", name:"$name", amount:"$amount"}}
+//         }
+//     },
+//     {
+//         $unwind: {
+//             path : "$expenses",
+//         }
+//     },
+//     {
+//         $project: {
+//           _id: "$expenses._id",
+//           name:"$expenses.name",
+//           amount:"$expenses.amount",
+//           sum:"$sum",
+//             "percent": {$multiply:[{$divide:["$expenses.amount","$sum"]},100]}
+//         }
+//     },
+// ]).then(docs => {
+//     res.status(200).json(docs);
+//   }).catch(err => {
+//         console.log(err);
+//         res.status(500).json({
+//           error: err
+//         });
+//       });
   Expense.find()
     .exec()
     .then(docs => {
-      console.log(docs);
-      //   if (docs.length >= 0) {
       res.status(200).json(docs);
-      //   } else {
-      //       res.status(404).json({
-      //           message: 'No entries found'
-      //       });
-      //   }
     })
     .catch(err => {
       console.log(err);
@@ -26,22 +49,20 @@ router.get("/", (req, res, next) => {
 });
 
 router.post("/", (req, res, next) => {
+  console.log(req);
   const expense = new Expense({
-    name: req.body.expense.name,
-    amount: req.body.expense.amount
+    name: req.body.body.name,
+    amount: req.body.body.amount
   });
-  console.log("body that was passed: ", req);
   expense
     .save()
     .then(result => {
-      console.log("createdExpense: ", result);
       res.status(200).json({
         message: "Created new expense",
         createdExpense: result
       });
     })
     .catch(err => {
-      console.log(err);
       res.status(500).json({
         error: err
       });
@@ -69,7 +90,8 @@ router.get("/:expenseId", (req, res, next) => {
 
 router.patch("/:expenseId", (req, res, next) => {
   const id = req.params.expenseId;
-  Expense.findOneAndUpdate({_id: id}, req.body.updatedExpense)
+  console.log("this is request bodyddddd", req);
+  Expense.findOneAndUpdate({_id: id}, req.body.body)
   .exec()
   .then(doc => {
     if(doc){

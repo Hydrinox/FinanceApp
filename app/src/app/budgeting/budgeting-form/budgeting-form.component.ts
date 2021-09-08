@@ -1,10 +1,11 @@
 import { CurrencyPipe } from '@angular/common';
-import { Component, Inject, OnInit, ViewChild } from '@angular/core';
+import { Component, Inject, OnInit, Output, ViewChild } from '@angular/core';
 import { MatTable } from '@angular/material/table';
 import { BudgetItem } from "../../models/BudgetItem";
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { BudgetService } from 'src/app/services/budget.service';
 import { mergeMap } from 'rxjs/operators';
+import { DataSource } from '@angular/cdk/collections';
 
 @Component({
   selector: 'app-budgeting-form',
@@ -20,7 +21,7 @@ export class BudgetingFormComponent implements OnInit {
   constructor(public dialog: MatDialog, private budgetService: BudgetService) { }
 
   ngOnInit(): void {
-    this.budgetService.getBudgetItems()
+    this.budgetService.budgetRequest('get', '', null, '')
       .subscribe((expenses: BudgetItem[]) => {
         this.dataSource = expenses;
       },
@@ -39,9 +40,9 @@ export class BudgetingFormComponent implements OnInit {
 
   addData(newItem: BudgetItem) {
     if(newItem){
-      this.budgetService.createExpense(newItem)
+      this.budgetService.budgetRequest('post', '', newItem)
         .pipe(
-          mergeMap(() => this.budgetService.getBudgetItems())
+          mergeMap(() => this.budgetService.budgetRequest('get', '', null, ''))
         )
         .subscribe((expenses: BudgetItem[]) => {
           this.dataSource = expenses;
@@ -53,9 +54,9 @@ export class BudgetingFormComponent implements OnInit {
 
   editData(oldItem: BudgetItem, newItem: BudgetItem){
     if(newItem){
-    this.budgetService.editExpense(oldItem, newItem)
+    this.budgetService.budgetRequest('patch', '', newItem, String(oldItem._id))
       .pipe(
-        mergeMap(() => this.budgetService.getBudgetItems()))
+        mergeMap(() => this.budgetService.budgetRequest('get', '', null, '')))
       .subscribe((expenses: BudgetItem[]) => {
         this.dataSource = expenses;
       });
@@ -64,9 +65,9 @@ export class BudgetingFormComponent implements OnInit {
   }
 
   removeData(item: BudgetItem): void {
-    this.budgetService.deleteExpense(item)
+    this.budgetService.budgetRequest('delete', '', null, String(item._id))
       .pipe(
-        mergeMap(() => this.budgetService.getBudgetItems()))
+        mergeMap(() => this.budgetService.budgetRequest('get', '', null, '')))
         .subscribe((expenses: BudgetItem[]) => {
           this.dataSource = expenses;
         });

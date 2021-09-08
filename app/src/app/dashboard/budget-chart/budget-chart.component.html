@@ -1,0 +1,3 @@
+<div *ngIf="!loading">
+    <div echarts (chartInit)="onChartInit($event)" [options]="options"  [merge]="storeData" [loading]="loading" class="chart" #pie></div>
+</div>

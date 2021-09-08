@@ -9,24 +9,15 @@ import { BudgetItem } from '../models/BudgetItem';
 })
 export class BudgetService {
 
-url = '';
-
   constructor(private http: HttpClient) { }
 
-  getBudgetItems(): Observable<BudgetItem[]> {
-    return this.http.get<BudgetItem[]>(environment.API_URL + '/expenses');
-  }
+  base: string = `${environment.API_URL}/expenses`;
 
-  createExpense(expense: BudgetItem): Observable<BudgetItem> {
-    return this.http.post<BudgetItem>(`${environment.API_URL}/expenses`, { expense });
+  budgetRequest(requestType: string, url: string, body: BudgetItem, expenseId: string = ''): Observable<BudgetItem | BudgetItem[]>{
+    if(requestType === 'post' || requestType === 'patch'){
+      return this.http[requestType]<BudgetItem | BudgetItem[]>(`${this.base}/${expenseId}`, {body});
+    } else {
+      return this.http[requestType]<BudgetItem | BudgetItem[]>(`${this.base}/${expenseId}`);
+    }
   }
-
-  deleteExpense(expense: BudgetItem): Observable<BudgetItem> {
-    return this.http.delete<BudgetItem>(`${environment.API_URL}/expenses/${expense._id}`);
-  }
-
-  editExpense(oldExpense: BudgetItem, updatedExpense: BudgetItem): Observable<BudgetItem> {
-    return this.http.patch<BudgetItem>(`${environment.API_URL}/expenses/${oldExpense._id}`, { updatedExpense });
-  }
-
 }

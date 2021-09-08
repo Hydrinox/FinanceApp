@@ -19,9 +19,6 @@ $angular-default-theme: mat-dark-theme(
 
 @include angular-material-theme($angular-default-theme);
 
-
-
-
 html, body{
     font-family: 'Roboto', sans-serif;
     margin: 0;
