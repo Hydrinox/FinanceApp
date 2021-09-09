@@ -1,11 +1,11 @@
 import { CurrencyPipe } from '@angular/common';
 import { Component, Inject, OnInit, Output, ViewChild } from '@angular/core';
 import { MatTable } from '@angular/material/table';
-import { BudgetItem } from "../../models/BudgetItem";
+import { ExpenseItem } from "../../models/ExpenseItem";
+import { IncomeItem } from "../../models/IncomeItem";
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { BudgetService } from 'src/app/services/budget.service';
 import { mergeMap } from 'rxjs/operators';
-import { DataSource } from '@angular/cdk/collections';
 
 @Component({
   selector: 'app-budgeting-form',
@@ -14,67 +14,93 @@ import { DataSource } from '@angular/cdk/collections';
 })
 export class BudgetingFormComponent implements OnInit {
   displayedColumns: string[] = ['name', 'amount', 'action'];
-  dataSource: Array<BudgetItem>;
-  selected = 'option1';
+  expenseArray: Array<ExpenseItem>;
+  incomeArray: Array<IncomeItem>;
+  payFrequency = 'yearly';
+  incomeValue: number;
   step = 0;
 
   constructor(public dialog: MatDialog, private budgetService: BudgetService) { }
 
   ngOnInit(): void {
-    this.budgetService.budgetRequest('get', '', null, '')
-      .subscribe((expenses: BudgetItem[]) => {
-        this.dataSource = expenses;
+    this.budgetService.incomeRequest('get', '', null, '')
+    .subscribe((incomes: IncomeItem[]) => {
+      this.incomeArray = incomes;
+      this.incomeValue = incomes[0] ? incomes[0].amount : null;
+    },
+    (error: ErrorEvent) => {
+      console.log(error, "Error with getting income items")
+    })
+
+    this.budgetService.expenseRequest('get', '', null, '')
+      .subscribe((expenses: ExpenseItem[]) => {
+        this.expenseArray = expenses;
       },
       (error: ErrorEvent) => {
         console.log(error, "Error with getting budget items")
       })
   }
 
-  @ViewChild(MatTable) table: MatTable<BudgetItem>;
+  @ViewChild(MatTable) table: MatTable<ExpenseItem>;
   
   getTotalCost() {
-    if(this.dataSource){
-      return this.dataSource.map(t => t.amount).reduce((acc, value) => acc + value, 0);
+    if(this.expenseArray){
+      return this.expenseArray.map(t => t.amount).reduce((acc, value) => acc + value, 0);
     }
   }
 
-  addData(newItem: BudgetItem) {
+  submitIncome(){
+    let incomeItem: IncomeItem = {
+      amount: this.incomeValue,
+      frequency: this.payFrequency,
+    }
+    this.budgetService.incomeRequest('post', '', incomeItem)
+    .pipe(
+      mergeMap(() => this.budgetService.incomeRequest('get', '', null, ''))
+    )
+    .subscribe((incomes: IncomeItem[]) => {
+      this.incomeArray = incomes;
+    }          
+  )
+  }
+
+  addData(newItem: ExpenseItem) {
     if(newItem){
-      this.budgetService.budgetRequest('post', '', newItem)
+      this.budgetService.expenseRequest('post', '', newItem)
         .pipe(
-          mergeMap(() => this.budgetService.budgetRequest('get', '', null, ''))
+          mergeMap(() => this.budgetService.expenseRequest('get', '', null, ''))
         )
-        .subscribe((expenses: BudgetItem[]) => {
-          this.dataSource = expenses;
+        .subscribe((expenses: ExpenseItem[]) => {
+          this.expenseArray = expenses;
         }          
       )
       this.table.renderRows();
     }    
   }
 
-  editData(oldItem: BudgetItem, newItem: BudgetItem){
+  editData(oldItem: ExpenseItem, newItem: ExpenseItem){
     if(newItem){
-    this.budgetService.budgetRequest('patch', '', newItem, String(oldItem._id))
+    this.budgetService.expenseRequest('patch', '', newItem, String(oldItem._id))
       .pipe(
-        mergeMap(() => this.budgetService.budgetRequest('get', '', null, '')))
-      .subscribe((expenses: BudgetItem[]) => {
-        this.dataSource = expenses;
+        mergeMap(() => this.budgetService.expenseRequest('get', '', null, '')))
+      .subscribe((expenses: ExpenseItem[]) => {
+        this.expenseArray = expenses;
       });
     this.table.renderRows();
     }     
   }
 
-  removeData(item: BudgetItem): void {
-    this.budgetService.budgetRequest('delete', '', null, String(item._id))
+  removeData(item: ExpenseItem): void {
+    this.budgetService.expenseRequest('delete', '', null, String(item._id))
       .pipe(
-        mergeMap(() => this.budgetService.budgetRequest('get', '', null, '')))
-        .subscribe((expenses: BudgetItem[]) => {
-          this.dataSource = expenses;
+        mergeMap(() => this.budgetService.expenseRequest('get', '', null, '')))
+        .subscribe((expenses: ExpenseItem[]) => {
+          this.expenseArray = expenses;
         });
     this.table.renderRows();
   }
 
-  openDialog(item?: BudgetItem): void {
+  openDialog(item?: ExpenseItem): void {
     if(item){
       var dialogRef = this.dialog.open(BudgetFormDialog, {
         width: '250px',
@@ -88,7 +114,7 @@ export class BudgetingFormComponent implements OnInit {
     else{
       var dialogRef = this.dialog.open(BudgetFormDialog, {
         width: '250px',
-        data: {name: this.dataSource['name'], amount: this.dataSource['amount']}
+        data: {name: this.expenseArray['name'], amount: this.expenseArray['amount']}
       });
 
       dialogRef.afterClosed().subscribe(result => {
@@ -123,7 +149,7 @@ export class BudgetFormDialog {
 
   constructor(
     public dialogRef: MatDialogRef<BudgetFormDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: BudgetItem) {}
+    @Inject(MAT_DIALOG_DATA) public data: ExpenseItem) {}
 
   onNoClick(): void {
     this.dialogRef.close();

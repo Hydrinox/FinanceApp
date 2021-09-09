@@ -21,7 +21,8 @@ router.get("/", (req, res, next) => {
 router.post("/", (req, res, next) => {
     console.log(req);
     const expense = new Expense({
-      amount: req.body.amount
+      amount: req.body.body.amount,
+      frequency: req.body.body.frequency
     });
     expense
       .save()
@@ -40,7 +41,7 @@ router.post("/", (req, res, next) => {
 
   router.patch("/:incomeId", (req, res, next) => {
     const id = req.params.incomeId;
-    Expense.findOneAndUpdate({_id: id}, req.body)
+    Expense.findOneAndUpdate({_id: id}, req.body.body)
     .exec()
     .then(doc => {
       if(doc){
@@ -55,6 +56,27 @@ router.post("/", (req, res, next) => {
       res.status(500).json({ error: err });
     })
   })
+
+  router.delete("/:incomeId", (req, res, next) => {
+    const id = req.params.incomeId;
+      Expense.findByIdAndRemove(id)
+      .exec()
+      .then(doc => {
+        if(doc){
+          res
+          .status(200)
+          .json({ body: doc, message: "income deleted"});
+        } else {
+          res  
+            .status(400)
+            .json({ message: "no income found for this id"});
+        }
+      }).catch(err => {
+        console.log(err);
+        res.status(500).json({ error: err });
+      })
+    }
+  );
 
 
 module.exports = router;

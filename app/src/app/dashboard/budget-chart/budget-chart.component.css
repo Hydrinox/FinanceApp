@@ -1,5 +1,15 @@
-.chart{
-  height: 300px
+.expense-chart{
+  height: 300px;
+  width: 500px;
+}
+
+.income-chart{
+  height: 300px;
+  width: 500px;
+}
+
+.container{
+  display: inline-flex;
 }
 
 

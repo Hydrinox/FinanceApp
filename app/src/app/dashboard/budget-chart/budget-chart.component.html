@@ -1,3 +1,4 @@
-<div *ngIf="!loading">
-    <div echarts (chartInit)="onChartInit($event)" [options]="options"  [merge]="storeData" [loading]="loading" class="chart" #pie></div>
+<div *ngIf="!loading" class="container">
+    <div echarts (chartInit)="onChartInit($event)" [options]="expenseOptions"  [theme]="theme" [merge]="storeData" [loading]="loading" class="expense-chart" #pie></div>
+    <div echarts (chartInit)="onChartInit($event)" [options]="incomeOptions"  [theme]="theme" [loading]="loading" class="income-chart"></div>
 </div>

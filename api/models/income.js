@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
 
 const incomeSchema =  mongoose.Schema({
-  amount: Number
+  amount: Number,
+  frequency: String
 },
   { timestamps: true }
 );

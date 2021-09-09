@@ -30,6 +30,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BudgetingPageComponent } from "./budgeting/budgeting-page/budgeting-page.component";
 import { DashboardPageComponent } from './dashboard/dashboard-page/dashboard-page.component';
 import { BudgetChartComponent } from './dashboard/budget-chart/budget-chart.component';
+import { RetirementChartComponent } from './dashboard/retirement-chart/retirement-chart.component';
+
+import 'echarts/theme/dark.js';
+
 
 @NgModule({
   declarations: [
@@ -45,6 +49,7 @@ import { BudgetChartComponent } from './dashboard/budget-chart/budget-chart.comp
     BudgetFormDialog,
     DashboardPageComponent,
     BudgetChartComponent,
+    RetirementChartComponent,
   ],
   imports: [
     BrowserModule,

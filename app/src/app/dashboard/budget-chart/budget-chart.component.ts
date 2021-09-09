@@ -1,6 +1,8 @@
 import { validateHorizontalPosition } from '@angular/cdk/overlay';
 import { ChangeDetectionStrategy, Component, ElementRef, Input, OnChanges, ViewChild } from '@angular/core';
 import * as echarts from 'echarts';
+import { ThemeOption } from "ngx-echarts";
+import 'echarts/theme/dark.js';
 
 @Component({
   selector: 'app-budget-chart',
@@ -14,8 +16,9 @@ export class BudgetChartComponent implements OnChanges{
   pieChart;
   storeData: any;
   loading = true;
+  theme: string | ThemeOption = 'dark';
 
-  options = { 
+  expenseOptions = { 
     tooltip: {
         trigger: 'item',
         formatter: '{b} : ${c} ({d}%)'
@@ -31,7 +34,7 @@ export class BudgetChartComponent implements OnChanges{
             radius: '65%',
             center: ['50%', '50%'],
             selectedMode: 'single',
-            data: [{ "Car Payment Example": 300, "Rent Example": 100, "Utilities Example": 200}],
+            data: [{ }],
             emphasis: {
                 itemStyle: {
                     shadowBlur: 10,
@@ -42,6 +45,40 @@ export class BudgetChartComponent implements OnChanges{
         }
     ]
 };
+
+  incomeOptions = {
+    color: ['#3398DB'],
+    tooltip: {
+      trigger: 'axis',
+      axisPointer: {
+        type: 'shadow'
+      }
+    },
+    grid: {
+      left: '3%',
+      right: '4%',
+      bottom: '3%',
+      containLabel: true
+    },
+    xAxis: [
+      {
+        type: 'category',
+        data: ['Income', 'Expenses'],
+        axisTick: {
+          alignWithLabel: true
+        }
+      }
+    ],
+    yAxis: [{
+      type: 'value'
+    }],
+    series: [{
+      name: 'asdf' ,
+      type: 'bar',
+      barWidth: '95%',
+      data: [{value: 1500, itemStyle: {color: '#00ff00 '}}, {value: 1100, itemStyle: {color: '#ff0000 '}}]
+    }]
+  };
 
   ngOnChanges(changes): void {
     this.storeData = { series: [changes.data.currentValue]};  

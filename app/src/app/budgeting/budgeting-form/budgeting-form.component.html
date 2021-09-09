@@ -12,16 +12,17 @@
       </mat-expansion-panel-header>
       <mat-form-field appearance="fill">
         <span matPrefix>$&nbsp;</span>
-        <input matInput placeholder="50,000">
+        <input matInput type="number" [(ngModel)]="incomeValue" placeholder="50,000">
       </mat-form-field>
       <mat-form-field appearance="fill">
         <mat-label>Pay Frequency</mat-label>
-        <mat-select [(value)]="selected">
-          <mat-option value="option1">Yearly</mat-option>
-          <mat-option value="option2">Monthly</mat-option>
-          <mat-option value="option3">Biweekly</mat-option>
+        <mat-select [(value)]="payFrequency">
+          <mat-option value="yearly">Yearly</mat-option>
+          <mat-option value="monthly">Monthly</mat-option>
+          <mat-option value="biweekly">Biweekly</mat-option>
         </mat-select>
       </mat-form-field>
+      <button mat-raised-button color="accent" (click)="submitIncome()">Submit</button>
       <mat-action-row>
         <button mat-button color="primary" (click)="nextStep()">Next</button>
       </mat-action-row>
@@ -36,7 +37,7 @@
           <mat-icon>list_alt</mat-icon>
         </mat-panel-description>
       </mat-expansion-panel-header>
-      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" color="primary">
+      <table mat-table [dataSource]="expenseArray" class="mat-elevation-z8" color="primary">
         <ng-container matColumnDef="name">
           <th mat-header-cell *matHeaderCellDef> Name </th>
           <td mat-cell *matCellDef="let element"> {{element.name}} </td>
