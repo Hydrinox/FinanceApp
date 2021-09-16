@@ -1,4 +1,4 @@
-<h1 mat-dialog-title>Add Budget Item</h1>
+<h1 mat-dialog-title>Add Expense Item</h1>
 <div mat-dialog-content>
   <form onsubmit="">
     <mat-form-field class="formField">
@@ -6,7 +6,7 @@
     </mat-form-field>
     <mat-form-field class="formField">
       <span matPrefix>$&nbsp;</span>
-      <input matInput type="number" placeholder="Amount" name="amountField" [(ngModel)]="data.amount">
+      <input matInput type="number" placeholder="Amount" name="amountField" [(ngModel)]="data.value">
     </mat-form-field>
     <div class="button-container">
       <button type="submit" color="primary" mat-raised-button [mat-dialog-close]="data">Submit</button>

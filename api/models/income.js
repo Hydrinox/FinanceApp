@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
 
 const incomeSchema =  mongoose.Schema({
-  amount: Number,
+  value: Number,
   frequency: String
 },
-  { timestamps: true }
+{ capped: { size: 1024, max: 1, autoIndexId: true } }
 );
 
 module.exports = mongoose.model('Income', incomeSchema);

@@ -1,0 +1,30 @@
+.button-container {
+    margin: 16px;
+    display: flex;
+    justify-content: center;
+}
+
+.mat-column-amount {
+    text-align: -webkit-right;
+}
+
+.mat-column-action {
+    text-align: end;
+}
+
+table {
+    width: 50%;
+    margin: auto;
+}
+
+.formField {
+    margin:1rem;
+}
+
+button {
+    margin: 16px 8px;
+}
+
+.totalFooter {
+    font-weight: bold;
+}

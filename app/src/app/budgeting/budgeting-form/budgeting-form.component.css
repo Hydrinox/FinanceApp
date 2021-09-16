@@ -1,7 +1,4 @@
-main{
-    margin: auto;
-    width: 50%;
-}
+
 
 table{
     width: 50%;
@@ -22,9 +19,7 @@ button {
     font-weight: bold;
 }
 
-.formField{
-    margin:1rem;
-}
+
 
 .mat-column-amount{
     text-align: -webkit-right;
@@ -37,24 +32,3 @@ button {
 .budget-submit{
     text-align: center;
 }
-
-
-
-.example-action-buttons {
-    padding-bottom: 20px;
-  }
-  
-  .example-headers-align .mat-expansion-panel-header-title,
-  .example-headers-align .mat-expansion-panel-header-description {
-    flex-basis: 0;
-  }
-  
-  .example-headers-align .mat-expansion-panel-header-description {
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .example-headers-align .mat-form-field + .mat-form-field {
-    margin-left: 8px;
-  }
-

@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const expenseSchema =  mongoose.Schema({
   name:  String, 
-  amount: Number
+  value: Number
 },
   { timestamps: true }
 );

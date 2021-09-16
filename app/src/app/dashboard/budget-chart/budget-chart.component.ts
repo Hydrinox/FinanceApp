@@ -10,43 +10,25 @@ import 'echarts/theme/dark.js';
   styleUrls: ['./budget-chart.component.css']
 })
 export class BudgetChartComponent implements OnChanges{  
-  @Input() data;
-  @ViewChild('pie') pie: any;
+  @Input() expenseData;
+  @Input() incomeData;
+  expenseSum = 0;
+  incomeSum = 0;
+
+  @ViewChild('budgeting') chart: any;
   chartInstance: any;
-  pieChart;
-  storeData: any;
+  chartControl;
   loading = true;
-  theme: string | ThemeOption = 'dark';
+  theme: string | ThemeOption = '';
 
-  expenseOptions = { 
-    tooltip: {
-        trigger: 'item',
-        formatter: '{b} : ${c} ({d}%)'
-    },
-    legend: {
-        bottom: 10,
-        left: 'center',
-        data: []
-    },
-    series: [
-        {
-            type: 'pie',
-            radius: '65%',
-            center: ['50%', '50%'],
-            selectedMode: 'single',
-            data: [{ }],
-            emphasis: {
-                itemStyle: {
-                    shadowBlur: 10,
-                    shadowOffsetX: 0,
-                    shadowColor: 'rgba(0, 0, 0, 0.5)'
-                }
-            }
-        }
-    ]
-};
-
-  incomeOptions = {
+  budgetOptions = {
+    title: {
+      text: this.incomeSum - this.expenseSum,
+      left: 'center',
+      textStyle: {
+        color: 'white' 
+      }
+  },
     color: ['#3398DB'],
     tooltip: {
       trigger: 'axis',
@@ -73,31 +55,48 @@ export class BudgetChartComponent implements OnChanges{
       type: 'value'
     }],
     series: [{
-      name: 'asdf' ,
+      name: 'Total' ,
       type: 'bar',
       barWidth: '95%',
-      data: [{value: 1500, itemStyle: {color: '#00ff00 '}}, {value: 1100, itemStyle: {color: '#ff0000 '}}]
+      data: [{value: '', itemStyle: {color: '#69f0ae'}}, {value: '', itemStyle: {color: '#ff4081'}}]
     }]
   };
 
   ngOnChanges(changes): void {
-    this.storeData = { series: [changes.data.currentValue]};  
-    console.log("pie element on changes", this.pie);
-    if(changes.data.currentValue != undefined && changes.data.currentValue.length > 0){
-      this.loading = false;
-      
+    //if expense data found, add each expense value to expenseSum (var used in chart)
+    if(changes.expenseData && changes.expenseData.currentValue != undefined && changes.expenseData.currentValue.length > 0){
+      changes.expenseData.currentValue.forEach(element => {
+        this.expenseSum += element.value;
+      });
+    }
+    //if income data found, add each income value to incomeSum (var used in chart)
+    if(changes.incomeData && changes.incomeData.currentValue != undefined && changes.incomeData.currentValue.length > 0){
+      changes.incomeData.currentValue.forEach(element => {
+        this.incomeSum += element.value;
+      });
+    }
+    
+    //sets color of total sum, green for positive red for negative
+    let totalColor: string = Math.sign(this.incomeSum - this.expenseSum) > 0 ? '#69f0ae' : '#ff4081';
+
       setTimeout(() => {
-        this.pieChart = echarts.init(this.pie.nativeElement);
-        this.pieChart.setOption({
+        this.loading = false;
+        this.chartControl = echarts.init(this.chart.nativeElement);                  
+        this.chartControl.setOption({
+          title: {
+            text: `$${this.incomeSum - this.expenseSum}`,
+            left: 'center',
+            textStyle: {
+              color: totalColor 
+            }
+        },
           series: 
               {
-                  data: changes.data.currentValue
+                  data: [{value: this.incomeSum, itemStyle: {color: '#69f0ae'}},{value: this.expenseSum, itemStyle: {color: '#ff4081'}}]
               } 
        }
       )
-      }, 60)
-     
-  }
+      }, 60)     
   }
 
 

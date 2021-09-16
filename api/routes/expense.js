@@ -52,7 +52,7 @@ router.post("/", (req, res, next) => {
   console.log(req);
   const expense = new Expense({
     name: req.body.body.name,
-    amount: req.body.body.amount
+    value: req.body.body.value
   });
   expense
     .save()

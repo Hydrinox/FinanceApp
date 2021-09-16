@@ -16,11 +16,12 @@ import { MatExpansionModule } from "@angular/material/expansion";
 import { MatSelectModule } from "@angular/material/select";
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { NgxEchartsModule } from 'ngx-echarts';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
-import { BudgetingFormComponent, BudgetFormDialog } from './budgeting/budgeting-form/budgeting-form.component';
+import { BudgetingFormComponent } from './budgeting/budgeting-form/budgeting-form.component';
 import { BudgetingPresentationComponent } from './budgeting/budgeting-presentation/budgeting-presentation.component';
 import { RetirementFormComponent } from './retirement/retirement-form/retirement-form.component';
 import { RetirementPresentationComponent } from './retirement/retirement-presentation/retirement-presentation.component';
@@ -33,6 +34,9 @@ import { BudgetChartComponent } from './dashboard/budget-chart/budget-chart.comp
 import { RetirementChartComponent } from './dashboard/retirement-chart/retirement-chart.component';
 
 import 'echarts/theme/dark.js';
+import { BudgetFormDialog, ExpenseFormComponent } from './budgeting/expense-form/expense-form.component';
+import { IncomeFormComponent } from './budgeting/income-form/income-form.component';
+import { ExpenseChartComponent } from './dashboard/expense-chart/expense-chart.component';
 
 
 @NgModule({
@@ -46,10 +50,13 @@ import 'echarts/theme/dark.js';
     AboutPageComponent,
     RetirementPageComponent,
     BudgetingPageComponent,
-    BudgetFormDialog,
     DashboardPageComponent,
     BudgetChartComponent,
     RetirementChartComponent,
+    BudgetFormDialog,
+    ExpenseFormComponent,
+    IncomeFormComponent,
+    ExpenseChartComponent,
   ],
   imports: [
     BrowserModule,
@@ -71,7 +78,8 @@ import 'echarts/theme/dark.js';
     NgxChartsModule,
     NgxEchartsModule.forRoot({
       echarts: () => import('echarts')
-    })
+    }),
+    FlexLayoutModule
   ],
   providers: [],
   bootstrap: [AppComponent]

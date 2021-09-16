@@ -1,0 +1,19 @@
+<div class="container" fxLayoutAlign="center">
+    <mat-form-field fxFlex="25">
+        <span matPrefix>$&nbsp;</span>
+        <input matInput type="number" onkeydown="return event.keyCode !== 69" [(ngModel)]="incomeValue" placeholder="Income">
+    </mat-form-field>    
+    <mat-form-field fxFlex="25">
+        <mat-label>Pay Frequency</mat-label>
+        <mat-select [(value)]="payFrequency">
+        <mat-option value="yearly">Yearly</mat-option>
+        <mat-option value="monthly">Monthly</mat-option>
+        <mat-option value="biweekly">Biweekly</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <div class="button-container">
+        <button mat-fab color="primary" (click)="saveIncome()" aria-label="Example icon button with a delete icon">
+            <mat-icon>add</mat-icon>
+        </button>
+    </div>
+</div>

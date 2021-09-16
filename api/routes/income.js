@@ -19,9 +19,8 @@ router.get("/", (req, res, next) => {
 });
 
 router.post("/", (req, res, next) => {
-    console.log(req);
     const expense = new Expense({
-      amount: req.body.body.amount,
+      value: req.body.body.value,
       frequency: req.body.body.frequency
     });
     expense
