@@ -7,6 +7,7 @@ const cors = require('cors');
 
 const expenseRoutes = require('./routes/expense');
 const incomeRoutes = require('./routes/income');
+const retirementRoutes = require('./routes/retire');
 
 mongoose.connect(`mongodb://${config.dbHost}/${config.dbName}`);
 
@@ -18,6 +19,7 @@ app.use(cors());
 
 app.use("/expenses", expenseRoutes);
 app.use("/income", incomeRoutes);
+app.use("/retirement", retirementRoutes);
 
 app.use((req, res, next) => {
   const error = new Error("Not found");

@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { RetirementCalcService } from "../../services/retirement-calc.service";
-import { RetirementForm } from "../../models/RetirementForm";
+import { Retirement } from "../../models/Retirement";
 
 @Component({
   selector: 'app-retirement-form',
@@ -8,26 +8,36 @@ import { RetirementForm } from "../../models/RetirementForm";
   styleUrls: ['./retirement-form.component.scss']
 })
 export class RetirementFormComponent implements OnInit {
-  formModel = new RetirementForm();
-  retirementNumber: string;  
+  formModel = new Retirement();
+  retirementNumber: string;
   @Output() textDisplayEvent = new EventEmitter<string>();
   @Output() retirementNumberEvent = new EventEmitter<string>();
 
   constructor(private retirementCalc: RetirementCalcService) { }
 
   ngOnInit(): void {
-    this.formModel = this.retirementCalc.formFieldValues ? this.retirementCalc.formFieldValues : this.formModel;
-    this.formModel.startPrincipal = this.retirementCalc.formFieldValues.startPrincipal ? this.retirementCalc.formFieldValues.startPrincipal : 0;
-    this.formModel.growthRate = this.retirementCalc.formFieldValues.growthRate ? this.retirementCalc.formFieldValues.growthRate : 7;
+    this.retirementCalc.retirementRequest('get', '', null, '')
+      .subscribe((retirementFields: Retirement) => {
+        this.formModel = retirementFields[0];
+      },
+        (error: ErrorEvent) => {
+          console.log(error, "Error with getting retirement values")
+        });
+    // this.formModel = this.retirementCalc.formFieldValues ? this.retirementCalc.formFieldValues : this.formModel;
+    // this.formModel.startPrincipal = this.retirementCalc.formFieldValues.startPrincipal ? this.retirementCalc.formFieldValues.startPrincipal : 0;
+    // this.formModel.growthRate = this.retirementCalc.formFieldValues.growthRate ? this.retirementCalc.formFieldValues.growthRate : 7;
   }
 
-  OnSubmit(){
+  OnSubmit() {
     this.retirementCalc.saveFormState(this.formModel);
+    this.retirementCalc.retirementRequest('post', '', this.formModel).subscribe(() => {
+      console.log(this.formModel);
+    });
     this.retirementNumber = this.retirementCalc.calculate(this.formModel);
     this.retirementNumberEvent.emit(this.retirementCalc.calculate(this.formModel));
   }
 
-  emitTextValue(event: any){
+  emitTextValue(event: any) {
     this.textDisplayEvent.emit(event.target.name);
   }
 
