@@ -33,8 +33,8 @@ export class RetirementFormComponent implements OnInit {
     this.retirementCalc.retirementRequest('post', '', this.formModel).subscribe(() => {
       console.log(this.formModel);
     });
-    this.retirementNumber = this.retirementCalc.calculate(this.formModel);
-    this.retirementNumberEvent.emit(this.retirementCalc.calculate(this.formModel));
+    this.retirementNumber = this.retirementCalc.calculateRetirementTotal(this.formModel);
+    this.retirementNumberEvent.emit(this.retirementCalc.calculateRetirementTotal(this.formModel));
   }
 
   emitTextValue(event: any) {

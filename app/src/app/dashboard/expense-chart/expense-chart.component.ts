@@ -18,52 +18,50 @@ export class ExpenseChartComponent implements OnChanges {
   loading = true;
   theme: string | ThemeOption = '';
 
-  expenseOptions = { 
+  expenseOptions = {
     tooltip: {
-        trigger: 'item',
-        formatter: '{b} : ${c} ({d}%)'
+      trigger: 'item',
+      formatter: '{b} : ${c} ({d}%)'
     },
     legend: {
-        bottom: 10,
-        left: 'center',
-        data: []
+      bottom: 10,
+      left: 'center',
+      data: []
     },
     series: [
-        {
-            type: 'pie',
-            radius: '65%',
-            center: ['50%', '50%'],
-            selectedMode: 'single',
-            data: [{ name: 'Expenses', value: 0 }],
-            emphasis: {
-                itemStyle: {
-                    shadowBlur: 10,
-                    shadowOffsetX: 0,
-                    shadowColor: 'rgba(0, 0, 0, 0.5)'
-                }
-            }
+      {
+        type: 'pie',
+        radius: '65%',
+        center: ['50%', '50%'],
+        selectedMode: 'single',
+        data: [{ name: 'Expenses', value: 0 }],
+        emphasis: {
+          itemStyle: {
+            shadowBlur: 10,
+            shadowOffsetX: 0,
+            shadowColor: 'rgba(0, 0, 0, 0.5)'
+          }
         }
+      }
     ]
-};
+  };
 
   constructor() { }
 
   ngOnChanges(changes): void {
-    this.loading = false;
-    if(changes.data.currentValue != undefined && changes.data.currentValue.length > 0){
-      
-    
+    if (changes.data.currentValue != undefined && changes.data.currentValue.length > 0) {
+      this.loading = false;
       setTimeout(() => {
         this.pieChart = echarts.init(this.pie.nativeElement);
         this.pieChart.setOption({
-          series: 
-              {
-                  data: changes.data.currentValue
-              } 
-       }
-      )
+          series:
+          {
+            data: changes.data.currentValue
+          }
+        }
+        )
       }, 60)
-     
+
     }
   }
 

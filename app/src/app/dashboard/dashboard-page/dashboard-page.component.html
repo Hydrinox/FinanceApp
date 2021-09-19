@@ -1,18 +1,20 @@
-<mat-card>
-    <app-retirement-chart></app-retirement-chart>
-</mat-card>
+<div fxLayout="row" fxLayoutAlign="center">
+    <mat-card>
+        <app-retirement-chart [retirementData]="retirement"></app-retirement-chart>
+    </mat-card>
+</div>
 <p>this is pace</p>
 <div fxLayout="row" fxLayoutAlign="center">
-<mat-card class="budget-card">
-    <mat-card-header>
-        <mat-card-title>Budget</mat-card-title>
-    </mat-card-header>
-    <app-budget-chart [expenseData]="expenses" [incomeData]="income"></app-budget-chart>
-</mat-card>
-<mat-card class="budget-card">
-    <mat-card-header>
-        <mat-card-title>Expenses</mat-card-title>
-    </mat-card-header>
-    <app-expense-chart [data]="expenses"></app-expense-chart>
-</mat-card>
+    <mat-card class="budget-card">
+        <mat-card-header>
+            <mat-card-title>Budget</mat-card-title>
+        </mat-card-header>
+        <app-budget-chart [expenseData]="expenses" [incomeData]="income"></app-budget-chart>
+    </mat-card>
+    <mat-card class="budget-card">
+        <mat-card-header>
+            <mat-card-title>Expenses</mat-card-title>
+        </mat-card-header>
+        <app-expense-chart [data]="expenses"></app-expense-chart>
+    </mat-card>
 </div>

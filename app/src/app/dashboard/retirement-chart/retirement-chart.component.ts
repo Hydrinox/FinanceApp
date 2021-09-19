@@ -1,47 +1,58 @@
 import { Component, Input, OnChanges, OnInit, ViewChild } from '@angular/core';
 import * as echarts from 'echarts';
+import { ThemeOption } from 'ngx-echarts';
 
 @Component({
-  selector: 'app-retirement-chart',
-  templateUrl: './retirement-chart.component.html',
-  styleUrls: ['./retirement-chart.component.css']
+    selector: 'app-retirement-chart',
+    templateUrl: './retirement-chart.component.html',
+    styleUrls: ['./retirement-chart.component.css']
 })
-export class RetirementChartComponent implements OnInit {
+export class RetirementChartComponent implements OnChanges {
+    @Input() retirementData;
+    @ViewChild('line') line: any;
+    theme: string | ThemeOption = '';
+    chartInstance: any;
+    lineChart;
 
-  @ViewChild('line') line: any;
-  chartInstance: any;
-  pieChart;
-  storeData: any;
-
-  options = { 
-    tooltip: {
-        trigger: 'item',
-        formatter: '{b} : ${c} ({d}%)'
-    },
-    legend: {
-        bottom: 10,
-        left: 'center',
-        data: []
-    },
-    series: [
-        {
-            type: 'pie',
-            radius: '65%',
-            center: ['50%', '50%'],
-            selectedMode: 'single',
-            data: [{ name: 'train', value: 100}],
-            emphasis: {
-                itemStyle: {
-                    shadowBlur: 10,
-                    shadowOffsetX: 0,
-                    shadowColor: 'rgba(0, 0, 0, 0.5)'
-                }
+    retireOptions = {
+        tooltip: {
+            trigger: 'axis',
+            position: function (pt) {
+                return [pt[0], '10%'];
             }
+        },
+        xAxis: {
+            type: 'category',
+            boundaryGap: false
+        },
+        yAxis: {
+            type: 'value'
+        },
+        series: [
+            {
+                name: 'Retirement Dollars',
+                type: 'bar',
+                smooth: true,
+                symbol: 'none',
+                areaStyle: {},
+                data: [{}]
+            }
+        ]
+    };
+
+    ngOnChanges(changes): void {
+        if (changes.retirementData.currentValue != undefined && changes.retirementData.currentValue.length > 0) {
+            setTimeout(() => {
+
+                this.lineChart = echarts.init(this.line.nativeElement);
+                this.lineChart.setOption({
+                    series:
+                    {
+                        data: changes.retirementData.currentValue
+                    }
+                }
+                )
+            }, 60)
         }
-    ]
-};
-
-  ngOnInit(): void {
-
-  }
+    }
 }

@@ -24,18 +24,20 @@ export class RetirementCalcService {
     if (requestType === 'post' || requestType === 'patch') {
       return this.http[requestType]<Retirement>(`${this.base}/retirement/${retirementId}`, { body });
     } else {
-      return this.http[requestType]<Retirement>(`${this.base}/retirement/${retirementId}`);
+      let res = this.http[requestType]<Retirement>(`${this.base}/retirement/${retirementId}`);
+      this.formFieldValues = res;
+      return res;
     }
   }
 
-  calculate(retirementForm: Retirement) {
-    let n = retirementForm.retirementAge - retirementForm.currentAge;
-    let r = retirementForm.growthRate / 100;
-    let contributions = retirementForm.contributions * 12;
+  calculateRetirementTotal(retirementFields: Retirement) {
+    let n = retirementFields.retirementAge - retirementFields.currentAge;
+    let r = retirementFields.growthRate / 100;
+    let contributions = retirementFields.contributions * 12;
 
-    let principalTotalGrowth = (retirementForm.startPrincipal * Math.pow((1 + r), n)) + retirementForm.startPrincipal;
+    let principalTotalGrowth = (retirementFields.startPrincipal * Math.pow((1 + r), n)) + retirementFields.startPrincipal;
 
-    if (retirementForm.contributions > 0) {
+    if (retirementFields.contributions > 0) {
       //[ P(1+r/n)^(nt) ] + [ PMT × (((1 + r/n)^(nt) - 1) / (r/n)) ] formula if monthly contributions
       let contributionGrowth = 0;
       for (let i = 0; i < n; i++) {
@@ -46,6 +48,30 @@ export class RetirementCalcService {
     }
     //P(1 + i)^n  compounding growth formula if no contributions
     return this.formatter.format(principalTotalGrowth);
+  }
+
+  calculateRetirementTimeline(retirementFields: Retirement) {
+    const n: number = retirementFields.retirementAge - retirementFields.currentAge;
+    const r: number = retirementFields.growthRate / 100;
+    const contributions: number = retirementFields.contributions * 12;
+    const currentDate: Date = new Date();
+
+    let dataArr = [];
+    let retirementAmount: number = 0;
+
+    for (let i = 0; i < n; i++) {
+
+      retirementAmount += retirementFields.startPrincipal * (1 + r);
+      retirementAmount += contributions * (1 + r);
+
+
+      let dataObject = [
+        currentDate.getFullYear() + i,
+        retirementAmount
+      ]
+      dataArr.push(dataObject);
+    }
+    return dataArr;
   }
 
   saveFormState(form: Retirement) {
