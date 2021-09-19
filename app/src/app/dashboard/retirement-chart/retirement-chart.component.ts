@@ -10,11 +10,12 @@ import { ThemeOption } from 'ngx-echarts';
 export class RetirementChartComponent implements OnChanges {
     @Input() retirementData;
     @ViewChild('line') line: any;
-    theme: string | ThemeOption = '';
+    theme: string | ThemeOption = 'dark';
     chartInstance: any;
     lineChart;
 
     retireOptions = {
+        backgroundColor: '',
         tooltip: {
             trigger: 'axis',
             position: function (pt) {

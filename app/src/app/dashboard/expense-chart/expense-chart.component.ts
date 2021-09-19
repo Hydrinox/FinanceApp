@@ -16,9 +16,10 @@ export class ExpenseChartComponent implements OnChanges {
   chartInstance: any;
   pieChart;
   loading = true;
-  theme: string | ThemeOption = '';
+  theme: string | ThemeOption = 'dark';
 
   expenseOptions = {
+    backgroundColor: '',
     tooltip: {
       trigger: 'item',
       formatter: '{b} : ${c} ({d}%)'
