@@ -57,17 +57,17 @@ export class RetirementCalcService {
     const currentDate: Date = new Date();
 
     let dataArr = [];
-    let retirementAmount: number = 0;
+    let retirementAmount: number = retirementFields.startPrincipal;
 
     for (let i = 0; i < n; i++) {
 
-      retirementAmount += retirementFields.startPrincipal * (1 + r);
-      retirementAmount += contributions * (1 + r);
+      retirementAmount += (retirementAmount * r);
+      retirementAmount += (contributions * (1 + r));
 
 
       let dataObject = [
         currentDate.getFullYear() + i,
-        retirementAmount
+        retirementAmount.toFixed()
       ]
       dataArr.push(dataObject);
     }
