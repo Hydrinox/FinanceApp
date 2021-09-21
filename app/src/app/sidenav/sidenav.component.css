@@ -1,0 +1,22 @@
+.sidenav-container {
+    position: absolute;
+}
+
+.sidenav-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20%;
+  }
+
+mat-nav-list {
+    margin-top: 50px;
+}
+
+.material-icons {
+    line-height: .5;
+}
+
+.main-content {
+    margin-top: 30px;
+}

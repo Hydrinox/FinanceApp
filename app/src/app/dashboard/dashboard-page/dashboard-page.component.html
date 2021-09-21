@@ -1,5 +1,5 @@
 <div fxLayout="row" fxLayoutAlign="center">
-    <mat-card>
+    <mat-card class="dashboard-card">
         <mat-card-header>
             <mat-card-title>Retirement Growth</mat-card-title>
         </mat-card-header>
@@ -7,13 +7,13 @@
     </mat-card>
 </div>
 <div fxLayout="row" fxLayoutAlign="center">
-    <mat-card class="budget-card">
+    <mat-card class="dashboard-card">
         <mat-card-header>
             <mat-card-title>Budget</mat-card-title>
         </mat-card-header>
         <app-budget-chart [expenseData]="expenses" [incomeData]="income"></app-budget-chart>
     </mat-card>
-    <mat-card class="budget-card">
+    <mat-card class="dashboard-card">
         <mat-card-header>
             <mat-card-title>Expenses</mat-card-title>
         </mat-card-header>

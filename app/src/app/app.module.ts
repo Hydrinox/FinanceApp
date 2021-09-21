@@ -12,20 +12,19 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatTabsModule } from "@angular/material/tabs";
 import { MatCardModule } from "@angular/material/card";
 import { MatDialogModule } from "@angular/material/dialog";
-import { MatExpansionModule } from "@angular/material/expansion";
 import { MatSelectModule } from "@angular/material/select";
+import { MatSidenavModule } from "@angular/material/sidenav";
+import { MatListModule } from "@angular/material/list";
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { NgxEchartsModule } from 'ngx-echarts';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NavbarComponent } from './navbar/navbar.component';
 import { BudgetingFormComponent } from './budgeting/budgeting-form/budgeting-form.component';
 import { BudgetingPresentationComponent } from './budgeting/budgeting-presentation/budgeting-presentation.component';
 import { RetirementFormComponent } from './retirement/retirement-form/retirement-form.component';
 import { RetirementPresentationComponent } from './retirement/retirement-presentation/retirement-presentation.component';
-import { AboutPageComponent } from './about-page/about-page.component';
 import { RetirementPageComponent } from './retirement/retirement-page/retirement-page.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BudgetingPageComponent } from "./budgeting/budgeting-page/budgeting-page.component";
@@ -37,17 +36,16 @@ import 'echarts/theme/dark.js';
 import { BudgetFormDialog, ExpenseFormComponent } from './budgeting/expense-form/expense-form.component';
 import { IncomeFormComponent } from './budgeting/income-form/income-form.component';
 import { ExpenseChartComponent } from './dashboard/expense-chart/expense-chart.component';
+import { SidenavComponent } from './sidenav/sidenav.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavbarComponent,
     BudgetingFormComponent,
     BudgetingPresentationComponent,
     RetirementFormComponent,
     RetirementPresentationComponent,
-    AboutPageComponent,
     RetirementPageComponent,
     BudgetingPageComponent,
     DashboardPageComponent,
@@ -57,6 +55,7 @@ import { ExpenseChartComponent } from './dashboard/expense-chart/expense-chart.c
     ExpenseFormComponent,
     IncomeFormComponent,
     ExpenseChartComponent,
+    SidenavComponent,
   ],
   imports: [
     BrowserModule,
@@ -73,7 +72,8 @@ import { ExpenseChartComponent } from './dashboard/expense-chart/expense-chart.c
     MatTabsModule,
     MatCardModule,
     MatDialogModule,
-    MatExpansionModule,
+    MatSidenavModule,
+    MatListModule,
     MatSelectModule,
     NgxChartsModule,
     NgxEchartsModule.forRoot({

@@ -66,4 +66,7 @@ export class ExpenseChartComponent implements OnChanges {
     }
   }
 
+  editExpense(event: any, type: string) {
+    console.log('chart event:', type, event);
+  }
 }
