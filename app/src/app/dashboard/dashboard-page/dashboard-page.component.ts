@@ -15,7 +15,7 @@ import { RetirementCalcService } from 'src/app/services/retirement-calc.service'
 export class DashboardPageComponent implements OnInit {
 
   expenses: Array<ExpenseItem>;
-  income: Array<IncomeItem>;
+  income: IncomeItem;
   retirement: Array<object>;
 
   constructor(private budgetService: BudgetService, private retirementService: RetirementCalcService) { }
@@ -28,8 +28,8 @@ export class DashboardPageComponent implements OnInit {
         console.log(error, "Error with getting budget items")
       });
 
-    this.budgetService.incomeRequest('get', '', null, '').subscribe((incomes: any[]) => {
-      this.income = incomes;
+    this.budgetService.incomeRequest('get', '', null, '').subscribe((income: IncomeItem) => {
+      this.income = income;
     },
       (error: ErrorEvent) => {
         console.log(error, "Error with getting income items")

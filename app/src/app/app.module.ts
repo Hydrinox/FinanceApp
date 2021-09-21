@@ -15,14 +15,13 @@ import { MatDialogModule } from "@angular/material/dialog";
 import { MatSelectModule } from "@angular/material/select";
 import { MatSidenavModule } from "@angular/material/sidenav";
 import { MatListModule } from "@angular/material/list";
+import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { NgxEchartsModule } from 'ngx-echarts';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { BudgetingFormComponent } from './budgeting/budgeting-form/budgeting-form.component';
-import { BudgetingPresentationComponent } from './budgeting/budgeting-presentation/budgeting-presentation.component';
 import { RetirementFormComponent } from './retirement/retirement-form/retirement-form.component';
 import { RetirementPresentationComponent } from './retirement/retirement-presentation/retirement-presentation.component';
 import { RetirementPageComponent } from './retirement/retirement-page/retirement-page.component';
@@ -42,8 +41,6 @@ import { SidenavComponent } from './sidenav/sidenav.component';
 @NgModule({
   declarations: [
     AppComponent,
-    BudgetingFormComponent,
-    BudgetingPresentationComponent,
     RetirementFormComponent,
     RetirementPresentationComponent,
     RetirementPageComponent,
@@ -71,6 +68,7 @@ import { SidenavComponent } from './sidenav/sidenav.component';
     MatButtonModule,
     MatTabsModule,
     MatCardModule,
+    MatSnackBarModule,
     MatDialogModule,
     MatSidenavModule,
     MatListModule,

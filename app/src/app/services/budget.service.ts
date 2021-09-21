@@ -14,19 +14,19 @@ export class BudgetService {
 
   base: string = `${environment.API_URL}`;
 
-  expenseRequest(requestType: string, url: string, body: ExpenseItem, expenseId: string = ''): Observable<ExpenseItem | ExpenseItem[]>{
-    if(requestType === 'post' || requestType === 'patch'){
-      return this.http[requestType]<ExpenseItem | ExpenseItem[]>(`${this.base}/expenses/${expenseId}`, {body});
+  expenseRequest(requestType: string, url: string, body: ExpenseItem, expenseId: string = ''): Observable<ExpenseItem | ExpenseItem[]> {
+    if (requestType === 'post' || requestType === 'patch') {
+      return this.http[requestType]<ExpenseItem | ExpenseItem[]>(`${this.base}/expenses/${expenseId}`, { body });
     } else {
-       return this.http[requestType]<ExpenseItem | ExpenseItem[]>(`${this.base}/expenses/${expenseId}`);
+      return this.http[requestType]<ExpenseItem | ExpenseItem[]>(`${this.base}/expenses/${expenseId}`);
     }
   }
 
-  incomeRequest(requestType: string, url: string, body: IncomeItem, incomeId: string = ''):  Observable<IncomeItem | IncomeItem[]>{
-    if(requestType === 'post' || requestType === 'patch'){
-      return this.http[requestType]<IncomeItem | IncomeItem[]>(`${this.base}/income/${incomeId}`, {body});
+  incomeRequest(requestType: string, url: string, body: IncomeItem, incomeId: string = ''): Observable<IncomeItem> {
+    if (requestType === 'post' || requestType === 'patch') {
+      return this.http[requestType]<IncomeItem>(`${this.base}/income/${incomeId}`, { body });
     } else {
-      return this.http[requestType]<IncomeItem | IncomeItem[]>(`${this.base}/income/${incomeId}`);
+      return this.http[requestType]<IncomeItem>(`${this.base}/income/${incomeId}`);
     }
   }
 }
