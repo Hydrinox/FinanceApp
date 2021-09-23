@@ -16,32 +16,23 @@ export class IncomeFormComponent implements OnInit {
 
   constructor(private budgetService: BudgetService, private _snackBar: MatSnackBar) { }
 
-  ngOnInit(): void {
-    this.budgetService.incomeRequest('get', '', null, '')
-      .subscribe((incomes: IncomeItem) => {
-        this.incomeForm = incomes;
-        this.incomeValue = incomes[0] ? incomes[0].value : null;
-        this.payFrequency = incomes[0] ? incomes[0].frequency : null;
-      },
-        (error: ErrorEvent) => {
-          console.log(error, "Error with getting income items")
-        })
+  async ngOnInit() {
+    const incomeRes = await this.budgetService.incomeRequest('get', '', null, '');
+    this.incomeForm = incomeRes[0];
+
+    this.incomeValue = incomeRes[0] ? incomeRes[0].value : null;
+    this.payFrequency = incomeRes[0] ? incomeRes[0].frequency : null;
   }
 
-  saveIncome() {
+  async saveIncome() {
     let incomeItem: IncomeItem = {
       value: this.incomeValue,
       frequency: this.payFrequency,
     }
-    this.budgetService.incomeRequest('post', '', incomeItem)
-      .pipe(
-        mergeMap(() => this.budgetService.incomeRequest('get', '', null, ''))
-      )
-      .subscribe((income: IncomeItem) => {
-        this.incomeForm = income;
-        this.openSnackBar('Income Saved!', 'Dismiss');
-      }
-      )
+    await this.budgetService.incomeRequest('post', '', incomeItem)
+    this.incomeForm = await this.budgetService.incomeRequest('get', '', null, '');
+
+    this.openSnackBar('Income Saved!', 'Dismiss');
   }
 
   openSnackBar(message: string, action: string) {

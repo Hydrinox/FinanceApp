@@ -1,9 +1,6 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, Input, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
 import { ExpenseItem } from 'src/app/models/ExpenseItem';
 import { IncomeItem } from 'src/app/models/IncomeItem';
-import { Retirement } from 'src/app/models/Retirement';
 import { BudgetService } from 'src/app/services/budget.service';
 import { RetirementCalcService } from 'src/app/services/retirement-calc.service';
 
@@ -20,23 +17,12 @@ export class DashboardPageComponent implements OnInit {
 
   constructor(private budgetService: BudgetService, private retirementService: RetirementCalcService) { }
 
-  ngOnInit(): void {
-    this.budgetService.expenseRequest('get', '', null, '').subscribe((expenses: any[]) => {
-      this.expenses = expenses;
-    },
-      (error: ErrorEvent) => {
-        console.log(error, "Error with getting budget items")
-      });
+  async ngOnInit() {
+    this.expenses = await this.budgetService.expenseRequest('get', '', null, '');
 
-    this.budgetService.incomeRequest('get', '', null, '').subscribe((income: IncomeItem) => {
-      this.income = income;
-    },
-      (error: ErrorEvent) => {
-        console.log(error, "Error with getting income items")
-      });
+    this.income = await this.budgetService.incomeRequest('get', '', null, '');
 
-    this.retirementService.retirementRequest('get', '', null, '').subscribe((retirementValues => {
-      this.retirement = this.retirementService.calculateRetirementTimeline(retirementValues[0]);
-    }));
+    const timeLine = await this.retirementService.retirementRequest('get', '', null, '');
+    this.retirement = this.retirementService.calculateRetirementTimeline(timeLine[0]);
   }
 }

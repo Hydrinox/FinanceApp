@@ -15,24 +15,17 @@ export class RetirementFormComponent implements OnInit {
 
   constructor(private retirementCalc: RetirementCalcService) { }
 
-  ngOnInit(): void {
-    this.retirementCalc.retirementRequest('get', '', null, '')
-      .subscribe((retirementFields: Retirement) => {
-        this.formModel = retirementFields[0];
-      },
-        (error: ErrorEvent) => {
-          console.log(error, "Error with getting retirement values")
-        });
+  async ngOnInit() {
+    const res = await this.retirementCalc.retirementRequest('get', '', null, '');
+    this.formModel = res[0];
     // this.formModel = this.retirementCalc.formFieldValues ? this.retirementCalc.formFieldValues : this.formModel;
     // this.formModel.startPrincipal = this.retirementCalc.formFieldValues.startPrincipal ? this.retirementCalc.formFieldValues.startPrincipal : 0;
     // this.formModel.growthRate = this.retirementCalc.formFieldValues.growthRate ? this.retirementCalc.formFieldValues.growthRate : 7;
   }
 
-  OnSubmit() {
+  async OnSubmit() {
     this.retirementCalc.saveFormState(this.formModel);
-    this.retirementCalc.retirementRequest('post', '', this.formModel).subscribe(() => {
-      console.log(this.formModel);
-    });
+    await this.retirementCalc.retirementRequest('post', '', this.formModel);
     this.retirementNumber = this.retirementCalc.calculateRetirementTotal(this.formModel);
     this.retirementNumberEvent.emit(this.retirementCalc.calculateRetirementTotal(this.formModel));
   }

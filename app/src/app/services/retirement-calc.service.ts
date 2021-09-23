@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { StorageKey } from '../enums/storage.enum';
 import { Retirement } from "../models/Retirement";
+import { StorageService } from './storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -18,15 +19,25 @@ export class RetirementCalcService {
 
   base: string = `${environment.API_URL}`;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private storageService: StorageService) { }
 
-  retirementRequest(requestType: string, url: string, body: Retirement, retirementId: string = ''): Observable<Retirement> {
+  async retirementRequest(requestType: string, url: string, body: Retirement, retirementId: string = '') {
     if (requestType === 'post' || requestType === 'patch') {
-      return this.http[requestType]<Retirement>(`${this.base}/retirement/${retirementId}`, { body });
+      try {
+        const res = await this.http[requestType]<Retirement>(`${this.base}/retirement/${retirementId}`, { body }).toPromise();
+        this.storageService.setData(StorageKey.retirementForm, res);
+      } catch (e) {
+        console.log('retirement service error', e)
+      }
     } else {
-      let res = this.http[requestType]<Retirement>(`${this.base}/retirement/${retirementId}`);
-      this.formFieldValues = res;
-      return res;
+      try {
+        const res = await this.http[requestType]<Retirement>(`${this.base}/retirement/${retirementId}`).toPromise();
+        this.formFieldValues = res;
+        return res;
+      } catch (e) {
+        console.log('retirement service error', e)
+
+      }
     }
   }
 
