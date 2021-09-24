@@ -32,8 +32,8 @@ export class IncomeFormComponent implements OnInit {
       value: this.incomeValue,
       frequency: this.payFrequency,
     }
-    await this.budgetService.incomeRequest('post', '', incomeItem)
-    this.incomeForm = await this.budgetService.incomeRequest('get', '', null, '');
+    await this.budgetService.incomeRequest('post', '', this.incomeForm)
+    this.storageService.setData(StorageKey.incomeData, this.incomeForm);
 
     this.openSnackBar('Income Saved!', 'Dismiss');
   }

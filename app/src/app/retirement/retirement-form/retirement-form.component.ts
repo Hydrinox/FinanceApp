@@ -29,6 +29,8 @@ export class RetirementFormComponent implements OnInit {
 
   async OnSubmit() {
     await this.retirementCalc.retirementRequest('post', '', this.formModel);
+    this.storageService.setData(StorageKey.retirementForm, this.formModel);
+    this.storageService.setData(StorageKey.retirementTimeline, this.retirementCalc.calculateRetirementTimeline(this.formModel));
     this.retirementNumber = this.retirementCalc.calculateRetirementTotal(this.formModel);
     this.retirementNumberEvent.emit(this.retirementCalc.calculateRetirementTotal(this.formModel));
   }
