@@ -71,24 +71,23 @@ export class BudgetChartComponent implements OnChanges {
       });
     }
     //if income data found, add each income value to incomeSum (var used in chart)
-    if (changes.incomeData && changes.incomeData.currentValue != undefined && changes.incomeData.currentValue.length > 0) {
-      changes.incomeData.currentValue.forEach(element => {
-        switch (element.frequency) {
-          case 'yearly':
-            this.incomeSum += element.value / 12;
-            break;
-          case 'monthly':
-            this.incomeSum += element.value;
-            break;
-          case 'biweekly':
-            this.incomeSum += (element.value * 26) / 12;
-            break;
-          default:
-            this.incomeSum += element.value;
-            break;
-        }
-        this.incomeSum = Math.round(this.incomeSum);
-      });
+    if (changes.incomeData && changes.incomeData.currentValue != undefined) {
+      const incomeData = changes.incomeData.currentValue;
+      switch (incomeData.frequency) {
+        case 'yearly':
+          this.incomeSum += incomeData.value / 12;
+          break;
+        case 'monthly':
+          this.incomeSum += incomeData.value;
+          break;
+        case 'biweekly':
+          this.incomeSum += (incomeData.value * 26) / 12;
+          break;
+        default:
+          this.incomeSum += incomeData.value;
+          break;
+      }
+      this.incomeSum = Math.round(this.incomeSum);
     }
 
     //sets color of total sum, green for positive red for negative

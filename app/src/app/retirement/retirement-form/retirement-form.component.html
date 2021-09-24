@@ -1,39 +1,50 @@
-   <mat-card backgroundColor="primary" class="card">
-        <form (ngSubmit)="OnSubmit()" #retirementForm="ngForm">
-            <mat-form-field class="formField">
-                <input matInput type="number" placeholder="Current Age" [(ngModel)]="formModel.currentAge" #currentAge="ngModel" name="currentAge" (focus)="emitTextValue($event)" required minlength="1">
-                <div *ngIf="currentAge.invalid && (currentAge.dirty || currentAge.touched)">
-                    Enter your current age.
-                </div>
-            </mat-form-field>
-            <mat-form-field class="formField">
-                <input matInput type="number" placeholder="Retirement Age" [(ngModel)]="formModel.retirementAge" #retirementAge="ngModel" name="retirementAge" (focus)="emitTextValue($event)" required minlength="1"><br>
-                <div *ngIf="retirementAge.invalid && (retirementAge.dirty || retirementAge.touched)">
-                    Enter your planned age at retirement.
-                </div>
-            </mat-form-field>
-            <mat-form-field class="formField">
-                <input matInput placeholder="Starting Principal"  type="number" [(ngModel)]="formModel.startPrincipal" #startPrincipal="ngModel" name="startPrincipal" (focus)="emitTextValue($event)">
-                <span matPrefix>$&nbsp;</span>
-                <span matSuffix><mat-icon matTooltip="Amount currently saved in retirement accounts" aria-hidden="false" aria-label="info">info</mat-icon></span>            
-            </mat-form-field>
-            <mat-form-field class="formField">
-                <input matInput placeholder="Monthly Contributions" type="number" [(ngModel)]="formModel.contributions" #contributions="ngModel" name="contributions" (focus)="emitTextValue($event)" required minlength="1"><br>
-                <div *ngIf="contributions.invalid && (contributions.dirty || contributions.touched)">
-                    Enter a contribution amount.
-                </div>
-                <span matPrefix>$&nbsp;</span>
-            </mat-form-field>
-            <mat-form-field class="formField">
-                <input matInput placeholder="Yearly Growth Rate" type="number" [(ngModel)]="formModel.growthRate" #growthRate="ngModel" name="growthRate" [value]="formModel.growthRate" (focus)="emitTextValue($event)" required minlength="1">
-                <div *ngIf="growthRate.invalid && (growthRate.dirty || growthRate.touched)">
-                    Enter a growth rate.
-                </div>
-                <span matSuffix>%</span>
-            </mat-form-field>
-            <button type="submit" mat-raised-button color="primary" [disabled]="!retirementForm.form.valid">Calculate</button>
-        </form>
-        <div class="result">
-            <p>{{ retirementNumber }}</p>    
-        </div>        
-    </mat-card>
+<mat-card backgroundColor="primary" class="card">
+    <form (ngSubmit)="OnSubmit()" #retirementForm="ngForm">
+        <mat-form-field class="formField">
+            <input matInput type="number" placeholder="Current Age" [(ngModel)]="formModel.currentAge"
+                #currentAge="ngModel" name="currentAge" (focus)="emitTextValue($event)" required minlength="1">
+            <div *ngIf="currentAge.invalid && (currentAge.dirty || currentAge.touched)">
+                Enter your current age.
+            </div>
+        </mat-form-field>
+        <mat-form-field class="formField">
+            <input matInput type="number" placeholder="Retirement Age" [(ngModel)]="formModel.retirementAge"
+                #retirementAge="ngModel" name="retirementAge" (focus)="emitTextValue($event)" required
+                minlength="1"><br>
+            <div *ngIf="retirementAge.invalid && (retirementAge.dirty || retirementAge.touched)">
+                Enter your planned age at retirement.
+            </div>
+        </mat-form-field>
+        <mat-form-field class="formField">
+            <input matInput placeholder="Starting Principal" type="number" [(ngModel)]="formModel.startPrincipal"
+                #startPrincipal="ngModel" name="startPrincipal" (focus)="emitTextValue($event)">
+            <span matPrefix>$&nbsp;</span>
+            <span matSuffix>
+                <mat-icon matTooltip="Amount currently saved in retirement accounts" aria-hidden="false"
+                    aria-label="info">info</mat-icon>
+            </span>
+        </mat-form-field>
+        <mat-form-field class="formField">
+            <input matInput placeholder="Monthly Contributions" type="number" [(ngModel)]="formModel.contributions"
+                #contributions="ngModel" name="contributions" (focus)="emitTextValue($event)" required
+                minlength="1"><br>
+            <div *ngIf="contributions.invalid && (contributions.dirty || contributions.touched)">
+                Enter a contribution amount.
+            </div>
+            <span matPrefix>$&nbsp;</span>
+        </mat-form-field>
+        <mat-form-field class="formField">
+            <input matInput placeholder="Yearly Growth Rate" type="number" [(ngModel)]="formModel.growthRate"
+                #growthRate="ngModel" name="growthRate" (focus)="emitTextValue($event)" required minlength="1">
+            <div *ngIf="growthRate.invalid && (growthRate.dirty || growthRate.touched)">
+                Enter a growth rate.
+            </div>
+            <span matSuffix>%</span>
+        </mat-form-field>
+        <button type="submit" mat-raised-button color="primary"
+            [disabled]="!retirementForm.form.valid">Calculate</button>
+    </form>
+    <div class="result">
+        <p>{{ retirementNumber }}</p>
+    </div>
+</mat-card>

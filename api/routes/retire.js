@@ -7,8 +7,8 @@ const Retirement = require('../models/retirement');
 router.get("/", (req, res, next) => {
     Retirement.find()
         .exec()
-        .then(docs => {
-            res.status(200).json(docs);
+        .then(result => {
+            res.status(200).json(result[0]);
         })
         .catch(err => {
             console.log(err);
@@ -29,10 +29,7 @@ router.post("/", (req, res, next) => {
     retirement
         .save()
         .then(result => {
-            res.status(200).json({
-                message: "Saved retirement",
-                createdExpense: result
-            });
+            res.status(200).json(result);
         })
         .catch(err => {
             res.status(500).json({

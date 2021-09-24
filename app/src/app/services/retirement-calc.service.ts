@@ -15,8 +15,6 @@ export class RetirementCalcService {
     minimumFractionDigits: 2
   })
 
-  formFieldValues: Retirement = new Retirement();
-
   base: string = `${environment.API_URL}`;
 
   constructor(private http: HttpClient, private storageService: StorageService) { }
@@ -32,11 +30,10 @@ export class RetirementCalcService {
     } else {
       try {
         const res = await this.http[requestType]<Retirement>(`${this.base}/retirement/${retirementId}`).toPromise();
-        this.formFieldValues = res;
+        this.storageService.setData(StorageKey.retirementForm, res);
         return res;
       } catch (e) {
         console.log('retirement service error', e)
-
       }
     }
   }
@@ -77,19 +74,11 @@ export class RetirementCalcService {
 
 
       let dataObject = [
-        currentDate.getFullYear() + i,
+        currentDate.getFullYear() + 1 + i,
         retirementAmount.toFixed()
       ]
       dataArr.push(dataObject);
     }
     return dataArr;
-  }
-
-  saveFormState(form: Retirement) {
-    this.formFieldValues.currentAge = form.currentAge;
-    this.formFieldValues.retirementAge = form.retirementAge;
-    this.formFieldValues.startPrincipal = form.startPrincipal;
-    this.formFieldValues.contributions = form.contributions;
-    this.formFieldValues.growthRate = form.growthRate;
   }
 }

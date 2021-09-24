@@ -7,8 +7,8 @@ const Expense = require('../models/income');
 router.get("/", (req, res, next) => {
   Expense.find()
     .exec()
-    .then(docs => {
-      res.status(200).json(docs);
+    .then(result => {
+      res.status(200).json(result[0]);
     })
     .catch(err => {
       console.log(err);

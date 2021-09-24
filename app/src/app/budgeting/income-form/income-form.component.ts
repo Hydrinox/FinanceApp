@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { mergeMap } from 'rxjs/operators';
+import { StorageKey } from 'src/app/enums/storage.enum';
 import { IncomeItem } from 'src/app/models/IncomeItem';
 import { BudgetService } from 'src/app/services/budget.service';
+import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
   selector: 'app-income-form',
@@ -10,18 +12,19 @@ import { BudgetService } from 'src/app/services/budget.service';
   styleUrls: ['./income-form.component.css']
 })
 export class IncomeFormComponent implements OnInit {
-  incomeForm: IncomeItem;
+  incomeForm = new IncomeItem();
   payFrequency: string;
   incomeValue: number;
 
-  constructor(private budgetService: BudgetService, private _snackBar: MatSnackBar) { }
+  constructor(private budgetService: BudgetService, private storageService: StorageService, private _snackBar: MatSnackBar) { }
 
   async ngOnInit() {
-    const incomeRes = await this.budgetService.incomeRequest('get', '', null, '');
-    this.incomeForm = incomeRes[0];
-
-    this.incomeValue = incomeRes[0] ? incomeRes[0].value : null;
-    this.payFrequency = incomeRes[0] ? incomeRes[0].frequency : null;
+    const incomeStorage = this.storageService.getData(StorageKey.incomeData);
+    if (incomeStorage) {
+      this.incomeForm = JSON.parse(incomeStorage);
+    } else {
+      this.incomeForm = await this.budgetService.incomeRequest('get', '', null, '');
+    }
   }
 
   async saveIncome() {
