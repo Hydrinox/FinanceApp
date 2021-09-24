@@ -1,18 +1,20 @@
-.container{
-    /* align-items: center;
-    display: flex;
-    justify-content: center; */
-}
-
 .left{
     float: left;
     width: 50%;
     height: 100%;
-    
-    
 }
 
 .right{
     float: right;
     width: 50%;
+}
+
+.sum-header {
+    color: primary;
+}
+
+.header {
+    text-align: center;
+    font-size: xx-large;
+    padding: 25px;
 }

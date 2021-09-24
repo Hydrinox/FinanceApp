@@ -25,3 +25,15 @@ html, body{
 body { 
     font-family: Roboto, "Helvetica Neue", sans-serif; 
 }
+
+.primary-color {
+  color: mat-color($angular-primary) !important;
+}
+
+.accent-color {
+  color: mat-color($angular-accent) !important;
+}
+
+.warn-color {
+  color: mat-color($angular-warn) !important;
+}

@@ -1,3 +1,10 @@
 .form-container {
     height: 100%;
+    padding-top: 25px;
+}
+
+.header {
+    text-align: center;
+    font-size: xx-large;
+    padding: 25px;
 }
