@@ -37,44 +37,4 @@ router.post("/", (req, res, next) => {
     });
 });
 
-router.patch("/:incomeId", (req, res, next) => {
-  const id = req.params.incomeId;
-  Expense.findOneAndUpdate({ _id: id }, req.body.body)
-    .exec()
-    .then(doc => {
-      if (doc) {
-        res.status(200).json(doc);
-      } else {
-        res
-          .status(400)
-          .json({ message: "no income found for this id" });
-      }
-    }).catch(err => {
-      console.log(err);
-      res.status(500).json({ error: err });
-    })
-})
-
-router.delete("/:incomeId", (req, res, next) => {
-  const id = req.params.incomeId;
-  Expense.findByIdAndRemove(id)
-    .exec()
-    .then(doc => {
-      if (doc) {
-        res
-          .status(200)
-          .json({ body: doc, message: "income deleted" });
-      } else {
-        res
-          .status(400)
-          .json({ message: "no income found for this id" });
-      }
-    }).catch(err => {
-      console.log(err);
-      res.status(500).json({ error: err });
-    })
-}
-);
-
-
 module.exports = router;

@@ -19,12 +19,7 @@ export class IncomeFormComponent implements OnInit {
   constructor(private budgetService: BudgetService, private storageService: StorageService, private _snackBar: MatSnackBar) { }
 
   async ngOnInit() {
-    const incomeStorage = this.storageService.getData(StorageKey.incomeData);
-    if (incomeStorage) {
-      this.incomeForm = JSON.parse(incomeStorage);
-    } else {
-      this.incomeForm = await this.budgetService.incomeRequest('get', '', null, '');
-    }
+    this.budgetService.incomeRequest('get', '', null, '').then(res => this.incomeForm = res);
   }
 
   async saveIncome() {
@@ -33,8 +28,6 @@ export class IncomeFormComponent implements OnInit {
       frequency: this.payFrequency,
     }
     await this.budgetService.incomeRequest('post', '', this.incomeForm)
-    this.storageService.setData(StorageKey.incomeData, this.incomeForm);
-
     this.openSnackBar('Income Saved!', 'Dismiss');
   }
 

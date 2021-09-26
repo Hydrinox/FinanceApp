@@ -20,12 +20,7 @@ export class ExpenseFormComponent implements OnInit {
   constructor(public dialog: MatDialog, private budgetService: BudgetService, private storageService: StorageService) { }
 
   async ngOnInit() {
-    const expenseStorage = this.storageService.getData(StorageKey.expenseData);
-    if (expenseStorage) {
-      this.expenseArray = JSON.parse(expenseStorage);
-    } else {
-      this.expenseArray = await this.budgetService.expenseRequest('get', '', null, '');
-    }
+    this.budgetService.expenseRequest('get', '', null, '').then(res => this.expenseArray = res);
   }
 
   @ViewChild(MatTable) table: MatTable<ExpenseItem>;

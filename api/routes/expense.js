@@ -26,9 +26,7 @@ router.post("/", (req, res, next) => {
   expense
     .save()
     .then(result => {
-      res.status(200).json({
-        createdExpense: result
-      });
+      res.status(200).json(result);
     })
     .catch(err => {
       res.status(500).json({
@@ -78,11 +76,11 @@ router.delete("/:expenseId", (req, res, next) => {
   const id = req.params.expenseId;
   Expense.findByIdAndRemove(id)
     .exec()
-    .then(doc => {
-      if (doc) {
+    .then(result => {
+      if (result) {
         res
           .status(200)
-          .json({ body: doc });
+          .json(result);
       } else {
         res
           .status(400)

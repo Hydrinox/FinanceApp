@@ -29,6 +29,10 @@ export class RetirementCalcService {
       }
     } else {
       try {
+        let retirementStorage = this.storageService.getData(StorageKey.retirementForm);
+        if (retirementStorage) {
+          return JSON.parse(retirementStorage);
+        }
         const res = await this.http[requestType]<Retirement>(`${this.base}/retirement/${retirementId}`).toPromise();
         this.storageService.setData(StorageKey.retirementForm, res);
         return res;
@@ -43,7 +47,7 @@ export class RetirementCalcService {
     let r = retirementFields.growthRate / 100;
     let contributions = retirementFields.contributions * 12;
 
-    let principalTotalGrowth = (retirementFields.startPrincipal * Math.pow((1 + r), n)) + retirementFields.startPrincipal;
+    let principalTotalGrowth = (retirementFields.startPrincipal * Math.pow((1 + r), n));
 
     if (retirementFields.contributions > 0) {
       //[ P(1+r/n)^(nt) ] + [ PMT × (((1 + r/n)^(nt) - 1) / (r/n)) ] formula if monthly contributions
@@ -58,7 +62,7 @@ export class RetirementCalcService {
     return this.formatter.format(principalTotalGrowth);
   }
 
-  calculateRetirementTimeline(retirementFields: Retirement) {
+  calculateRetirementTimeline(retirementFields: Retirement): any[] {
     const n: number = retirementFields.retirementAge - retirementFields.currentAge;
     const r: number = retirementFields.growthRate / 100;
     const contributions: number = retirementFields.contributions * 12;
@@ -71,7 +75,6 @@ export class RetirementCalcService {
 
       retirementAmount += (retirementAmount * r);
       retirementAmount += (contributions * (1 + r));
-
 
       let dataObject = [
         currentDate.getFullYear() + 1 + i,

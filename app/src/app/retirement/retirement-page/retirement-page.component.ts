@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { StorageKey } from 'src/app/enums/storage.enum';
+import { RetirementCalcService } from 'src/app/services/retirement-calc.service';
 import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
@@ -10,16 +11,16 @@ import { StorageService } from 'src/app/services/storage.service';
 export class RetirementPageComponent implements OnInit {
   textToDisplayValue = '';
   numberToDisplay: number;
-  retirement: Array<object>;
+  retirement: any[];
 
-  constructor(private storageService: StorageService) { }
+  constructor(private retirementService: RetirementCalcService) { }
 
-  ngOnInit(): void {
-    this.retirement = JSON.parse(this.storageService.getData(StorageKey.retirementTimeline));
+  async ngOnInit() {
+    this.retirementService.retirementRequest('get', '', null, '').then(res => this.retirement = this.retirementService.calculateRetirementTimeline(res));
   }
 
-  setTextDisplayValue(value: string) {
-    this.textToDisplayValue = value;
+  setTimeline(value: []) {
+    this.retirement = value;
   }
 
   setRetirementNumber(number: number) {

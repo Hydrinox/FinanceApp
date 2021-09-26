@@ -12,7 +12,7 @@ import { StorageKey } from 'src/app/enums/storage.enum';
 export class RetirementFormComponent implements OnInit {
   formModel = new Retirement();
   retirementNumber: string;
-  @Output() textDisplayEvent = new EventEmitter<string>();
+  @Output() timelineChangeEvent = new EventEmitter<any[]>();
   @Output() retirementNumberEvent = new EventEmitter<string>();
 
   constructor(private retirementCalc: RetirementCalcService, private storageService: StorageService) { }
@@ -25,18 +25,28 @@ export class RetirementFormComponent implements OnInit {
       const retireRes = await this.retirementCalc.retirementRequest('get', '', null, '');
       this.formModel = retireRes;
     }
+    if (!this.formModel) {
+      this.formModel = {
+        currentAge: 18,
+        retirementAge: 65,
+        startPrincipal: 10000,
+        contributions: 100,
+        growthRate: 7
+      }
+    }
+    this.retirementNumberEvent.emit(this.retirementCalc.calculateRetirementTotal(this.formModel));
+
   }
 
   async OnSubmit() {
     await this.retirementCalc.retirementRequest('post', '', this.formModel);
-    this.storageService.setData(StorageKey.retirementForm, this.formModel);
-    this.storageService.setData(StorageKey.retirementTimeline, this.retirementCalc.calculateRetirementTimeline(this.formModel));
     this.retirementNumber = this.retirementCalc.calculateRetirementTotal(this.formModel);
     this.retirementNumberEvent.emit(this.retirementCalc.calculateRetirementTotal(this.formModel));
+    this.timelineChangeEvent.emit(this.retirementCalc.calculateRetirementTimeline(this.formModel));
   }
 
   emitTextValue(event: any) {
-    this.textDisplayEvent.emit(event.target.name);
+    //this.textDisplayEvent.emit(event.target.name);
   }
 
 }
