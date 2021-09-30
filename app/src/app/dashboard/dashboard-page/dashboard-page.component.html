@@ -1,22 +1,46 @@
-<div fxLayout="row" fxLayoutAlign="center">
-    <mat-card class="dashboard-card">
-        <mat-card-header>
-            <mat-card-title>Retirement Growth</mat-card-title>
-        </mat-card-header>
-        <app-retirement-chart [retirementData]="retirement"></app-retirement-chart>
-    </mat-card>
-</div>
-<div fxLayout="row" fxLayoutAlign="center">
-    <mat-card class="dashboard-card">
-        <mat-card-header>
-            <mat-card-title>Budget</mat-card-title>
-        </mat-card-header>
-        <app-budget-chart [expenseData]="expenses" [incomeData]="income"></app-budget-chart>
-    </mat-card>
-    <mat-card class="dashboard-card">
-        <mat-card-header>
-            <mat-card-title>Expenses</mat-card-title>
-        </mat-card-header>
-        <app-expense-chart [data]="expenses"></app-expense-chart>
-    </mat-card>
-</div>
+<main @fadeInOut>
+    <div class="header">Dashboard</div>
+    <div class="dashboard-container">
+        <div fxLayout="row" fxLayoutAlign="center center">
+            <mat-card class="dashboard-card">
+                <mat-card-header>
+                    <mat-card-title>Retirement</mat-card-title>
+                </mat-card-header>
+                <div fxLayout="row" fxLayoutAlign="space-around center" class="retirement-container">
+                    <div *ngIf="retirementForm" class="contributions-section">
+                        <h1 class="retirement-number primary-color">${{ retirementForm.contributions }}</h1>
+                        Monthly Contributions
+                    </div>
+                    <mat-divider vertical></mat-divider>
+                    <div *ngIf="retirement" class="total-section">
+                        <h1 class="retirement-number primary-color">
+                            {{ retirement | slice:0:-3 }}
+                        </h1>
+                        Projected savings at retirement
+                    </div>
+                    <mat-divider vertical></mat-divider>
+                    <div *ngIf="retirement" class="total-section">
+                        <h1 class="retirement-number primary-color">
+                            {{ retirementForm.startPrincipal | currency: 'USD' : 'symbol' : '1.0-0' }}
+                        </h1>
+                        Initial Balance
+                    </div>
+                </div>
+            </mat-card>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="center">
+            <mat-card class="dashboard-card">
+                <mat-card-header>
+                    <mat-card-title>Budget</mat-card-title>
+                </mat-card-header>
+                <app-budget-chart [expenseData]="expenses" [incomeData]="income"></app-budget-chart>
+            </mat-card>
+            <mat-card class="dashboard-card">
+                <mat-card-header>
+                    <mat-card-title>Expenses</mat-card-title>
+                </mat-card-header>
+                <app-expense-chart [data]="expenses"></app-expense-chart>
+            </mat-card>
+        </div>
+    </div>
+</main>

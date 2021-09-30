@@ -11,6 +11,7 @@ import { MatTooltipModule } from "@angular/material/tooltip";
 import { MatButtonModule } from "@angular/material/button";
 import { MatTabsModule } from "@angular/material/tabs";
 import { MatCardModule } from "@angular/material/card";
+import { MatDividerModule } from "@angular/material/divider";
 import { MatDialogModule } from "@angular/material/dialog";
 import { MatSelectModule } from "@angular/material/select";
 import { MatSidenavModule } from "@angular/material/sidenav";
@@ -67,6 +68,7 @@ import { SidenavComponent } from './sidenav/sidenav.component';
     MatTooltipModule,
     MatButtonModule,
     MatTabsModule,
+    MatDividerModule,
     MatCardModule,
     MatSnackBarModule,
     MatDialogModule,

@@ -24,33 +24,48 @@ export class RetirementChartComponent implements OnChanges {
         },
         xAxis: {
             type: 'category',
-            boundaryGap: false
         },
         yAxis: {
             type: 'value'
         },
         series: [
             {
-                name: 'Retirement Dollars',
+                name: 'Principal',
                 type: 'bar',
-                smooth: true,
-                symbol: 'none',
-                areaStyle: {},
-                data: [{}]
-            }
+                stack: 'total',
+                label: {
+                    show: true
+                },
+                emphasis: {
+                    focus: 'series'
+                },
+                data: []
+            },
+            {
+                name: 'Growth',
+                type: 'bar',
+                stack: 'total',
+                label: {
+                    show: true
+                },
+                emphasis: {
+                    focus: 'series'
+                },
+                data: []
+            },
         ]
     };
 
     ngOnChanges(changes): void {
         if (changes.retirementData.currentValue != undefined && changes.retirementData.currentValue.length > 0) {
             setTimeout(() => {
-
                 this.lineChart = echarts.init(this.line.nativeElement);
                 this.lineChart.setOption({
                     series:
-                    {
-                        data: changes.retirementData.currentValue
-                    }
+                        [
+                            { data: changes.retirementData.currentValue },
+                            { data: changes.retirementData.currentValue }
+                        ]
                 }
                 )
             }, 60)

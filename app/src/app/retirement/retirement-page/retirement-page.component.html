@@ -1,17 +1,18 @@
-<div class="header">Retirement</div>
-<div fxLayout="row" fxLayoutAlign="center">
-    <div class="left">
-        <app-retirement-form (timelineChangeEvent)="setTimeline($event)"
-            (retirementNumberEvent)="setRetirementNumber($event)"></app-retirement-form>
+<main @fadeInOut>
+    <div class="header">Retirement</div>
+    <div fxLayout="row" fxLayoutAlign="center">
+        <div class="left">
+            <app-retirement-form (timelineChangeEvent)="setTimeline($event)"
+                (retirementNumberEvent)="setRetirementNumber($event)"></app-retirement-form>
+        </div>
+        <div class="right" fxLayout="row" fxLayoutAlign="center center">
+            <mat-card *ngIf="numberToDisplay">
+                <h1>Total retirement savings at your planned retirement date</h1>
+                <h2 fxLayoutAlign="center center" class="primary-color">{{ numberToDisplay }}</h2>
+            </mat-card>
+        </div>
     </div>
-    <div class="right" fxLayout="row" fxLayoutAlign="center center">
-        <mat-card *ngIf="numberToDisplay">
-            <h1>Total retirement savings at your planned retirement date</h1>
-            <h2 fxLayoutAlign="center center" class="primary-color">{{ numberToDisplay }}</h2>
-        </mat-card>
-        <!-- <app-retirement-presentation [textValue]="textToDisplayValue" [retirementValue]="numberToDisplay"></app-retirement-presentation> -->
+    <div fxLayout="row" fxLayoutAlign="center">
+        <app-retirement-chart [retirementData]="retirement"></app-retirement-chart>
     </div>
-</div>
-<div fxLayout="row" fxLayoutAlign="center">
-    <app-retirement-chart [retirementData]="retirement"></app-retirement-chart>
-</div>
+</main>

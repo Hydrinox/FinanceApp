@@ -12,10 +12,9 @@ export class RetirementCalcService {
   private formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'USD',
-    minimumFractionDigits: 2
   })
 
-  base: string = `${environment.API_URL}`;
+  private base: string = `${environment.API_URL}`;
 
   constructor(private http: HttpClient, private storageService: StorageService) { }
 

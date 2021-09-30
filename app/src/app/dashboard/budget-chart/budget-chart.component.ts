@@ -92,13 +92,14 @@ export class BudgetChartComponent implements OnChanges {
 
     //sets color of total sum, green for positive red for negative
     let totalColor: string = Math.sign(this.incomeSum - this.expenseSum) > 0 ? '#69f0ae' : '#ff4081';
+    let totalSum = this.incomeSum - this.expenseSum;
 
     setTimeout(() => {
       this.loading = false;
       this.chartControl = echarts.init(this.chart.nativeElement);
       this.chartControl.setOption({
         title: {
-          text: `$${this.incomeSum - this.expenseSum}`,
+          text: `$${totalSum}`,
           left: 'center',
           textStyle: {
             color: totalColor
