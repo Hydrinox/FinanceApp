@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnChanges, ViewChild } from '@angular/core';
 import * as echarts from 'echarts';
 import 'echarts/theme/dark.js';
 import { ThemeOption } from 'ngx-echarts';

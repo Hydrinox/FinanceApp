@@ -1,7 +1,4 @@
 import { Injectable } from '@angular/core';
-import { ExpenseItem } from '../models/ExpenseItem';
-import { IncomeItem } from '../models/IncomeItem';
-import { Retirement } from '../models/Retirement';
 import { StorageKey } from '../enums/storage.enum';
 
 @Injectable({

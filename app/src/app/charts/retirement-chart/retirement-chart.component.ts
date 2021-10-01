@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnChanges, ViewChild } from '@angular/core';
 import * as echarts from 'echarts';
 import { ThemeOption } from 'ngx-echarts';
 
@@ -24,35 +24,21 @@ export class RetirementChartComponent implements OnChanges {
         },
         xAxis: {
             type: 'category',
+            boundaryGap: false
         },
         yAxis: {
-            type: 'value'
+            type: 'value',
+            maxInterval: 250000
         },
         series: [
             {
-                name: 'Principal',
+                name: 'Retirement Dollars',
                 type: 'bar',
-                stack: 'total',
-                label: {
-                    show: true
-                },
-                emphasis: {
-                    focus: 'series'
-                },
-                data: []
-            },
-            {
-                name: 'Growth',
-                type: 'bar',
-                stack: 'total',
-                label: {
-                    show: true
-                },
-                emphasis: {
-                    focus: 'series'
-                },
-                data: []
-            },
+                smooth: true,
+                symbol: 'none',
+                areaStyle: {},
+                data: [{}]
+            }
         ]
     };
 

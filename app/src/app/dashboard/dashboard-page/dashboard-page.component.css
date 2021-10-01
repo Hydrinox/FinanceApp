@@ -4,11 +4,23 @@
 
 .retirement-number {
     text-align: center;
+    margin-bottom: 0px;
+}
+
+.bottom-number {
+    text-align: center;
+    margin-bottom: 0px;
+    color: rgb(73 146 255);
 }
 
 mat-divider {
     height: 100px;
     margin: 0px 10px;
+}
+
+.retirement-container {
+    text-align: center;
+    padding-top: 15px;
 }
 
 .header {
@@ -19,4 +31,20 @@ mat-divider {
 
 .dashboard-container {
     margin-top: 100px;
+}
+
+
+.card-section {
+    /* text-align: center; */
+    padding-top: 10px;
+}
+
+.total-section { 
+    text-align: center;
+    padding: 25px;
+}
+
+.description-text {
+    font-style: italic;
+    color: rgb(179 179 179);
 }

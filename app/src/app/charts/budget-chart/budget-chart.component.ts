@@ -1,8 +1,7 @@
-import { validateHorizontalPosition } from '@angular/cdk/overlay';
-import { ChangeDetectionStrategy, Component, ElementRef, Input, OnChanges, ViewChild } from '@angular/core';
+import { Component, Input, OnChanges, ViewChild } from '@angular/core';
 import * as echarts from 'echarts';
-import { ThemeOption } from "ngx-echarts";
 import 'echarts/theme/dark.js';
+import { ThemeOption } from "ngx-echarts";
 
 @Component({
   selector: 'app-budget-chart',

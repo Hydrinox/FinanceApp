@@ -6,24 +6,30 @@
                 <mat-card-header>
                     <mat-card-title>Retirement</mat-card-title>
                 </mat-card-header>
-                <div fxLayout="row" fxLayoutAlign="space-around center" class="retirement-container">
-                    <div *ngIf="retirementForm" class="contributions-section">
-                        <h1 class="retirement-number primary-color">${{ retirementForm.contributions }}</h1>
-                        Monthly Contributions
-                    </div>
-                    <mat-divider vertical></mat-divider>
-                    <div *ngIf="retirement" class="total-section">
-                        <h1 class="retirement-number primary-color">
-                            {{ retirement | slice:0:-3 }}
-                        </h1>
-                        Projected savings at retirement
-                    </div>
-                    <mat-divider vertical></mat-divider>
-                    <div *ngIf="retirement" class="total-section">
-                        <h1 class="retirement-number primary-color">
+                <div *ngIf="retirement" class="total-section">
+                    <h1 class="retirement-number primary-color">
+                        {{ retirement | slice:0:-3 }}
+                    </h1>
+                    <div class="description-text">Projected savings at retirement</div>
+                </div>
+                <div fxLayout="row" fxLayoutAlign="space-around" class="retirement-container">
+                    <div fxFlex="33" *ngIf="retirement" class="card-section">
+                        <h2 class="bottom-number">
                             {{ retirementForm.startPrincipal | currency: 'USD' : 'symbol' : '1.0-0' }}
-                        </h1>
-                        Initial Balance
+                        </h2>
+                        <div class="description-text">Initial Balance</div>
+                    </div>
+                    <mat-divider vertical></mat-divider>
+                    <div fxFlex="33" *ngIf="retirementForm" class="card-section">
+                        <h2 class="bottom-number">${{ retirementForm.contributions }}</h2>
+                        <div class="description-text">Monthly Contributions</div>
+                    </div>
+                    <mat-divider vertical></mat-divider>
+                    <div fxFlex="33" *ngIf="retirement" class="card-section">
+                        <h2 class="bottom-number">
+                            {{ totalContributions | currency: 'USD' : 'symbol' : '1.0-0' }}
+                        </h2>
+                        <div class="description-text">Growth</div>
                     </div>
                 </div>
             </mat-card>

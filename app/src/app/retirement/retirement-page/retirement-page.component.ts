@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { StorageKey } from 'src/app/enums/storage.enum';
 import { RetirementCalcService } from 'src/app/services/retirement-calc.service';
-import { StorageService } from 'src/app/services/storage.service';
 import { transitionAnimation } from "../../animations";
 
 @Component({
