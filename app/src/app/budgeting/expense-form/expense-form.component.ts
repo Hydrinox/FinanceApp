@@ -1,11 +1,8 @@
-import { Component, Inject, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Inject, OnInit, Output, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatTable } from '@angular/material/table';
-import { mergeMap } from 'rxjs/operators';
-import { StorageKey } from 'src/app/enums/storage.enum';
 import { ExpenseItem } from 'src/app/models/ExpenseItem';
 import { BudgetService } from 'src/app/services/budget.service';
-import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
   selector: 'app-expense-form',
@@ -16,11 +13,14 @@ export class ExpenseFormComponent implements OnInit {
   displayedColumns: string[] = ['name', 'amount', 'action'];
   expenseArray: Array<ExpenseItem>;
   step = 0;
+  @Output() expenseChanges = new EventEmitter<any>();
 
-  constructor(public dialog: MatDialog, private budgetService: BudgetService, private storageService: StorageService) { }
+  constructor(public dialog: MatDialog, private budgetService: BudgetService) { }
 
   async ngOnInit() {
-    this.budgetService.expenseRequest('get', '', null, '').then(res => this.expenseArray = res);
+    this.budgetService.expenseRequest('get', '', null, '').then(res => {
+      this.expenseArray = res;
+    });
   }
 
   @ViewChild(MatTable) table: MatTable<ExpenseItem>;
@@ -35,6 +35,7 @@ export class ExpenseFormComponent implements OnInit {
     if (newItem) {
       await this.budgetService.expenseRequest('post', '', newItem)
       this.expenseArray = await this.budgetService.expenseRequest('get', '', null, '');
+      this.expenseChanges.emit(this.expenseArray);
 
       this.table.renderRows();
     }
@@ -44,6 +45,7 @@ export class ExpenseFormComponent implements OnInit {
     if (newItem) {
       await this.budgetService.expenseRequest('patch', '', newItem, String(oldItem._id))
       this.expenseArray = await this.budgetService.expenseRequest('get', '', null, '');
+      this.expenseChanges.emit(this.expenseArray);
 
       this.table.renderRows();
     }
@@ -52,7 +54,7 @@ export class ExpenseFormComponent implements OnInit {
   async removeData(item: ExpenseItem) {
     await this.budgetService.expenseRequest('delete', '', null, String(item._id))
     this.expenseArray = await this.budgetService.expenseRequest('get', '', null, '');
-
+    this.expenseChanges.emit(this.expenseArray);
     this.table.renderRows();
   }
 

@@ -7,9 +7,9 @@
                     <mat-card-title>Retirement</mat-card-title>
                 </mat-card-header>
                 <div *ngIf="retirement" class="total-section">
-                    <h1 class="retirement-number primary-color">
+                    <div class="retirement-number primary-color">
                         {{ retirement | slice:0:-3 }}
-                    </h1>
+                    </div>
                     <div class="description-text">Projected savings at retirement</div>
                 </div>
                 <div fxLayout="row" fxLayoutAlign="space-around" class="retirement-container">

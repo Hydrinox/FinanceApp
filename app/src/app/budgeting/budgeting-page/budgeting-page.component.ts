@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit } from '@angular/core';
 import { ExpenseItem } from 'src/app/models/ExpenseItem';
+import { BudgetService } from 'src/app/services/budget.service';
 import { transitionAnimation } from "../../animations";
 
 
@@ -10,10 +11,15 @@ import { transitionAnimation } from "../../animations";
   animations: [transitionAnimation]
 })
 export class BudgetingPageComponent implements OnInit {
+  expenses: any;
 
-  constructor() { }
+  constructor(private budgetService: BudgetService) { }
 
   ngOnInit(): void {
+    this.budgetService.expenseRequest('get', '', null, '').then(res => this.expenses = res);
   }
 
+  displayExpenses(expensesOutput): void {
+    this.expenses = expensesOutput;
+  }
 }

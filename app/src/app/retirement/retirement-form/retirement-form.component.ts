@@ -44,9 +44,4 @@ export class RetirementFormComponent implements OnInit {
     this.retirementNumberEvent.emit(this.retirementCalc.calculateRetirementTotal(this.formModel));
     this.timelineChangeEvent.emit(this.retirementCalc.calculateRetirementTimeline(this.formModel));
   }
-
-  emitTextValue(event: any) {
-    //this.textDisplayEvent.emit(event.target.name);
-  }
-
 }
