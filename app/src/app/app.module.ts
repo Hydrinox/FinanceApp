@@ -36,6 +36,7 @@ import { BudgetFormDialog, ExpenseFormComponent } from './budgeting/expense-form
 import { IncomeFormComponent } from './budgeting/income-form/income-form.component';
 import { ExpenseChartComponent } from './charts/expense-chart/expense-chart.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
+import { BudgetStackedChartComponent } from './charts/budget-stacked-chart/budget-stacked-chart.component';
 
 
 @NgModule({
@@ -52,6 +53,7 @@ import { SidenavComponent } from './sidenav/sidenav.component';
     IncomeFormComponent,
     ExpenseChartComponent,
     SidenavComponent,
+    BudgetStackedChartComponent,
   ],
   imports: [
     BrowserModule,

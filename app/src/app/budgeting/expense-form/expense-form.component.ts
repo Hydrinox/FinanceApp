@@ -52,7 +52,7 @@ export class ExpenseFormComponent implements OnInit {
   }
 
   async removeData(item: ExpenseItem) {
-    await this.budgetService.expenseRequest('delete', '', null, String(item._id))
+    await this.budgetService.expenseRequest('delete', '', null, String(item._id));
     this.expenseArray = await this.budgetService.expenseRequest('get', '', null, '');
     this.expenseChanges.emit(this.expenseArray);
     this.table.renderRows();
