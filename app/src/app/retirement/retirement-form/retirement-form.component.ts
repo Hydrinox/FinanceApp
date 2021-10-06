@@ -18,13 +18,7 @@ export class RetirementFormComponent implements OnInit {
   constructor(private retirementCalc: RetirementCalcService, private storageService: StorageService) { }
 
   async ngOnInit() {
-    const formRes = this.storageService.getData(StorageKey.retirementForm);
-    if (formRes) {
-      this.formModel = JSON.parse(formRes);
-    } else {
-      const retireRes = await this.retirementCalc.retirementRequest('get', '', null, '');
-      this.formModel = retireRes;
-    }
+    this.formModel = await this.retirementCalc.retirementRequest('get', '', null, '');
     if (!this.formModel) {
       this.formModel = {
         currentAge: 18,
@@ -35,7 +29,7 @@ export class RetirementFormComponent implements OnInit {
       }
     }
     this.retirementNumberEvent.emit(this.retirementCalc.calculateRetirementTotal(this.formModel));
-
+    this.timelineChangeEvent.emit(this.retirementCalc.calculateRetirementTimeline(this.formModel));
   }
 
   async OnSubmit() {

@@ -1,15 +1,23 @@
 <h1 mat-dialog-title>Add Expense Item</h1>
 <div mat-dialog-content>
-  <form onsubmit="">
+  <form #wholeForm="ngForm">
     <mat-form-field class="formField">
-      <input matInput type="text" placeholder="Expense" name="nameField" [(ngModel)]="data.name">
+      <input matInput type="text" placeholder="Expense" #name="ngModel" name="name" [(ngModel)]="data.name" required>
+      <div *ngIf="name.invalid && (name.dirty || name.touched)">
+        Enter an expense name
+      </div>
     </mat-form-field>
     <mat-form-field class="formField">
       <span matPrefix>$&nbsp;</span>
-      <input matInput type="number" placeholder="Amount" name="amountField" [(ngModel)]="data.value">
+      <input matInput type="number" placeholder="Amount" #amount="ngModel" name="amount" [(ngModel)]="data.value"
+        required>
+      <div *ngIf="amount.invalid && (amount.dirty || amount.touched)">
+        Enter an amount
+      </div>
     </mat-form-field>
     <div class="button-container">
-      <button type="submit" color="primary" mat-raised-button [mat-dialog-close]="data">Submit</button>
+      <button type="submit" [disabled]="!wholeForm.form.valid" color="primary" mat-raised-button
+        [mat-dialog-close]="data">Save</button>
     </div>
   </form>
 </div>

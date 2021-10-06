@@ -130,7 +130,8 @@ export class BudgetStackedChartComponent implements OnChanges {
         text: `$${totalSum}`,
         left: 'center',
         textStyle: {
-          color: totalColor
+          color: totalColor,
+          fontSize: 25
         }
       },
       color: ['#3398DB'],

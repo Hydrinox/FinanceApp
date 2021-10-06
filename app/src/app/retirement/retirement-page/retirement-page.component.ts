@@ -9,14 +9,13 @@ import { transitionAnimation } from "../../animations";
   animations: [transitionAnimation]
 })
 export class RetirementPageComponent implements OnInit {
-  textToDisplayValue = '';
   numberToDisplay: number;
   retirement: any[];
 
   constructor(private retirementService: RetirementCalcService) { }
 
   async ngOnInit() {
-    this.retirementService.retirementRequest('get', '', null, '').then(res => this.retirement = this.retirementService.calculateRetirementTimeline(res));
+    // this.retirementService.retirementRequest('get', '', null, '').then(res => this.retirement = this.retirementService.calculateRetirementTimeline(res));
   }
 
   setTimeline(value: []) {

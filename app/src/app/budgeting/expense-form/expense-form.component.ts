@@ -61,23 +61,23 @@ export class ExpenseFormComponent implements OnInit {
   openDialog(item?: ExpenseItem): void {
     if (item) {
       var dialogRef = this.dialog.open(BudgetFormDialog, {
+        autoFocus: false,
         width: '250px',
         data: { name: item.name, value: item.value }
       });
 
       dialogRef.afterClosed().subscribe(result => {
-        console.log('The dialog was closed');
         this.editData(item, result)
       });
     }
     else {
       var dialogRef = this.dialog.open(BudgetFormDialog, {
+        autoFocus: false,
         width: '250px',
         data: { name: this.expenseArray['name'], value: this.expenseArray['value'] }
       });
 
       dialogRef.afterClosed().subscribe(result => {
-        console.log('The dialog was closed');
         this.addData(result)
       });
     }
