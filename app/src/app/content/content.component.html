@@ -1,0 +1,2 @@
+<app-sidenav *ngIf="loggedIn" (loggedInEvent)="setLoginStatus($event)"></app-sidenav>
+<app-login *ngIf="!loggedIn" (loggedInEvent)="setLoginStatus($event)"></app-login>

@@ -1,11 +1,14 @@
 const express = require('express');
 const router = express.Router();
+var passport = require('passport');
+require('../passport-setup');
 
-const Expense = require('../models/income');
+
+const Income = require('../models/income');
 
 
-router.get("/", (req, res, next) => {
-  Expense.find()
+router.get("/:user", (req, res, next) => {
+  Income.find({ _id: req.params.user })
     .exec()
     .then(result => {
       res.status(200).json(result[0]);
@@ -18,13 +21,16 @@ router.get("/", (req, res, next) => {
     });
 });
 
-router.post("/", (req, res, next) => {
-  const expense = new Expense({
+router.put("/:user", (req, res, next) => {
+  const id = req.params.user;
+  var query = {},
+    options = { upsert: true, new: true, setDefaultsOnInsert: true };
+  const income = new Income({
     value: req.body.body.value,
-    frequency: req.body.body.frequency
+    frequency: req.body.body.frequency,
+    _id: req.body.body.user
   });
-  expense
-    .save()
+  Income.findOneAndUpdate({ _id: id }, income, options)
     .then(result => {
       res.status(200).json({
         message: "Created income",

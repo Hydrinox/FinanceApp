@@ -5,7 +5,8 @@ const retireSchema = mongoose.Schema({
     retirementAge: Number,
     startPrincipal: Number,
     contributions: Number,
-    growthRate: Number
+    growthRate: Number,
+    user: String
 },
     { capped: { size: 1024, max: 1, autoIndexId: true } }
 );

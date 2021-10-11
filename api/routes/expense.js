@@ -4,10 +4,11 @@ const router = express.Router();
 const Expense = require('../models/expense');
 
 
-router.get("/", (req, res, next) => {
-  Expense.find()
+router.get("/:user", (req, res, next) => {
+  Expense.find({ user: req.params.user })
     .exec()
     .then(docs => {
+      console.log("these are expenses", docs)
       res.status(200).json(docs);
     })
     .catch(err => {
@@ -19,9 +20,11 @@ router.get("/", (req, res, next) => {
 });
 
 router.post("/", (req, res, next) => {
+
   const expense = new Expense({
     name: req.body.body.name,
-    value: req.body.body.value
+    value: req.body.body.value,
+    user: req.body.body.user
   });
   expense
     .save()

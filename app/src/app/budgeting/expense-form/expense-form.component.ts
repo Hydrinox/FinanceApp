@@ -33,7 +33,7 @@ export class ExpenseFormComponent implements OnInit {
 
   async addData(newItem: ExpenseItem) {
     if (newItem) {
-      await this.budgetService.expenseRequest('post', '', newItem)
+      await this.budgetService.expenseRequest('post', '', newItem);
       this.expenseArray = await this.budgetService.expenseRequest('get', '', null, '');
       this.expenseChanges.emit(this.expenseArray);
 

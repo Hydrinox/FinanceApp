@@ -25,7 +25,8 @@ export class RetirementFormComponent implements OnInit {
         retirementAge: 65,
         startPrincipal: 10000,
         contributions: 100,
-        growthRate: 7
+        growthRate: 7,
+        user: ''
       }
     }
     this.retirementNumberEvent.emit(this.retirementCalc.calculateRetirementTotal(this.formModel));

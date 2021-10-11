@@ -21,6 +21,7 @@ export class RetirementCalcService {
   async retirementRequest(requestType: string, url: string, body: Retirement, retirementId: string = '') {
     if (requestType === 'post' || requestType === 'patch') {
       try {
+        body.user = await this.storageService.getUserID();
         const res = await this.http[requestType]<Retirement>(`${this.base}/retirement/${retirementId}`, { body }).toPromise();
         this.storageService.setData(StorageKey.retirementForm, res);
       } catch (e) {

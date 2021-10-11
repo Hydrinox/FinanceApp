@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IncomeItem } from 'src/app/models/IncomeItem';
 import { Retirement } from 'src/app/models/Retirement';
+import { AuthService } from 'src/app/services/auth.service';
 import { BudgetService } from 'src/app/services/budget.service';
 import { RetirementCalcService } from 'src/app/services/retirement-calc.service';
 import { transitionAnimation } from "../../animations";
@@ -19,13 +20,14 @@ export class DashboardPageComponent implements OnInit {
   retirementForm: Retirement;
   totalContributions: number;
 
-  constructor(private budgetService: BudgetService, private retirementService: RetirementCalcService) { }
+  constructor(private budgetService: BudgetService, private retirementService: RetirementCalcService, private auth: AuthService) { }
 
 
   async ngOnInit() {
-    this.budgetService.expenseRequest('get', '', null, '').then(res => this.expenses = res);
-    this.budgetService.incomeRequest('get', '', null, '').then(res => this.income = res);
-    this.retirementService.retirementRequest('get', '', null, '').then(res => {
+    let user = await this.auth.getUser();
+    await this.budgetService.expenseRequest('get', '', null, user.googleId).then(res => this.expenses = res);
+    await this.budgetService.incomeRequest('get', '', null, user.googleId).then(res => this.income = res);
+    await this.retirementService.retirementRequest('get', '', null, user.googleId).then(res => {
       this.retirement = this.retirementService.calculateRetirementTotal(res);
       this.retirementForm = res;
       this.totalContributions = res.startPrincipal + (res.retirementAge - res.currentAge) * 12 * res.contributions;

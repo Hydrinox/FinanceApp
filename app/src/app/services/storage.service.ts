@@ -20,4 +20,13 @@ export class StorageService {
   removeData(key: StorageKey) {
     localStorage.removeItem(key);
   }
+
+  removeAll() {
+    localStorage.clear();
+  }
+
+  getUserID() {
+    let user = JSON.parse(localStorage.getItem(StorageKey.userData));
+    return user.googleId;
+  }
 }

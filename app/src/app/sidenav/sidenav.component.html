@@ -1,4 +1,4 @@
-<mat-sidenav-container fullscreen class="sidenav-container">
+<mat-sidenav-container fullscreen class="sidenav-container" fxLayout="column" fxFill>
     <mat-sidenav mode="side" opened="true" class="sidenav-content">
         <mat-nav-list>
             <mat-list-item routerLink="dashboard" routerLinkActive="active primary-color">
@@ -16,7 +16,6 @@
                     <h2 class="lead">Retirement</h2>
                 </div>
             </mat-list-item>
-
             <mat-list-item routerLink="/budgeting" routerLinkActive="active primary-color">
                 <mat-icon mat-list-icon>monetization_on</mat-icon>
                 <div fxFlex="10"></div>
@@ -24,6 +23,22 @@
                     <h2>Budgeting</h2>
                 </div>
             </mat-list-item>
+            <span fxFill></span>
+            <div class="nav-footer" fxLayout="row" fxLayoutAlign="center center">
+                <div class="profile-section primary-color">
+                    {{ userDisplayName }}
+                    <br>
+                    <button mat-flat-button class="footer-button primary-color" fxLayout="column" (click)="showUser()">
+                        <img style="height: 50px; width: 50px;" [src]="userImage" />
+
+                    </button>
+                </div>
+                <button mat-flat-button class="footer-button primary-color" (click)="logout()">
+                    Logout
+                    <br>
+                    <mat-icon mat-list-icon>logout</mat-icon>
+                </button>
+            </div>
         </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content class="main-content">
