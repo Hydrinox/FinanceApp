@@ -19,19 +19,23 @@ router.get("/:user", (req, res, next) => {
         });
 });
 
-router.post("/", (req, res, next) => {
+router.put("/:user", (req, res, next) => {
+    const id = req.params.user;
+    var options = { upsert: true, new: true, setDefaultsOnInsert: true };
+
     const retirement = new Retirement({
         currentAge: req.body.body.currentAge,
         retirementAge: req.body.body.retirementAge,
         startPrincipal: req.body.body.startPrincipal,
         contributions: req.body.body.contributions,
         growthRate: req.body.body.growthRate,
-        user: req.body.body.user
+        _id: req.body.body.user
     });
-    retirement
-        .save()
+    Retirement.findOneAndUpdate({ _id: id }, retirement, options)
         .then(result => {
-            res.status(200).json(result);
+            res.status(200).json({
+                message: "Created retirement",
+            })
         })
         .catch(err => {
             res.status(500).json({

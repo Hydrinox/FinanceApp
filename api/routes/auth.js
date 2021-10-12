@@ -13,11 +13,9 @@ var isLoggedIn = (req, res, next) => {
 
 router.get('/auth/fail', (req, res) => {
     res.send(false);
-    console.log("session after logout", req.session)
 });
 router.get('/auth', isLoggedIn, (req, res) => {
     res.send(true);
-    console.log("this is auth session", req.user)
 });
 router.get('/auth/user', isLoggedIn, function (req, res) {
     res.status(200).send(req.user);
@@ -37,10 +35,11 @@ router.get('/auth/google/callback',
     });
 
 router.get('/auth/logout', (req, res) => {
+    req.session.destroy();
     req.logout();
     res.clearCookie('connect.sid');
     req.session = null;
-    res.redirect('/auth');
+    res.redirect('/auth/fail');
 })
 
 module.exports = router;

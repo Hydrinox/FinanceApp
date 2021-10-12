@@ -15,7 +15,6 @@ export class SidenavComponent implements OnInit {
   constructor(private auth: AuthService, private route: Router, private storage: StorageService) { }
 
   async ngOnInit() {
-
     await this.auth.getUser().then(res => {
       this.userDisplayName = res.displayName;
       this.userImage = res.image;

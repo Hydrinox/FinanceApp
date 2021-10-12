@@ -25,7 +25,8 @@ export class LoginComponent implements OnInit {
 
   async submitLogin() {
     try {
-      if (this.auth.login()) {
+      let loginRes = await this.auth.login();
+      if (loginRes) {
         let res = await this.auth.isAuthenticated();
         this.loggedInEvent.emit(res);
         this.auth.getUser().then(() => {

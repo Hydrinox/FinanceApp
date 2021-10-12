@@ -8,7 +8,6 @@ router.get("/:user", (req, res, next) => {
   Expense.find({ user: req.params.user })
     .exec()
     .then(docs => {
-      console.log("these are expenses", docs)
       res.status(200).json(docs);
     })
     .catch(err => {

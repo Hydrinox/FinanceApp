@@ -23,8 +23,7 @@ router.get("/:user", (req, res, next) => {
 
 router.put("/:user", (req, res, next) => {
   const id = req.params.user;
-  var query = {},
-    options = { upsert: true, new: true, setDefaultsOnInsert: true };
+  var options = { upsert: true, new: true, setDefaultsOnInsert: true };
   const income = new Income({
     value: req.body.body.value,
     frequency: req.body.body.frequency,

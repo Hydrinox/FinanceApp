@@ -34,7 +34,7 @@ export class RetirementFormComponent implements OnInit {
   }
 
   async OnSubmit() {
-    await this.retirementCalc.retirementRequest('post', '', this.formModel);
+    await this.retirementCalc.retirementRequest('put', '', this.formModel);
     this.retirementNumber = this.retirementCalc.calculateRetirementTotal(this.formModel);
     this.retirementNumberEvent.emit(this.retirementCalc.calculateRetirementTotal(this.formModel));
     this.timelineChangeEvent.emit(this.retirementCalc.calculateRetirementTimeline(this.formModel));

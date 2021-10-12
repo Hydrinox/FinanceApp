@@ -19,22 +19,32 @@ export class RetirementCalcService {
   constructor(private http: HttpClient, private storageService: StorageService) { }
 
   async retirementRequest(requestType: string, url: string, body: Retirement, retirementId: string = '') {
-    if (requestType === 'post' || requestType === 'patch') {
+    if (requestType === 'put' || requestType === 'post') {
       try {
         body.user = await this.storageService.getUserID();
-        const res = await this.http[requestType]<Retirement>(`${this.base}/retirement/${retirementId}`, { body }).toPromise();
-        this.storageService.setData(StorageKey.retirementForm, res);
+        const res = await this.http[requestType]<Retirement>(`${this.base}/retirement/${body.user}`, { body }).toPromise();
+        const getRes: any = await this.http.get<Retirement>(`${this.base}/retirement/${body.user}`).toPromise();
+        this.storageService.setData(StorageKey.retirementForm, getRes);
+        return res;
       } catch (e) {
         console.log('retirement service error', e)
       }
     } else {
       try {
-        let retirementStorage = this.storageService.getData(StorageKey.retirementForm);
-        if (retirementStorage) {
-          return JSON.parse(retirementStorage);
+        if (requestType === 'get') {
+          let retireStorage = this.storageService.getData(StorageKey.retirementForm);
+          if (retireStorage) {
+            return JSON.parse(retireStorage);
+          }
+          const res: any = await this.http[requestType]<Retirement>(`${this.base}/retirement/${retirementId}`).toPromise();
+          this.storageService.setData(StorageKey.retirementForm, res);
+          return res;
+
         }
-        const res = await this.http[requestType]<Retirement>(`${this.base}/retirement/${retirementId}`).toPromise();
-        this.storageService.setData(StorageKey.retirementForm, res);
+        const res: any = await this.http[requestType]<Retirement>(`${this.base}/retirement/${retirementId}`).toPromise();
+        const getRes: any = await this.http.get(`${this.base}/retirement/${body.user}`);
+        this.storageService.setData(StorageKey.retirementForm, getRes);
+
         return res;
       } catch (e) {
         console.log('retirement service error', e)

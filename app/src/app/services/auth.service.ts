@@ -12,14 +12,16 @@ export class AuthService {
   constructor(private http: HttpClient, private storage: StorageService) { }
 
   async login() {
-    let callback;
+    let response;
     const win = window.open('http://localhost:3000/auth/google', "mywindow", "location=1,status=1,scrollbars=1, width=800,height=800");
     window.addEventListener('message', (message) => {
       //message will contain facebook user and details
-      if (message) {
-        return this.isAuthenticated();
-      }
+      console.log("this is message var", message);
+      response = message;
     });
+    const res = await response.json();
+    console.log("this is json response", res);
+    return res;
   }
 
   async isAuthenticated(): Promise<boolean> {
@@ -48,7 +50,7 @@ export class AuthService {
       return [];
     }
     this.storage.setData(StorageKey.userData, JSON.parse(res));
-    return res;
+    return JSON.parse(res);
   }
 
   async logout() {
