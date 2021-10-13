@@ -25,7 +25,8 @@
             </div>
         </mat-form-field>
 
-        <button type="submit" [disabled]="!wholeForm.form.valid" color="primary" mat-raised-button>Register</button>
+        <button type="submit" [disabled]="!wholeForm.form.valid || !wholeForm.form.dirty" color="primary"
+            mat-raised-button>Register</button>
 
     </form>
 </div>

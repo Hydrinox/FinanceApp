@@ -29,7 +29,7 @@
                     </div>
                 </mat-form-field>
                 <button class="login-button" mat-raised-button color="primary" type="submit"
-                    [disabled]="!form.form.valid">Login</button>
+                    [disabled]="!form.form.valid || !form.form.dirty">Login</button>
             </form>
             <br>
             <br>

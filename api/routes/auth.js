@@ -42,23 +42,31 @@ router.post('/auth/signin', (req, res) => {
 });
 
 router.post('/auth/register', (req, res) => {
-    //Check if user exists
+    //Check if username already exists
     User.findOne({ username: req.body.username })
         .then(user => {
             if (user) {
-                return res.status(404).send({ message: "User already registered." });
+                return res.status(404).send({ message: "Username already registered." });
             } else {
-                // Save User to Database
-                User.create({
-                    username: req.body.username,
-                    email: req.body.email,
-                    password: bcrypt.hashSync(req.body.password, 8)
-                })
+                //Check if email already exists
+                User.findOne({ email: req.body.email })
                     .then(user => {
-                        res.status(200).send({ message: `${user.username} registered successfully!` });
-                    })
-                    .catch(err => {
-                        res.status(500).send({ message: err.message });
+                        if (user) {
+                            return res.status(404).send({ message: "Email already registered" })
+                        } else {
+                            // Save User to Database
+                            User.create({
+                                username: req.body.username,
+                                email: req.body.email,
+                                password: bcrypt.hashSync(req.body.password, 8)
+                            })
+                                .then(user => {
+                                    res.status(200).send({ message: `${user.username} registered successfully!` });
+                                })
+                                .catch(err => {
+                                    res.status(500).send({ message: err.message });
+                                });
+                        }
                     });
             }
         })
