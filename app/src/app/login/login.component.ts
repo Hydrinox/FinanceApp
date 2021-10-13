@@ -1,7 +1,10 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 import { transitionAnimation } from '../animations';
+import { StorageKey } from '../enums/storage.enum';
 import { AuthService } from '../services/auth.service';
+import { StorageService } from '../services/storage.service';
 
 @Component({
   selector: 'app-login',
@@ -11,35 +14,48 @@ import { AuthService } from '../services/auth.service';
 })
 export class LoginComponent implements OnInit {
   hidePassword = true;
-  @Output() loggedInEvent = new EventEmitter();
-  constructor(private auth: AuthService, private router: Router) { }
+
+  constructor(private auth: AuthService, private storage: StorageService, private router: Router) { }
+
+  loginForm: any = {
+    username: null,
+    password: null
+  }
 
   async ngOnInit() {
-    let loggedIn = await this.checkAuthentication();
-    if (loggedIn) {
-      this.router.navigate(['/dashboard']);
-    } else {
-      this.loggedInEvent.emit(loggedIn);
+    let tokenStore = this.storage.getUserID();
+    if (tokenStore) {
+      this.auth.isAuthenticated().subscribe(
+        res => {
+          if (res) {
+            this.router.navigate(['/dashboard']);
+          }
+          err => {
+            console.log("login init error", err);
+            environment.loggedIn = false;
+          }
+        }
+      );
     }
   }
 
   async submitLogin() {
     try {
-      let loginRes = await this.auth.login();
-      if (loginRes) {
-        let res = await this.auth.isAuthenticated();
-        this.loggedInEvent.emit(res);
-        this.auth.getUser().then(() => {
+      this.auth.login(this.loginForm.username, this.loginForm.password).subscribe(
+        res => {
+          this.storage.saveToken(res.authToken);
+          this.storage.saveUser(res);
+          environment.loggedIn = true;
+        },
+        err => console.log("this is error", err),
+        () => {
           this.router.navigate(['/dashboard']);
-        });
-      }
+          console.log("haha");
+        }
+      );
     }
     catch (err) {
       console.log("this is login fail", err);
     }
-  }
-
-  checkAuthentication(): Promise<boolean> {
-    return this.auth.isAuthenticated();
   }
 }

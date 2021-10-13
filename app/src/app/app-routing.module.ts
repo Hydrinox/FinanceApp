@@ -5,12 +5,13 @@ import { DashboardPageComponent } from './dashboard/dashboard-page/dashboard-pag
 import { LoginComponent } from './login/login.component';
 import { RetirementPageComponent } from './retirement/retirement-page/retirement-page.component';
 import { AuthGuardService } from "./services/auth-guard.service";
+import { LoggedinAuthGuardService } from './services/loggedin-auth-guard.service';
 
 const routes: Routes = [
   { path: 'dashboard', component: DashboardPageComponent, canActivate: [AuthGuardService] },
-  { path: 'budgeting', component: BudgetingPageComponent },
-  { path: 'retirement', component: RetirementPageComponent },
-  { path: 'login', component: LoginComponent },
+  { path: 'budgeting', component: BudgetingPageComponent, canActivate: [AuthGuardService] },
+  { path: 'retirement', component: RetirementPageComponent, canActivate: [AuthGuardService] },
+  { path: 'login', component: LoginComponent, canActivate: [LoggedinAuthGuardService] },
   { path: '', redirectTo: 'dashboard', pathMatch: 'full', canActivate: [AuthGuardService] }
 ];
 

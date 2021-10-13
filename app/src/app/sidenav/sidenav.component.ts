@@ -1,5 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
+import { StorageKey } from '../enums/storage.enum';
 import { AuthService } from '../services/auth.service';
 import { StorageService } from '../services/storage.service';
 
@@ -9,16 +11,13 @@ import { StorageService } from '../services/storage.service';
   styleUrls: ['./sidenav.component.css']
 })
 export class SidenavComponent implements OnInit {
-  @Output() loggedInEvent = new EventEmitter();
+  showSideNav: boolean = environment.loggedIn;
   userDisplayName: string = '';
-  userImage: string = '';
-  constructor(private auth: AuthService, private route: Router, private storage: StorageService) { }
+  constructor(private route: Router, private storage: StorageService) { }
 
-  async ngOnInit() {
-    await this.auth.getUser().then(res => {
-      this.userDisplayName = res.displayName;
-      this.userImage = res.image;
-    });
+  ngOnInit() {
+    let user = this.storage.getData(StorageKey.userData);
+    this.userDisplayName = user.username;
   }
 
   showUser() {
@@ -26,9 +25,8 @@ export class SidenavComponent implements OnInit {
   }
 
   async logout() {
-    await this.auth.logout();
     this.storage.removeAll();
-    this.loggedInEvent.emit(false);
+    environment.loggedIn = false;
     this.route.navigate(['/login'])
   }
 

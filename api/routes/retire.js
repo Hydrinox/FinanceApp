@@ -5,8 +5,7 @@ const Retirement = require('../models/retirement');
 
 
 router.get("/:user", (req, res, next) => {
-    const id = req.params.user;
-    Retirement.find({ user: req.params.user })
+    Retirement.find({ _id: req.params.user })
         .exec()
         .then(result => {
             res.status(200).json(result[0]);
@@ -24,12 +23,12 @@ router.put("/:user", (req, res, next) => {
     var options = { upsert: true, new: true, setDefaultsOnInsert: true };
 
     const retirement = new Retirement({
-        currentAge: req.body.body.currentAge,
-        retirementAge: req.body.body.retirementAge,
-        startPrincipal: req.body.body.startPrincipal,
-        contributions: req.body.body.contributions,
-        growthRate: req.body.body.growthRate,
-        _id: req.body.body.user
+        currentAge: req.body.currentAge,
+        retirementAge: req.body.retirementAge,
+        startPrincipal: req.body.startPrincipal,
+        contributions: req.body.contributions,
+        growthRate: req.body.growthRate,
+        _id: req.body.user
     });
     Retirement.findOneAndUpdate({ _id: id }, retirement, options)
         .then(result => {

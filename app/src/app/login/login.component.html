@@ -5,14 +5,16 @@
                 <mat-card-title>Login</mat-card-title>
             </div>
             <form class="income-form" fxLayout="column" fxLayoutAlign="center"
-                (ngSubmit)="submitLogin(); loginForm.form.markAsPristine();" #loginForm="ngForm">
+                (ngSubmit)="submitLogin(); form.form.markAsPristine();" #form="ngForm">
                 <mat-form-field appearance="fill">
                     <mat-label>Username</mat-label>
-                    <input matInput>
+                    <input matInput type="text" [(ngModel)]="loginForm.username" #usernameControl="ngModel"
+                        name="username">
                 </mat-form-field>
                 <mat-form-field appearance="fill">
                     <mat-label>Password</mat-label>
-                    <input matInput [type]="hidePassword ? 'password' : 'text'">
+                    <input matInput [(ngModel)]="loginForm.password" #passwordControl="ngModel" name="password"
+                        [type]="hidePassword ? 'password' : 'text'">
                     <button type="button" mat-icon-button matSuffix (click)="hidePassword = !hidePassword"
                         [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
                         <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
@@ -25,7 +27,7 @@
             <div class="signup-section" fxLayout="row" fxLayoutAlign="start center">
                 <span>Don't have an account?</span>
                 <span fxflex style="flex: 1 1 1e-09px;box-sizing: border-box;-webkit-box-flex: 1;"></span>
-                <a mat-button (click)="checkAuthentication()">Sign Up</a>
+                <a mat-button>Sign Up</a>
             </div>
         </mat-card>
     </div>

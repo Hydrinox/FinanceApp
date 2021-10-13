@@ -36,7 +36,7 @@ export class BudgetService {
     if (requestType === 'post' || requestType === 'patch') {
       try {
         body.user = this.storageService.getUserID();
-        const res: any = await this.http[requestType]<ExpenseItem | ExpenseItem[]>(`${this.base}/expenses/${expenseId}`, { body }).toPromise();
+        const res: any = await this.http[requestType]<ExpenseItem | ExpenseItem[]>(`${this.base}/expenses/${expenseId}`, body).toPromise();
         const getRes: any = await this.http.get<ExpenseItem | ExpenseItem[]>(`${this.base}/expenses/${body.user}`).toPromise();
         this.storageService.setData(StorageKey.expenseData, getRes);
         return res;
@@ -49,8 +49,10 @@ export class BudgetService {
         if (requestType === 'get') {
           let expenseStorage = this.storageService.getData(StorageKey.expenseData);
           if (expenseStorage) {
-            return JSON.parse(expenseStorage);
+            return expenseStorage;
           }
+          expenseId = await this.storageService.getUserID();
+
           const res: any = await this.http[requestType]<ExpenseItem | ExpenseItem[]>(`${this.base}/expenses/${expenseId}`).toPromise();
           this.storageService.setData(StorageKey.expenseData, res);
           return res;
@@ -71,31 +73,32 @@ export class BudgetService {
     if (requestType === 'post' || requestType === 'put') {
       try {
         body.user = await this.storageService.getUserID();
-        const res = await this.http[requestType]<IncomeItem>(`${this.base}/income/${body.user}`, { body }).toPromise();
+        const res = await this.http[requestType]<IncomeItem>(`${this.base}/income/${body.user}`, body).toPromise();
         const getRes = await this.http.get<IncomeItem>(`${this.base}/income/${body.user}`).toPromise();
         this.storageService.setData(StorageKey.incomeData, getRes);
 
         return res;
       } catch (e) {
-        console.log('budget service error', e)
+        console.log('income service error', e)
       }
     } else {
       try {
         if (requestType === 'get') {
           let incomeStorage = this.storageService.getData(StorageKey.incomeData);
           if (incomeStorage) {
-            return JSON.parse(incomeStorage);
+            return incomeStorage;
           }
+          incomeId = await this.storageService.getUserID();
           const res = await this.http[requestType]<IncomeItem>(`${this.base}/income/${incomeId}`).toPromise();
           this.storageService.setData(StorageKey.incomeData, res);
           return res;
         }
         const res = await this.http[requestType]<IncomeItem>(`${this.base}/income/${incomeId}`).toPromise();
-        const getRes: any = await this.http.get<ExpenseItem | ExpenseItem[]>(`${this.base}/expenses`).toPromise();
+        const getRes: any = await this.http.get<ExpenseItem | ExpenseItem[]>(`${this.base}/income`).toPromise();
         this.storageService.setData(StorageKey.expenseData, getRes);
         return res;
       } catch (e) {
-        console.log('budget service error', e)
+        console.log('income service error', e)
       }
     }
   }

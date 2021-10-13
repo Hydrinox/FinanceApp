@@ -1,1 +1,2 @@
-<app-content></app-content>
+<app-sidenav *ngIf="env.loggedIn"></app-sidenav>
+<app-login *ngIf="!env.loggedIn"></app-login>

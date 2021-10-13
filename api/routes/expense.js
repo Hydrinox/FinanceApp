@@ -21,9 +21,9 @@ router.get("/:user", (req, res, next) => {
 router.post("/", (req, res, next) => {
 
   const expense = new Expense({
-    name: req.body.body.name,
-    value: req.body.body.value,
-    user: req.body.body.user
+    name: req.body.name,
+    value: req.body.value,
+    user: req.body.user
   });
   expense
     .save()
@@ -58,7 +58,7 @@ router.get("/:expenseId", (req, res, next) => {
 
 router.patch("/:expenseId", (req, res, next) => {
   const id = req.params.expenseId;
-  Expense.findOneAndUpdate({ _id: id }, req.body.body)
+  Expense.findOneAndUpdate({ _id: id }, req.body)
     .exec()
     .then(doc => {
       if (doc) {

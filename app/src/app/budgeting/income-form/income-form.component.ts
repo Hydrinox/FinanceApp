@@ -10,14 +10,18 @@ import { BudgetService } from 'src/app/services/budget.service';
 export class IncomeFormComponent implements OnInit {
   incomeForm = new IncomeItem();
   payFrequency: string;
-  incomeValue: number;
   @Output() incomeChanges = new EventEmitter<any>();
 
 
   constructor(private budgetService: BudgetService) { }
 
   async ngOnInit() {
-    this.budgetService.incomeRequest('get', '', null, '').then(res => this.incomeForm = res);
+    this.incomeForm = {
+      frequency: 'yearly',
+      value: 50000,
+      user: ''
+    }
+    await this.budgetService.incomeRequest('get', '', null, '').then(res => this.incomeForm = res);
   }
 
   async saveIncome() {

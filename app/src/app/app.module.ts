@@ -38,8 +38,6 @@ import { ExpenseChartComponent } from './charts/expense-chart/expense-chart.comp
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { BudgetStackedChartComponent } from './charts/budget-stacked-chart/budget-stacked-chart.component';
 import { LoginComponent } from './login/login.component';
-import { ContentComponent } from './content/content.component';
-
 
 @NgModule({
   declarations: [
@@ -57,7 +55,6 @@ import { ContentComponent } from './content/content.component';
     SidenavComponent,
     BudgetStackedChartComponent,
     LoginComponent,
-    ContentComponent,
   ],
   imports: [
     BrowserModule,

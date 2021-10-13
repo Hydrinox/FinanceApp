@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { StorageKey } from '../enums/storage.enum';
@@ -8,61 +8,29 @@ import { StorageService } from './storage.service';
   providedIn: 'root'
 })
 export class AuthService {
-
+  base: string = 'http://localhost:3000';
+  httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  };
   constructor(private http: HttpClient, private storage: StorageService) { }
 
-  async login() {
-    let response;
-    const win = window.open('http://localhost:3000/auth/google', "mywindow", "location=1,status=1,scrollbars=1, width=800,height=800");
-    window.addEventListener('message', (message) => {
-      //message will contain facebook user and details
-      console.log("this is message var", message);
-      response = message;
-    });
-    const res = await response.json();
-    console.log("this is json response", res);
-    return res;
+  login(username: string, password: string): Observable<any> {
+    return this.http.post(this.base + '/auth/signin', {
+      username,
+      password
+    }, this.httpOptions);
   }
 
-  async isAuthenticated(): Promise<boolean> {
-    try {
-      let res = await this.http.get('http://localhost:3000/auth', {
-        withCredentials: true,
-        responseType: 'text'
-      }).toPromise();
-      return res === 'true';
-    } catch (error) {
-      console.log(error)
-      return false;
-    }
+  register(email: string, username: string, password: string): Observable<any> {
+    return this.http.post(this.base + '/auth/register', {
+      email,
+      username,
+      password
+    }, this.httpOptions);
   }
 
-  async getUser() {
-    let userStorage = this.storage.getData(StorageKey.userData);
-    if (userStorage) {
-      return JSON.parse(userStorage);
-    }
-    let res = await this.http.get('http://localhost:3000/auth/user', {
-      withCredentials: true,
-      responseType: 'text'
-    }).toPromise();
-    if (res === 'false') {
-      return [];
-    }
-    this.storage.setData(StorageKey.userData, JSON.parse(res));
-    return JSON.parse(res);
-  }
-
-  async logout() {
-    try {
-      let res = await this.http.get('http://localhost:3000/auth/logout', {
-        withCredentials: true,
-        responseType: 'text'
-      }).toPromise();
-      return res === 'OK';
-    } catch (error) {
-      console.log(error)
-      return false;
-    }
+  isAuthenticated(): Observable<any> {
+    let token = this.storage.getToken();
+    return this.http.get(this.base + '/auth/authenticate', { headers: { Authorization: `Bearer ${token}` } });
   }
 }

@@ -22,7 +22,7 @@ export class RetirementCalcService {
     if (requestType === 'put' || requestType === 'post') {
       try {
         body.user = await this.storageService.getUserID();
-        const res = await this.http[requestType]<Retirement>(`${this.base}/retirement/${body.user}`, { body }).toPromise();
+        const res = await this.http[requestType]<Retirement>(`${this.base}/retirement/${body.user}`, body).toPromise();
         const getRes: any = await this.http.get<Retirement>(`${this.base}/retirement/${body.user}`).toPromise();
         this.storageService.setData(StorageKey.retirementForm, getRes);
         return res;
@@ -34,7 +34,7 @@ export class RetirementCalcService {
         if (requestType === 'get') {
           let retireStorage = this.storageService.getData(StorageKey.retirementForm);
           if (retireStorage) {
-            return JSON.parse(retireStorage);
+            return retireStorage;
           }
           const res: any = await this.http[requestType]<Retirement>(`${this.base}/retirement/${retirementId}`).toPromise();
           this.storageService.setData(StorageKey.retirementForm, res);

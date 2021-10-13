@@ -20,25 +20,18 @@ const bodyParser = require('body-parser');
 mongoose.connect(`mongodb://${config.dbHost}/${config.dbName}`);
 
 app.use(morgan("dev"));
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(cors());
-app.use(cors({ credentials: true, origin: 'http://localhost:4200' }));
+app.use(cors({ origin: 'http://localhost:4200' }));
 
-// app.use(cookieSession({
-//   name: 'sessionjkl',
-//   keys: ['key1', 'key2']
-// }))
 
-app.use(session({
-  secret: 'keyboard cat',
-  resave: false,
-  saveUninitialized: false,
-  store: MongoStore.create({ mongoUrl: `mongodb://${config.dbHost}/${config.dbName}` })
-}))
-
-app.use(passport.initialize());
-app.use(passport.session());
+app.use(function (req, res, next) {
+  res.header(
+    "Access-Control-Allow-Headers",
+    "x-access-token, Origin, Content-Type, Accept"
+  );
+  next();
+});
 
 app.use("/", authRoutes);
 app.use("/expenses", expenseRoutes);

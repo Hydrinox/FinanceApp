@@ -25,9 +25,9 @@ router.put("/:user", (req, res, next) => {
   const id = req.params.user;
   var options = { upsert: true, new: true, setDefaultsOnInsert: true };
   const income = new Income({
-    value: req.body.body.value,
-    frequency: req.body.body.frequency,
-    _id: req.body.body.user
+    value: req.body.value,
+    frequency: req.body.frequency,
+    _id: req.body.user
   });
   Income.findOneAndUpdate({ _id: id }, income, options)
     .then(result => {
