@@ -60,7 +60,7 @@ export class ExpenseFormComponent implements OnInit {
 
   openDialog(item?: ExpenseItem): void {
     if (item) {
-      var dialogRef = this.dialog.open(BudgetFormDialog, {
+      var dialogRef = this.dialog.open(ExpenseFormDialog, {
         autoFocus: false,
         width: '250px',
         data: { name: item.name, value: item.value }
@@ -71,7 +71,7 @@ export class ExpenseFormComponent implements OnInit {
       });
     }
     else {
-      var dialogRef = this.dialog.open(BudgetFormDialog, {
+      var dialogRef = this.dialog.open(ExpenseFormDialog, {
         autoFocus: false,
         width: '250px',
         data: { name: this.expenseArray['name'], value: this.expenseArray['value'] }
@@ -88,15 +88,16 @@ export class ExpenseFormComponent implements OnInit {
 
 }
 
+//Component for expense popup dialog
 @Component({
-  selector: 'budgeting-dialog',
-  templateUrl: './budgeting-dialog.html',
+  selector: 'expense-dialog',
+  templateUrl: './expense-dialog.html',
   styleUrls: ['./expense-form.component.css']
 })
-export class BudgetFormDialog {
+export class ExpenseFormDialog {
 
   constructor(
-    public dialogRef: MatDialogRef<BudgetFormDialog>,
+    public dialogRef: MatDialogRef<ExpenseFormDialog>,
     @Inject(MAT_DIALOG_DATA) public data: ExpenseItem) { }
 
   onNoClick(): void {

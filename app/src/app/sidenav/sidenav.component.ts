@@ -20,11 +20,7 @@ export class SidenavComponent implements OnInit {
     this.userDisplayName = user.username;
   }
 
-  showUser() {
-
-  }
-
-  async logout() {
+  logout() {
     this.storage.removeAll();
     environment.loggedIn = false;
     this.route.navigate(['/login'])

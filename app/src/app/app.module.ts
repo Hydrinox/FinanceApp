@@ -32,12 +32,12 @@ import { BudgetChartComponent } from './charts/budget-chart/budget-chart.compone
 import { RetirementChartComponent } from './charts/retirement-chart/retirement-chart.component';
 
 import 'echarts/theme/dark.js';
-import { BudgetFormDialog, ExpenseFormComponent } from './budgeting/expense-form/expense-form.component';
+import { ExpenseFormDialog, ExpenseFormComponent } from './budgeting/expense-form/expense-form.component';
 import { IncomeFormComponent } from './budgeting/income-form/income-form.component';
 import { ExpenseChartComponent } from './charts/expense-chart/expense-chart.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { BudgetStackedChartComponent } from './charts/budget-stacked-chart/budget-stacked-chart.component';
-import { LoginComponent } from './login/login.component';
+import { LoginComponent, RegisterFormDialog } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -48,13 +48,14 @@ import { LoginComponent } from './login/login.component';
     DashboardPageComponent,
     BudgetChartComponent,
     RetirementChartComponent,
-    BudgetFormDialog,
+    ExpenseFormDialog,
     ExpenseFormComponent,
     IncomeFormComponent,
     ExpenseChartComponent,
     SidenavComponent,
     BudgetStackedChartComponent,
     LoginComponent,
+    RegisterFormDialog
   ],
   imports: [
     BrowserModule,

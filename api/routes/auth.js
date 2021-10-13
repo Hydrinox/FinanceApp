@@ -9,7 +9,7 @@ router.post('/auth/signin', (req, res) => {
     User.findOne({ username: req.body.username })
         .then(user => {
             if (!user) {
-                return res.status(404).send({ message: "User Not found." });
+                return res.status(404).send({ message: "User Not found" });
             }
 
             var passwordIsValid = bcrypt.compareSync(
@@ -20,12 +20,12 @@ router.post('/auth/signin', (req, res) => {
             if (!passwordIsValid) {
                 return res.status(401).send({
                     accessToken: null,
-                    message: "Invalid Password!"
+                    message: "Invalid Password"
                 });
             }
 
             var token = jwt.sign({ id: user.id }, config.secret, {
-                expiresIn: 86400 // 24 hours
+                expiresIn: 1800 // 30 minutes
             });
 
 
@@ -46,7 +46,7 @@ router.post('/auth/register', (req, res) => {
     User.findOne({ username: req.body.username })
         .then(user => {
             if (user) {
-                return res.status(200).send({ message: "User already registered." });
+                return res.status(404).send({ message: "User already registered." });
             } else {
                 // Save User to Database
                 User.create({
@@ -55,7 +55,7 @@ router.post('/auth/register', (req, res) => {
                     password: bcrypt.hashSync(req.body.password, 8)
                 })
                     .then(user => {
-                        res.send({ message: `${user.username} registered successfully!` });
+                        res.status(200).send({ message: `${user.username} registered successfully!` });
                     })
                     .catch(err => {
                         res.status(500).send({ message: err.message });

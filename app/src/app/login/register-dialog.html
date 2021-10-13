@@ -1,0 +1,31 @@
+<h1 mat-dialog-title class="primary-color">Register Account</h1>
+<div *ngIf="errorMsg" class="error-section warn-color">{{ errorMsg }}</div>
+<div mat-dialog-content>
+    <form (ngSubmit)="onSubmit(); wholeForm.form.markAsPristine();" #wholeForm="ngForm" fxLayout="column"
+        fxLayoutAlign="center">
+        <mat-form-field class="formField">
+            <input matInput type="text" placeholder="Email" #email="ngModel" name="email"
+                [(ngModel)]="registerForm.email" required>
+            <div *ngIf="email.invalid && (email.dirty || email.touched)">
+                Enter email
+            </div>
+        </mat-form-field>
+        <mat-form-field class="formField">
+            <input matInput type="text" placeholder="Username" #username="ngModel" name="username"
+                [(ngModel)]="registerForm.username" required>
+            <div *ngIf="username.invalid && (username.dirty || username.touched)">
+                Enter username
+            </div>
+        </mat-form-field>
+        <mat-form-field class="formField">
+            <input matInput type="password" placeholder="Password" #password="ngModel" name="password"
+                [(ngModel)]="registerForm.password" required>
+            <div *ngIf="password.invalid && (password.dirty || password.touched)">
+                Enter password
+            </div>
+        </mat-form-field>
+
+        <button type="submit" [disabled]="!wholeForm.form.valid" color="primary" mat-raised-button>Register</button>
+
+    </form>
+</div>
