@@ -4,6 +4,7 @@ import { environment } from 'src/environments/environment';
 import { StorageKey } from '../enums/storage.enum';
 import { AuthService } from '../services/auth.service';
 import { StorageService } from '../services/storage.service';
+import { UtilsService } from '../services/utils.service';
 
 @Component({
   selector: 'app-sidenav',
@@ -13,7 +14,7 @@ import { StorageService } from '../services/storage.service';
 export class SidenavComponent implements OnInit {
   showSideNav: boolean = environment.loggedIn;
   userDisplayName: string = '';
-  constructor(private route: Router, private storage: StorageService) { }
+  constructor(private route: Router, private storage: StorageService, private utils: UtilsService) { }
 
   ngOnInit() {
     let user = this.storage.getData(StorageKey.userData);
@@ -21,9 +22,7 @@ export class SidenavComponent implements OnInit {
   }
 
   logout() {
-    this.storage.removeAll();
-    environment.loggedIn = false;
-    this.route.navigate(['/login'])
+    this.utils.logout();
   }
 
 }

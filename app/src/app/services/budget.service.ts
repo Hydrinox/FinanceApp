@@ -19,14 +19,18 @@ export class BudgetService {
   //TODO: need to refactor this
 
   async getExpenses() {
-    let user = await this.storageService.getUserID();
+    let user = this.storageService.getUserID();
+    if (!user) {
+      environment.loggedIn = false;
+      return false;
+    }
     const res: any = await this.http.get<ExpenseItem | ExpenseItem[]>(`${this.base}/expenses/${user}`).toPromise();
     this.storageService.setData(StorageKey.expenseData, res);
     return res;
   }
 
   async getIncome() {
-    let user = await this.storageService.getUserID();
+    let user = this.storageService.getUserID();
     const res: any = await this.http.get<IncomeItem | IncomeItem[]>(`${this.base}/expenses/${user}`).toPromise();
     this.storageService.setData(StorageKey.incomeData, res);
     return res;
