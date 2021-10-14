@@ -1,45 +1,9 @@
 const express = require('express');
 const router = express.Router();
-var passport = require('passport');
-require('../passport-setup');
+const controller = require('../controllers/income.controller');
 
+router.get("/:user", controller.getIncome);
 
-const Income = require('../models/income');
-
-
-router.get("/:user", (req, res, next) => {
-  Income.find({ _id: req.params.user })
-    .exec()
-    .then(result => {
-      res.status(200).json(result[0]);
-    })
-    .catch(err => {
-      console.log(err);
-      res.status(500).json({
-        error: err
-      });
-    });
-});
-
-router.put("/:user", (req, res, next) => {
-  const id = req.params.user;
-  var options = { upsert: true, new: true, setDefaultsOnInsert: true };
-  const income = new Income({
-    value: req.body.value,
-    frequency: req.body.frequency,
-    _id: req.body.user
-  });
-  Income.findOneAndUpdate({ _id: id }, income, options)
-    .then(result => {
-      res.status(200).json({
-        message: "Created income",
-      });
-    })
-    .catch(err => {
-      res.status(500).json({
-        error: err
-      });
-    });
-});
+router.put("/:user", controller.updateIncome);
 
 module.exports = router;

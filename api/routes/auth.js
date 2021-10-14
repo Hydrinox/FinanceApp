@@ -1,99 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const User = require('../models/user');
-const config = require('../config');
-var jwt = require("jsonwebtoken");
-var bcrypt = require("bcryptjs");
+const verifyToken = require('../middleware/verifyToken')
+const controller = require('../controllers/auth.controller')
 
-router.post('/auth/signin', (req, res) => {
-    User.findOne({ username: req.body.username })
-        .then(user => {
-            if (!user) {
-                return res.status(404).send({ message: "User Not found" });
-            }
+router.post('/auth/signin', controller.signin);
 
-            var passwordIsValid = bcrypt.compareSync(
-                req.body.password,
-                user.password
-            );
+router.post('/auth/register', controller.register);
 
-            if (!passwordIsValid) {
-                return res.status(401).send({
-                    accessToken: null,
-                    message: "Invalid Password"
-                });
-            }
-
-            var token = jwt.sign({ id: user.id }, config.secret, {
-                expiresIn: 1800 // 30 minutes
-            });
-
-
-            res.status(200).send({
-                id: user.id,
-                username: user.username,
-                email: user.email,
-                authToken: token
-            });
-        })
-        .catch(err => {
-            res.status(500).send({ message: err.message });
-        });
-});
-
-router.post('/auth/register', (req, res) => {
-    //Check if username already exists
-    User.findOne({ username: req.body.username })
-        .then(user => {
-            if (user) {
-                return res.status(404).send({ message: "Username already registered." });
-            } else {
-                //Check if email already exists
-                User.findOne({ email: req.body.email })
-                    .then(user => {
-                        if (user) {
-                            return res.status(404).send({ message: "Email already registered" })
-                        } else {
-                            // Save User to Database
-                            User.create({
-                                username: req.body.username,
-                                email: req.body.email,
-                                password: bcrypt.hashSync(req.body.password, 8)
-                            })
-                                .then(user => {
-                                    res.status(200).send({ message: `${user.username} registered successfully!` });
-                                })
-                                .catch(err => {
-                                    res.status(500).send({ message: err.message });
-                                });
-                        }
-                    });
-            }
-        })
-});
-
-router.get('/auth/authenticate', (req, res) => {
-    //Get token from request
-    let token = req.headers["authorization"];
-    if (!token) {
-        return res.status(403).send({
-            message: "No token provided!"
-        });
-    }
-    //Check that decoded token matches username
-    jwt.verify(req.headers["authorization"].split(" ")[1], config.secret, (err, decoded) => {
-        if (err) {
-            return res.status(401).send({
-                message: err
-            });
-        }
-        if (req.userId = decoded.id) {
-            return res.status(200).send({ message: "User Authenticated" });
-        }
-        return res.status(401).send({
-            message: "Unauthorized!"
-        });
-    });
-});
+router.get('/auth/authenticate', verifyToken);
 
 module.exports = router;
