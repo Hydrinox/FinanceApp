@@ -9,7 +9,7 @@ exports.authenticate = (req, res, next) => {
 }
 
 exports.signin = (req, res) => {
-    User.findOne({ username: req.body.username })
+    User.findOne({ username: req.body.username.toUpperCase() })
         .then(user => {
             if (!user) {
                 return res.status(404).send({ message: "User Not found" });
@@ -46,7 +46,7 @@ exports.signin = (req, res) => {
 
 exports.register = (req, res) => {
     //Check if username already exists
-    User.findOne({ username: req.body.username })
+    User.findOne({ username: req.body.username.toUpperCase() })
         .then(user => {
             if (user) {
                 return res.status(404).send({ message: "Username already registered." });
@@ -59,7 +59,7 @@ exports.register = (req, res) => {
                         } else {
                             // Save User to Database
                             User.create({
-                                username: req.body.username,
+                                username: req.body.username.toUpperCase(),
                                 email: req.body.email,
                                 password: bcrypt.hashSync(req.body.password, 8)
                             })

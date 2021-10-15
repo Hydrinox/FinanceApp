@@ -13,7 +13,7 @@ import { UtilsService } from './utils.service';
 })
 export class BudgetService {
   router: Router;
-  base: string = `${environment.API_URL}`;
+  baseURL: string = `${environment.API_URL}`;
 
   constructor(private http: HttpClient, private storageService: StorageService, private utils: UtilsService) { }
 
@@ -24,28 +24,28 @@ export class BudgetService {
       this.utils.logout();
       return null;
     }
-    const res: any = await this.http.get<ExpenseItem | ExpenseItem[]>(`${this.base}/expenses/${user}`).toPromise();
+    const res: any = await this.http.get<ExpenseItem | ExpenseItem[]>(`${this.baseURL}/expenses/${user}`).toPromise();
     this.storageService.setData(StorageKey.expenseData, res);
     return res;
   }
 
   async getIncome() {
     let user = this.storageService.getUserID();
-    const res: any = await this.http.get<IncomeItem | IncomeItem[]>(`${this.base}/expenses/${user}`).toPromise();
+    const res: any = await this.http.get<IncomeItem | IncomeItem[]>(`${this.baseURL}/expenses/${user}`).toPromise();
     this.storageService.setData(StorageKey.incomeData, res);
     return res;
   }
 
   async deleteExpense(expenseId: string) {
-    await this.http.delete(`${this.base}/expenses/${expenseId}`).toPromise();
+    await this.http.delete(`${this.baseURL}/expenses/${expenseId}`).toPromise();
   }
 
   async expenseRequest(requestType: string, url: string, body: ExpenseItem, expenseId: string = '') {
     if (requestType === 'post' || requestType === 'patch') {
       try {
         body.user = this.storageService.getUserID();
-        const res: any = await this.http[requestType]<ExpenseItem | ExpenseItem[]>(`${this.base}/expenses/${expenseId}`, body).toPromise();
-        const getRes: any = await this.http.get<ExpenseItem | ExpenseItem[]>(`${this.base}/expenses/${body.user}`).toPromise();
+        const res: any = await this.http[requestType]<ExpenseItem | ExpenseItem[]>(`${this.baseURL}/expenses/${expenseId}`, body).toPromise();
+        const getRes: any = await this.http.get<ExpenseItem | ExpenseItem[]>(`${this.baseURL}/expenses/${body.user}`).toPromise();
         this.storageService.setData(StorageKey.expenseData, getRes);
         return res;
       }
@@ -61,11 +61,11 @@ export class BudgetService {
           }
           expenseId = await this.storageService.getUserID();
 
-          const res: any = await this.http[requestType]<ExpenseItem | ExpenseItem[]>(`${this.base}/expenses/${expenseId}`).toPromise();
+          const res: any = await this.http[requestType]<ExpenseItem | ExpenseItem[]>(`${this.baseURL}/expenses/${expenseId}`).toPromise();
           this.storageService.setData(StorageKey.expenseData, res);
           return res;
         }
-        const res: any = await this.http[requestType]<ExpenseItem | ExpenseItem[]>(`${this.base}/expenses/${expenseId}`).toPromise();
+        const res: any = await this.http[requestType]<ExpenseItem | ExpenseItem[]>(`${this.baseURL}/expenses/${expenseId}`).toPromise();
         await this.getExpenses();
         return res;
       }
@@ -80,8 +80,8 @@ export class BudgetService {
     if (requestType === 'post' || requestType === 'put') {
       try {
         body.user = await this.storageService.getUserID();
-        const res = await this.http[requestType]<IncomeItem>(`${this.base}/income/${body.user}`, body).toPromise();
-        const getRes = await this.http.get<IncomeItem>(`${this.base}/income/${body.user}`).toPromise();
+        const res = await this.http[requestType]<IncomeItem>(`${this.baseURL}/income/${body.user}`, body).toPromise();
+        const getRes = await this.http.get<IncomeItem>(`${this.baseURL}/income/${body.user}`).toPromise();
         this.storageService.setData(StorageKey.incomeData, getRes);
 
         return res;
@@ -96,12 +96,12 @@ export class BudgetService {
             return incomeStorage;
           }
           incomeId = await this.storageService.getUserID();
-          const res = await this.http[requestType]<IncomeItem>(`${this.base}/income/${incomeId}`).toPromise();
+          const res = await this.http[requestType]<IncomeItem>(`${this.baseURL}/income/${incomeId}`).toPromise();
           this.storageService.setData(StorageKey.incomeData, res);
           return res;
         }
-        const res = await this.http[requestType]<IncomeItem>(`${this.base}/income/${incomeId}`).toPromise();
-        const getRes: any = await this.http.get<ExpenseItem | ExpenseItem[]>(`${this.base}/income`).toPromise();
+        const res = await this.http[requestType]<IncomeItem>(`${this.baseURL}/income/${incomeId}`).toPromise();
+        const getRes: any = await this.http.get<ExpenseItem | ExpenseItem[]>(`${this.baseURL}/income`).toPromise();
         this.storageService.setData(StorageKey.expenseData, getRes);
         return res;
       } catch (e) {
