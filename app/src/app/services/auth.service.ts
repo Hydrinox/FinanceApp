@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { StorageKey } from '../enums/storage.enum';
 import { StorageService } from './storage.service';
 
@@ -29,8 +29,9 @@ export class AuthService {
     }, this.httpOptions);
   }
 
-  isAuthenticated(): Observable<any> {
-    let token = this.storage.getToken();
-    return this.http.get(this.base + '/auth/authenticate', { headers: { Authorization: `Bearer ${token}` } });
+  isAuthenticated() {
+    let user = this.storage.getUserID();
+    return user ? true : false;
+    // return this.http.get(this.base + '/auth/authenticate', { headers: { Authorization: `Bearer ${token}` } });
   }
 }

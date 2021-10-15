@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const controller = require('../controllers/expense.controller');
+const verifyToken = require('../middleware/verifyToken')
+
 
 router.get("/:user", controller.findExpenses);
 

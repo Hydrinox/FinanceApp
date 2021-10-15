@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from "@angular/forms";
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -38,6 +38,7 @@ import { ExpenseChartComponent } from './charts/expense-chart/expense-chart.comp
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { BudgetStackedChartComponent } from './charts/budget-stacked-chart/budget-stacked-chart.component';
 import { LoginComponent, RegisterFormDialog } from './login/login.component';
+import { TokenInterceptorService } from './services/token-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -83,7 +84,9 @@ import { LoginComponent, RegisterFormDialog } from './login/login.component';
     }),
     FlexLayoutModule
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

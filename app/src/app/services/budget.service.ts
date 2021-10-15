@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
@@ -6,6 +6,7 @@ import { StorageKey } from '../enums/storage.enum';
 import { ExpenseItem } from '../models/ExpenseItem';
 import { IncomeItem } from "../models/IncomeItem";
 import { StorageService } from './storage.service';
+import { UtilsService } from './utils.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,15 +15,14 @@ export class BudgetService {
   router: Router;
   base: string = `${environment.API_URL}`;
 
-  constructor(private http: HttpClient, private storageService: StorageService) { }
-
-  //TODO: need to refactor this
+  constructor(private http: HttpClient, private storageService: StorageService, private utils: UtilsService) { }
 
   async getExpenses() {
+    //check if user in cache, 
     let user = this.storageService.getUserID();
     if (!user) {
-      environment.loggedIn = false;
-      return false;
+      this.utils.logout();
+      return null;
     }
     const res: any = await this.http.get<ExpenseItem | ExpenseItem[]>(`${this.base}/expenses/${user}`).toPromise();
     this.storageService.setData(StorageKey.expenseData, res);
@@ -34,6 +34,10 @@ export class BudgetService {
     const res: any = await this.http.get<IncomeItem | IncomeItem[]>(`${this.base}/expenses/${user}`).toPromise();
     this.storageService.setData(StorageKey.incomeData, res);
     return res;
+  }
+
+  async deleteExpense(expenseId: string) {
+    await this.http.delete(`${this.base}/expenses/${expenseId}`).toPromise();
   }
 
   async expenseRequest(requestType: string, url: string, body: ExpenseItem, expenseId: string = '') {
@@ -60,10 +64,9 @@ export class BudgetService {
           const res: any = await this.http[requestType]<ExpenseItem | ExpenseItem[]>(`${this.base}/expenses/${expenseId}`).toPromise();
           this.storageService.setData(StorageKey.expenseData, res);
           return res;
-
         }
         const res: any = await this.http[requestType]<ExpenseItem | ExpenseItem[]>(`${this.base}/expenses/${expenseId}`).toPromise();
-        const getRes: any = await this.getExpenses();
+        await this.getExpenses();
         return res;
       }
       catch (e) {

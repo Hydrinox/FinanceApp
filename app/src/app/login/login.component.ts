@@ -26,21 +26,7 @@ export class LoginComponent implements OnInit {
   }
 
   async ngOnInit() {
-    let tokenStore = this.storage.getUserID();
-    if (tokenStore) {
-      this.auth.isAuthenticated().subscribe(
-        res => {
-          if (res) {
-            environment.loggedIn = true;
-            this.router.navigate(['/dashboard']);
-          }
-          err => {
-            console.log("login init error", err);
-            environment.loggedIn = false;
-          }
-        }
-      );
-    }
+
   }
 
   async submitLogin() {

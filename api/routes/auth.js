@@ -3,10 +3,10 @@ const router = express.Router();
 const verifyToken = require('../middleware/verifyToken')
 const controller = require('../controllers/auth.controller')
 
-router.post('/auth/signin', controller.signin);
+router.post("/signin", controller.signin);
 
-router.post('/auth/register', controller.register);
+router.post("/register", controller.register);
 
-router.get('/auth/authenticate', verifyToken);
+router.get("/authenticate", [verifyToken], controller.authenticate);
 
 module.exports = router;

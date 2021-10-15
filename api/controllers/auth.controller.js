@@ -4,6 +4,10 @@ const config = require('../config');
 var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
 
+exports.authenticate = (req, res, next) => {
+    return res.status(200).send({ message: "Authenticated" });
+}
+
 exports.signin = (req, res) => {
     User.findOne({ username: req.body.username })
         .then(user => {

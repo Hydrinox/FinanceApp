@@ -5,11 +5,12 @@ const config = require('./config');
 const mongoose = require('mongoose');
 const cors = require('cors');
 
+
+const verifyToken = require('./middleware/verifyToken')
 const expenseRoutes = require('./routes/expense');
 const incomeRoutes = require('./routes/income');
 const retirementRoutes = require('./routes/retire');
 const authRoutes = require('./routes/auth');
-const bodyParser = require('body-parser');
 
 mongoose.connect(`mongodb://${config.dbHost}/${config.dbName}`);
 
@@ -27,9 +28,9 @@ app.use(function (req, res, next) {
   next();
 });
 
-app.use("/", authRoutes);
-app.use("/expenses", expenseRoutes);
-app.use("/income", incomeRoutes);
-app.use("/retirement", retirementRoutes);
+app.use("/auth", authRoutes);
+app.use("/expenses", [verifyToken], expenseRoutes);
+app.use("/income", [verifyToken], incomeRoutes);
+app.use("/retirement", [verifyToken], retirementRoutes);
 
 module.exports = app;
