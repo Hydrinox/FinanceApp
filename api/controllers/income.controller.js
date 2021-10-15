@@ -1,9 +1,21 @@
 const Income = require('../models/income');
+const { defaultIncome } = require('../config');
 
 exports.getIncome = (req, res) => {
     Income.find({ _id: req.params.user })
         .exec()
         .then(result => {
+            //if user doesn't have income, save/return default income
+            if (result.length === 0) {
+                defaultIncomeItem = new Income({
+                    frequency: defaultIncome.frequency,
+                    value: defaultIncome.value,
+                    _id: req.params.user
+                })
+                defaultIncomeItem.save()
+                result.push(defaultIncomeItem);
+
+            }
             res.status(200).json(result[0]);
         })
         .catch(err => {

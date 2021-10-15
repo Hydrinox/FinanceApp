@@ -24,7 +24,7 @@ export class RetirementCalcService {
     if (localItems) return localItems;
 
     //find retirement by userid, set in localstorage
-    const res = await this.http.get<Retirement>(`${this.baseURL}/retirement/${userID}`).toPromise();
+    let res = await this.http.get<Retirement>(`${this.baseURL}/retirement/${userID}`).toPromise();
     this.storageService.setData(StorageKey.retirementForm, res);
     return res;
   }

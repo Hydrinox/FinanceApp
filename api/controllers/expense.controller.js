@@ -1,9 +1,22 @@
 const Expense = require('../models/expense');
+const { defaultExpenses } = require('../config')
 
 exports.findExpenses = (req, res) => {
     Expense.find({ user: req.params.user })
         .exec()
         .then(docs => {
+            //if user doesn't have any expenses, save/return default expenses
+            if (docs.length === 0) {
+                docs = defaultExpenses;
+                docs.forEach(expense => {
+                    let defaultExpense = new Expense({
+                        name: expense.name,
+                        value: expense.value,
+                        user: req.params.user
+                    });
+                    defaultExpense.save();
+                })
+            }
             res.status(200).json(docs);
         })
         .catch(err => {
