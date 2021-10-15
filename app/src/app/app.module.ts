@@ -28,15 +28,15 @@ import { RetirementPageComponent } from './views/retirement/retirement-page/reti
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BudgetingPageComponent } from "./views/budgeting/budgeting-page/budgeting-page.component";
 import { DashboardPageComponent } from './views/dashboard/dashboard-page/dashboard-page.component';
-import { BudgetChartComponent } from './charts/budget-chart/budget-chart.component';
-import { RetirementChartComponent } from './charts/retirement-chart/retirement-chart.component';
+import { BudgetChartComponent } from './views/charts/budget-chart/budget-chart.component';
+import { RetirementChartComponent } from './views/charts/retirement-chart/retirement-chart.component';
 
 import 'echarts/theme/dark.js';
 import { ExpenseFormDialog, ExpenseFormComponent } from './views/budgeting/expense-form/expense-form.component';
 import { IncomeFormComponent } from './views/budgeting/income-form/income-form.component';
-import { ExpenseChartComponent } from './charts/expense-chart/expense-chart.component';
-import { SidenavComponent } from './sidenav/sidenav.component';
-import { BudgetStackedChartComponent } from './charts/budget-stacked-chart/budget-stacked-chart.component';
+import { ExpenseChartComponent } from './views/charts/expense-chart/expense-chart.component';
+import { SidenavComponent } from './views/sidenav/sidenav.component';
+import { BudgetStackedChartComponent } from './views/charts/budget-stacked-chart/budget-stacked-chart.component';
 import { LoginComponent, RegisterFormDialog } from './views/login/login.component';
 import { TokenInterceptorService } from './services/token-interceptor.service';
 

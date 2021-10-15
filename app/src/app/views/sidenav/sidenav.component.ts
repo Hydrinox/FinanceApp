@@ -1,10 +1,10 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
-import { StorageKey } from '../enums/storage.enum';
-import { AuthService } from '../services/auth.service';
-import { StorageService } from '../services/storage.service';
-import { UtilsService } from '../services/utils.service';
+import { StorageKey } from '../../enums/storage.enum';
+import { AuthService } from '../../services/auth.service';
+import { StorageService } from '../../services/storage.service';
+import { UtilsService } from '../../services/utils.service';
 
 @Component({
   selector: 'app-sidenav',
