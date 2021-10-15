@@ -51,21 +51,40 @@ exports.getExpense = (req, res, next) => {
 }
 
 exports.updateExpense = (req, res, next) => {
-    const id = req.params.expenseId;
-    Expense.findOneAndUpdate({ _id: id }, req.body)
-        .exec()
-        .then(doc => {
-            if (doc) {
-                res.status(200).json(doc);
-            } else {
-                res
-                    .status(400)
-                    .json({ message: "no expense found for this id" });
-            }
-        }).catch(err => {
-            console.log(err);
-            res.status(500).json({ error: err });
-        })
+    //if expenseId is provided, update existing expense
+    if (req.params.expenseId) {
+        Expense.findOneAndUpdate({ _id: req.params.expenseId }, req.body)
+            .exec()
+            .then(doc => {
+                if (doc) {
+                    res.status(200).json(doc);
+                } else {
+                    res
+                        .status(400)
+                        .json({ message: "no expense found for this id" });
+                }
+            }).catch(err => {
+                console.log(err);
+                res.status(500).json({ error: err });
+            })
+        //if expenseId is not provided, create new expense
+    } else {
+        const expense = new Expense({
+            name: req.body.name,
+            value: req.body.value,
+            user: req.body.user
+        });
+        expense
+            .save()
+            .then(result => {
+                res.status(200).json(result);
+            })
+            .catch(err => {
+                res.status(500).json({
+                    error: err
+                });
+            });
+    }
 }
 
 exports.deleteExpense = (req, res, next) => {

@@ -2,6 +2,8 @@ import { Component, OnChanges, OnInit } from '@angular/core';
 import { ExpenseItem } from 'src/app/models/ExpenseItem';
 import { IncomeItem } from 'src/app/models/IncomeItem';
 import { BudgetService } from 'src/app/services/budget.service';
+import { StorageService } from 'src/app/services/storage.service';
+import { UtilsService } from 'src/app/services/utils.service';
 import { transitionAnimation } from "../../../animations";
 
 
@@ -15,11 +17,15 @@ export class BudgetingPageComponent implements OnInit {
   expenses: any;
   income: IncomeItem;
 
-  constructor(private budgetService: BudgetService) { }
+  constructor(private budgetService: BudgetService, private storage: StorageService, private utils: UtilsService) { }
 
   ngOnInit(): void {
-    this.budgetService.expenseRequest('get', '', null, '').then(res => this.expenses = res);
-    this.budgetService.incomeRequest('get', '', null, '').then(res => this.income = res);
+    let user = this.storage.getUserID();
+    if (!user) { this.utils.logout(); }
+    else {
+      this.budgetService.getExpenses(user).then(res => this.expenses = res);
+      this.budgetService.getIncome(user).then(res => this.income = res);
+    }
   }
 
   displayExpenses(expensesOutput): void {

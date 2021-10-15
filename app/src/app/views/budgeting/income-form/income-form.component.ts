@@ -1,6 +1,8 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { IncomeItem } from 'src/app/models/IncomeItem';
 import { BudgetService } from 'src/app/services/budget.service';
+import { StorageService } from 'src/app/services/storage.service';
+import { UtilsService } from 'src/app/services/utils.service';
 
 @Component({
   selector: 'app-income-form',
@@ -10,23 +12,28 @@ import { BudgetService } from 'src/app/services/budget.service';
 export class IncomeFormComponent implements OnInit {
   incomeForm = new IncomeItem();
   payFrequency: string;
+  userID: string;
   @Output() incomeChanges = new EventEmitter<any>();
 
 
-  constructor(private budgetService: BudgetService) { }
+  constructor(private budgetService: BudgetService, private storage: StorageService, private utils: UtilsService) { }
 
   async ngOnInit() {
     this.incomeForm = {
       frequency: 'yearly',
       value: 50000,
-      user: ''
+      _id: ''
     }
-    await this.budgetService.incomeRequest('get', '', null, '').then(res => this.incomeForm = res);
+    this.userID = this.storage.getUserID();
+    if (!this.userID) { this.utils.logout(); }
+    else {
+      await this.budgetService.getIncome(this.userID).then(res => this.incomeForm = res);
+    }
   }
 
   async saveIncome() {
-    await this.budgetService.incomeRequest('put', '', this.incomeForm)
-    this.incomeForm = await this.budgetService.incomeRequest('get', '', null, '');
+    await this.budgetService.updateIncome(this.incomeForm)
+    this.incomeForm = await this.budgetService.getIncome(this.userID);
     this.incomeChanges.emit(this.incomeForm);
   }
 }

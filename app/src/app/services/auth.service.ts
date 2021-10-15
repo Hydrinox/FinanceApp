@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { StorageKey } from '../enums/storage.enum';
 import { StorageService } from './storage.service';
 
@@ -8,7 +9,7 @@ import { StorageService } from './storage.service';
   providedIn: 'root'
 })
 export class AuthService {
-  base: string = 'http://localhost:3000';
+  base: string = `${environment.API_URL}`;
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };

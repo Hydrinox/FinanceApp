@@ -4,5 +4,5 @@ export class Retirement {
   startPrincipal: number;
   growthRate: number;
   contributions: number;
-  user: string;
+  _id: string;
 }

@@ -14,43 +14,28 @@ export class RetirementCalcService {
     currency: 'USD',
   })
 
-  private base: string = `${environment.API_URL}`;
+  private baseURL: string = `${environment.API_URL}`;
 
   constructor(private http: HttpClient, private storageService: StorageService) { }
 
-  async retirementRequest(requestType: string, url: string, body: Retirement, retirementId: string = '') {
-    if (requestType === 'put' || requestType === 'post') {
-      try {
-        body.user = await this.storageService.getUserID();
-        const res = await this.http[requestType]<Retirement>(`${this.base}/retirement/${body.user}`, body).toPromise();
-        const getRes: any = await this.http.get<Retirement>(`${this.base}/retirement/${body.user}`).toPromise();
-        this.storageService.setData(StorageKey.retirementForm, getRes);
-        return res;
-      } catch (e) {
-        console.log('retirement service error', e)
-      }
-    } else {
-      try {
-        if (requestType === 'get') {
-          let retireStorage = this.storageService.getData(StorageKey.retirementForm);
-          if (retireStorage) {
-            return retireStorage;
-          }
-          const res: any = await this.http[requestType]<Retirement>(`${this.base}/retirement/${retirementId}`).toPromise();
-          this.storageService.setData(StorageKey.retirementForm, res);
-          return res;
+  async getRetirement(userID: string): Promise<Retirement> {
+    //check for and return retirement from localstorage
+    let localItems = this.storageService.getData(StorageKey.retirementForm);
+    if (localItems) return localItems;
 
-        }
-        const res: any = await this.http[requestType]<Retirement>(`${this.base}/retirement/${retirementId}`).toPromise();
-        const getRes: any = await this.http.get(`${this.base}/retirement/${body.user}`);
-        this.storageService.setData(StorageKey.retirementForm, getRes);
-
-        return res;
-      } catch (e) {
-        console.log('retirement service error', e)
-      }
-    }
+    //find retirement by userid, set in localstorage
+    const res = await this.http.get<Retirement>(`${this.baseURL}/retirement/${userID}`).toPromise();
+    this.storageService.setData(StorageKey.retirementForm, res);
+    return res;
   }
+
+  async updateRetirement(body: Retirement): Promise<Retirement> {
+    await this.http.put(`${this.baseURL}/retirement/${body._id}`, body).toPromise();
+    const getRes = await this.http.get<Retirement>(`${this.baseURL}/retirement/${body._id}`).toPromise();
+    this.storageService.setData(StorageKey.retirementForm, getRes);
+    return getRes;
+  }
+
 
   calculateRetirementTotal(retirementFields: Retirement) {
     let n = retirementFields.retirementAge - retirementFields.currentAge;

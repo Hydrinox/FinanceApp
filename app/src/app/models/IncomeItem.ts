@@ -1,5 +1,5 @@
 export class IncomeItem {
   frequency: string;
   value: number;
-  user: string;
+  _id: string;
 }

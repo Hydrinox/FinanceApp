@@ -3,6 +3,8 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { MatTable } from '@angular/material/table';
 import { ExpenseItem } from 'src/app/models/ExpenseItem';
 import { BudgetService } from 'src/app/services/budget.service';
+import { StorageService } from 'src/app/services/storage.service';
+import { UtilsService } from 'src/app/services/utils.service';
 
 @Component({
   selector: 'app-expense-form',
@@ -11,16 +13,21 @@ import { BudgetService } from 'src/app/services/budget.service';
 })
 export class ExpenseFormComponent implements OnInit {
   displayedColumns: string[] = ['name', 'amount', 'action'];
-  expenseArray: Array<ExpenseItem>;
+  expenseArray: ExpenseItem[];
   step = 0;
+  userID: string;
   @Output() expenseChanges = new EventEmitter<any>();
 
-  constructor(public dialog: MatDialog, private budgetService: BudgetService) { }
+  constructor(public dialog: MatDialog, private budgetService: BudgetService, private storage: StorageService, private utils: UtilsService) { }
 
   async ngOnInit() {
-    this.budgetService.expenseRequest('get', '', null, '').then(res => {
-      this.expenseArray = res;
-    });
+    this.userID = this.storage.getUserID();
+    if (!this.userID) { this.utils.logout(); }
+    else {
+      this.budgetService.getExpenses(this.userID).then(res => {
+        this.expenseArray = res;
+      });
+    }
   }
 
   @ViewChild(MatTable) table: MatTable<ExpenseItem>;
@@ -33,8 +40,8 @@ export class ExpenseFormComponent implements OnInit {
 
   async addData(newItem: ExpenseItem) {
     if (newItem) {
-      await this.budgetService.expenseRequest('post', '', newItem);
-      this.expenseArray = await this.budgetService.expenseRequest('get', '', null, '');
+      await this.budgetService.updateExpense(newItem, this.userID);
+      this.expenseArray = await this.budgetService.getExpenses(this.userID);
       this.expenseChanges.emit(this.expenseArray);
 
       this.table.renderRows();
@@ -43,8 +50,8 @@ export class ExpenseFormComponent implements OnInit {
 
   async editData(oldItem: ExpenseItem, newItem: ExpenseItem) {
     if (newItem) {
-      await this.budgetService.expenseRequest('patch', '', newItem, String(oldItem._id))
-      this.expenseArray = await this.budgetService.expenseRequest('get', '', null, '');
+      await this.budgetService.updateExpense(newItem, this.userID, String(oldItem._id))
+      this.expenseArray = await this.budgetService.getExpenses(this.userID);
       this.expenseChanges.emit(this.expenseArray);
 
       this.table.renderRows();
@@ -52,8 +59,7 @@ export class ExpenseFormComponent implements OnInit {
   }
 
   async removeData(item: ExpenseItem) {
-    await this.budgetService.expenseRequest('delete', '', null, String(item._id));
-    this.expenseArray = await this.budgetService.expenseRequest('get', '', null, '');
+    this.expenseArray = await this.budgetService.deleteExpense(item._id, this.userID);
     this.expenseChanges.emit(this.expenseArray);
     this.table.renderRows();
   }
@@ -74,7 +80,7 @@ export class ExpenseFormComponent implements OnInit {
       var dialogRef = this.dialog.open(ExpenseFormDialog, {
         autoFocus: false,
         width: '250px',
-        data: { name: this.expenseArray['name'], value: this.expenseArray['value'] }
+        data: { name: this.expenseArray['name'], value: this.expenseArray['value'], user: this.userID }
       });
 
       dialogRef.afterClosed().subscribe(result => {

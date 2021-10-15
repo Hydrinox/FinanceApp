@@ -5,6 +5,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { BudgetService } from 'src/app/services/budget.service';
 import { RetirementCalcService } from 'src/app/services/retirement-calc.service';
 import { StorageService } from 'src/app/services/storage.service';
+import { UtilsService } from 'src/app/services/utils.service';
 import { transitionAnimation } from "../../../animations";
 
 @Component({
@@ -21,17 +22,20 @@ export class DashboardPageComponent implements OnInit {
   retirementForm: Retirement;
   totalContributions: number;
 
-  constructor(private budgetService: BudgetService, private retirementService: RetirementCalcService, private storage: StorageService) { }
+  constructor(private budgetService: BudgetService, private retirementService: RetirementCalcService, private storage: StorageService, private utils: UtilsService) { }
 
 
   async ngOnInit() {
     let user = this.storage.getUserID();
-    await this.budgetService.expenseRequest('get', '', null, user).then(res => this.expenses = res);
-    await this.budgetService.incomeRequest('get', '', null, user).then(res => this.income = res);
-    await this.retirementService.retirementRequest('get', '', null, user).then(res => {
-      this.retirement = this.retirementService.calculateRetirementTotal(res);
-      this.retirementForm = res;
-      this.totalContributions = res.startPrincipal + (res.retirementAge - res.currentAge) * 12 * res.contributions;
-    });
+    if (!user) { this.utils.logout(); }
+    else {
+      await this.budgetService.getExpenses(user).then(res => this.expenses = res);
+      await this.budgetService.getIncome(user).then(res => this.income = res);
+      await this.retirementService.getRetirement(user).then(res => {
+        this.retirement = this.retirementService.calculateRetirementTotal(res);
+        this.retirementForm = res;
+        this.totalContributions = res.startPrincipal + (res.retirementAge - res.currentAge) * 12 * res.contributions;
+      });
+    }
   }
 }
