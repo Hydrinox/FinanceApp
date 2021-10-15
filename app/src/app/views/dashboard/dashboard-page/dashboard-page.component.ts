@@ -5,7 +5,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { BudgetService } from 'src/app/services/budget.service';
 import { RetirementCalcService } from 'src/app/services/retirement-calc.service';
 import { StorageService } from 'src/app/services/storage.service';
-import { transitionAnimation } from "../../animations";
+import { transitionAnimation } from "../../../animations";
 
 @Component({
   selector: 'app-dashboard-page',

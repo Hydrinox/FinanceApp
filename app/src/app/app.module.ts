@@ -23,21 +23,21 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { RetirementFormComponent } from './retirement/retirement-form/retirement-form.component';
-import { RetirementPageComponent } from './retirement/retirement-page/retirement-page.component';
+import { RetirementFormComponent } from './views/retirement/retirement-form/retirement-form.component';
+import { RetirementPageComponent } from './views/retirement/retirement-page/retirement-page.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { BudgetingPageComponent } from "./budgeting/budgeting-page/budgeting-page.component";
-import { DashboardPageComponent } from './dashboard/dashboard-page/dashboard-page.component';
+import { BudgetingPageComponent } from "./views/budgeting/budgeting-page/budgeting-page.component";
+import { DashboardPageComponent } from './views/dashboard/dashboard-page/dashboard-page.component';
 import { BudgetChartComponent } from './charts/budget-chart/budget-chart.component';
 import { RetirementChartComponent } from './charts/retirement-chart/retirement-chart.component';
 
 import 'echarts/theme/dark.js';
-import { ExpenseFormDialog, ExpenseFormComponent } from './budgeting/expense-form/expense-form.component';
-import { IncomeFormComponent } from './budgeting/income-form/income-form.component';
+import { ExpenseFormDialog, ExpenseFormComponent } from './views/budgeting/expense-form/expense-form.component';
+import { IncomeFormComponent } from './views/budgeting/income-form/income-form.component';
 import { ExpenseChartComponent } from './charts/expense-chart/expense-chart.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { BudgetStackedChartComponent } from './charts/budget-stacked-chart/budget-stacked-chart.component';
-import { LoginComponent, RegisterFormDialog } from './login/login.component';
+import { LoginComponent, RegisterFormDialog } from './views/login/login.component';
 import { TokenInterceptorService } from './services/token-interceptor.service';
 
 @NgModule({

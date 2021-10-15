@@ -11,14 +11,13 @@ verifyToken = (req, res, next) => {
         });
     }
 
+    //Verifies JWT is valid
     jwt.verify(req.headers["authorization"].split(" ")[1], config.secret, (err, decoded) => {
         if (err) {
             return res.status(401).send({
                 message: "Unauthorized"
             });
         }
-        console.log("this is decoded", decoded)
-        req.userId = decoded.id
         next();
     });
 }

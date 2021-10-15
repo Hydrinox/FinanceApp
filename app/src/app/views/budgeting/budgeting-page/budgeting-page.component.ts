@@ -2,7 +2,7 @@ import { Component, OnChanges, OnInit } from '@angular/core';
 import { ExpenseItem } from 'src/app/models/ExpenseItem';
 import { IncomeItem } from 'src/app/models/IncomeItem';
 import { BudgetService } from 'src/app/services/budget.service';
-import { transitionAnimation } from "../../animations";
+import { transitionAnimation } from "../../../animations";
 
 
 @Component({

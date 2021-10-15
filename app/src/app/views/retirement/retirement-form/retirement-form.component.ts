@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { RetirementCalcService } from "../../services/retirement-calc.service";
-import { Retirement } from "../../models/Retirement";
+import { RetirementCalcService } from "../../../services/retirement-calc.service";
+import { Retirement } from "../../../models/Retirement";
 import { StorageService } from 'src/app/services/storage.service';
 import { StorageKey } from 'src/app/enums/storage.enum';
 

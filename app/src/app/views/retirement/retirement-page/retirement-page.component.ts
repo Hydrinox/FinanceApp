@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RetirementCalcService } from 'src/app/services/retirement-calc.service';
-import { transitionAnimation } from "../../animations";
+import { transitionAnimation } from "../../../animations";
 
 @Component({
   selector: 'app-retirement-page',

@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { BudgetingPageComponent } from './budgeting/budgeting-page/budgeting-page.component';
-import { DashboardPageComponent } from './dashboard/dashboard-page/dashboard-page.component';
-import { LoginComponent } from './login/login.component';
-import { RetirementPageComponent } from './retirement/retirement-page/retirement-page.component';
+import { BudgetingPageComponent } from './views/budgeting/budgeting-page/budgeting-page.component';
+import { DashboardPageComponent } from './views/dashboard/dashboard-page/dashboard-page.component';
+import { LoginComponent } from './views/login/login.component';
+import { RetirementPageComponent } from './views/retirement/retirement-page/retirement-page.component';
 import { AuthGuardService } from "./services/auth-guard.service";
 import { LoggedinAuthGuardService } from './services/loggedin-auth-guard.service';
 
