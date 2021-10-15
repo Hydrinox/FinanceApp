@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { RetirementCalcService } from 'src/app/services/retirement-calc.service';
 import { transitionAnimation } from "../../../animations";
 
 @Component({
@@ -12,10 +11,10 @@ export class RetirementPageComponent implements OnInit {
   numberToDisplay: number;
   retirement: any[];
 
-  constructor(private retirementService: RetirementCalcService) { }
+  constructor() { }
 
   async ngOnInit() {
-    // this.retirementService.retirementRequest('get', '', null, '').then(res => this.retirement = this.retirementService.calculateRetirementTimeline(res));
+
   }
 
   setTimeline(value: []) {

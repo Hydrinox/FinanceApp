@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { IncomeItem } from 'src/app/models/IncomeItem';
 import { Retirement } from 'src/app/models/Retirement';
-import { AuthService } from 'src/app/services/auth.service';
 import { BudgetService } from 'src/app/services/budget.service';
 import { RetirementCalcService } from 'src/app/services/retirement-calc.service';
 import { StorageService } from 'src/app/services/storage.service';
@@ -32,13 +31,9 @@ export class DashboardPageComponent implements OnInit {
       await this.budgetService.getExpenses(user).then(res => this.expenses = res);
       await this.budgetService.getIncome(user).then(res => this.income = res);
       await this.retirementService.getRetirement(user).then(res => {
-        console.log("step 1");
         this.retirement = this.retirementService.calculateRetirementTotal(res);
-        console.log("step 2");
         this.retirementForm = res;
-        console.log("step 3");
         this.totalContributions = res.startPrincipal + (res.retirementAge - res.currentAge) * 12 * res.contributions;
-        console.log("step 4");
       });
     }
   }

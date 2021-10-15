@@ -1,9 +1,8 @@
-import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { transitionAnimation } from '../../animations';
-import { StorageKey } from '../../enums/storage.enum';
 import { AuthService } from '../../services/auth.service';
 import { StorageService } from '../../services/storage.service';
 

@@ -1,5 +1,4 @@
-import { Component, OnChanges, OnInit } from '@angular/core';
-import { ExpenseItem } from 'src/app/models/ExpenseItem';
+import { Component, OnInit } from '@angular/core';
 import { IncomeItem } from 'src/app/models/IncomeItem';
 import { BudgetService } from 'src/app/services/budget.service';
 import { StorageService } from 'src/app/services/storage.service';

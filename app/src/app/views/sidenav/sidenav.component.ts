@@ -1,8 +1,7 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { StorageKey } from '../../enums/storage.enum';
-import { AuthService } from '../../services/auth.service';
 import { StorageService } from '../../services/storage.service';
 import { UtilsService } from '../../services/utils.service';
 
@@ -14,7 +13,7 @@ import { UtilsService } from '../../services/utils.service';
 export class SidenavComponent implements OnInit {
   showSideNav: boolean = environment.loggedIn;
   userDisplayName: string = '';
-  constructor(private route: Router, private storage: StorageService, private utils: UtilsService) { }
+  constructor(private storage: StorageService, private utils: UtilsService) { }
 
   ngOnInit() {
     let user = this.storage.getData(StorageKey.userData);
