@@ -1,0 +1,10 @@
+<main @fadeInOut>
+    <div class="container" fxLayoutAlign="center stretch">
+        <div fxLayout="column" fxLayoutAlign="center">
+            <h1>Username: <span class="primary-color">{{ profile.username }}</span>
+            </h1>
+            <h2>Email: <span class="primary-color">{{ profile.email }}</span></h2>
+            <h3>Account Create Date: <span class="primary-color">{{ profile.createdAt | date: 'longDate' }}</span></h3>
+        </div>
+    </div>
+</main>

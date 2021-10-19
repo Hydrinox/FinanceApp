@@ -17,7 +17,7 @@ export class DashboardPageComponent implements OnInit {
 
   expenses: any;
   income: IncomeItem;
-  retirement: string;
+  retirement: number;
   retirementForm: Retirement;
   totalContributions: number;
 

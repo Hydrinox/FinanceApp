@@ -9,10 +9,6 @@ import { StorageService } from './storage.service';
   providedIn: 'root'
 })
 export class RetirementCalcService {
-  private formatter = new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-  })
 
   private baseURL: string = `${environment.API_URL}`;
 
@@ -51,10 +47,10 @@ export class RetirementCalcService {
         contributionGrowth += contributions * Math.pow((1 + r), n - i);
       }
 
-      return this.formatter.format(principalTotalGrowth + contributionGrowth);
+      return principalTotalGrowth + contributionGrowth;
     }
     //P(1 + i)^n  compounding growth formula if no contributions
-    return this.formatter.format(principalTotalGrowth);
+    return principalTotalGrowth;
   }
 
   calculateRetirementTimeline(retirementFields: Retirement): any[] {

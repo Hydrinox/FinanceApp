@@ -7,6 +7,8 @@ const retireSchema = mongoose.Schema({
     contributions: Number,
     growthRate: Number,
     _id: String
-});
+},
+    { timestamps: true }
+);
 
 module.exports = mongoose.model('Retirement', retireSchema);

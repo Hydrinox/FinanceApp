@@ -11,10 +11,10 @@ import { UtilsService } from 'src/app/services/utils.service';
 })
 export class RetirementFormComponent implements OnInit {
   formModel = new Retirement();
-  retirementNumber: string;
+  retirementNumber: number;
   userID: string;
   @Output() timelineChangeEvent = new EventEmitter<any[]>();
-  @Output() retirementNumberEvent = new EventEmitter<string>();
+  @Output() retirementNumberEvent = new EventEmitter<number>();
 
   constructor(private retirementCalc: RetirementCalcService, private storage: StorageService, private utils: UtilsService) { }
 

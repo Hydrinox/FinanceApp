@@ -5,10 +5,14 @@
             <app-retirement-form (timelineChangeEvent)="setTimeline($event)"
                 (retirementNumberEvent)="setRetirementNumber($event)"></app-retirement-form>
         </div>
-        <div class="right" fxLayout="row" fxLayoutAlign="center center">
+        <div class="right" fxLayoutAlign="center center">
             <mat-card *ngIf="numberToDisplay">
                 <h1>Total retirement savings at your planned retirement date</h1>
-                <div fxLayoutAlign="center center" class="retire-number primary-color">{{ numberToDisplay }}</div>
+                <div fxLayoutAlign="center center" class="retire-number primary-color">{{ numberToDisplay | currency :
+                    'USD' : 'symbol' : '1.0-0' }}</div>
+                <h2>With a 4% withdrawal rate, this provides <span class="accent-color">{{ withdrawal | currency :
+                        'USD' : 'symbol' : '1.0-0' }}</span> of
+                    yearly income</h2>
             </mat-card>
         </div>
     </div>

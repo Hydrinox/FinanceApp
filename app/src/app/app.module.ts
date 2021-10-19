@@ -39,6 +39,7 @@ import { SidenavComponent } from './views/sidenav/sidenav.component';
 import { BudgetStackedChartComponent } from './views/charts/budget-stacked-chart/budget-stacked-chart.component';
 import { LoginComponent, RegisterFormDialog } from './views/login/login.component';
 import { TokenInterceptorService } from './services/token-interceptor.service';
+import { ProfilePageComponent } from './views/profile-page/profile-page.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,8 @@ import { TokenInterceptorService } from './services/token-interceptor.service';
     SidenavComponent,
     BudgetStackedChartComponent,
     LoginComponent,
-    RegisterFormDialog
+    RegisterFormDialog,
+    ProfilePageComponent
   ],
   imports: [
     BrowserModule,

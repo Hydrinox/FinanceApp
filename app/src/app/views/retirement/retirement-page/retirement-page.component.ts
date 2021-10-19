@@ -10,6 +10,7 @@ import { transitionAnimation } from "../../../animations";
 export class RetirementPageComponent implements OnInit {
   numberToDisplay: number;
   retirement: any[];
+  withdrawal: number;
 
   constructor() { }
 
@@ -23,5 +24,6 @@ export class RetirementPageComponent implements OnInit {
 
   setRetirementNumber(number: number) {
     this.numberToDisplay = number;
+    this.withdrawal = this.numberToDisplay * .04;
   }
 }

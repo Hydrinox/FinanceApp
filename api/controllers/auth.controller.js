@@ -36,7 +36,8 @@ exports.signin = (req, res) => {
                 id: user.id,
                 username: user.username,
                 email: user.email,
-                authToken: token
+                authToken: token,
+                createdAt: user.createdAt
             });
         })
         .catch(err => {
