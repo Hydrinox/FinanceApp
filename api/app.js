@@ -12,7 +12,7 @@ const incomeRoutes = require('./routes/income');
 const retirementRoutes = require('./routes/retire');
 const authRoutes = require('./routes/auth');
 
-mongoose.connect(`mongodb://${config.dbHost}/${config.dbName}`);
+mongoose.connect(process.env.MONGODB_URI || `mongodb://${config.dbHost}/${config.dbName}`);
 
 app.use(morgan("dev"));
 app.use(express.urlencoded({ extended: true }));
