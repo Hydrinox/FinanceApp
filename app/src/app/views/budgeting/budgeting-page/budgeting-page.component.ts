@@ -18,13 +18,14 @@ export class BudgetingPageComponent implements OnInit {
 
   constructor(private budgetService: BudgetService, private storage: StorageService, private utils: UtilsService) { }
 
-  ngOnInit(): void {
+  async ngOnInit() {
     let user = this.storage.getUserID();
     if (!user) { this.utils.logout(); }
     else {
-      this.budgetService.getExpenses(user).then(res => this.expenses = res);
-      this.budgetService.getIncome(user).then(res => this.income = res);
+      await this.budgetService.getExpenses(user).then(res => this.expenses = res);
+      await this.budgetService.getIncome(user).then(res => this.income = res);
     }
+    this.utils.hideSpinner();
   }
 
   displayExpenses(expensesOutput): void {

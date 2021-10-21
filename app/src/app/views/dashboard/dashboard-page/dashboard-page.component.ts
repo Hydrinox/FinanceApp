@@ -36,5 +36,6 @@ export class DashboardPageComponent implements OnInit {
         this.totalContributions = res.startPrincipal + (res.retirementAge - res.currentAge) * 12 * res.contributions;
       });
     }
+    this.utils.hideSpinner();
   }
 }

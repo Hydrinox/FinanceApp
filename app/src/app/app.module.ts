@@ -11,6 +11,7 @@ import { MatTooltipModule } from "@angular/material/tooltip";
 import { MatButtonModule } from "@angular/material/button";
 import { MatTabsModule } from "@angular/material/tabs";
 import { MatCardModule } from "@angular/material/card";
+import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { MatDividerModule } from "@angular/material/divider";
 import { MatDialogModule } from "@angular/material/dialog";
 import { MatSelectModule } from "@angular/material/select";
@@ -40,6 +41,7 @@ import { BudgetStackedChartComponent } from './views/charts/budget-stacked-chart
 import { LoginComponent, RegisterFormDialog } from './views/login/login.component';
 import { TokenInterceptorService } from './services/token-interceptor.service';
 import { ProfilePageComponent } from './views/profile-page/profile-page.component';
+import { SpinnerComponent } from './views/spinner/spinner.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +60,8 @@ import { ProfilePageComponent } from './views/profile-page/profile-page.componen
     BudgetStackedChartComponent,
     LoginComponent,
     RegisterFormDialog,
-    ProfilePageComponent
+    ProfilePageComponent,
+    SpinnerComponent
   ],
   imports: [
     BrowserModule,
@@ -75,6 +78,7 @@ import { ProfilePageComponent } from './views/profile-page/profile-page.componen
     MatTabsModule,
     MatDividerModule,
     MatCardModule,
+    MatProgressSpinnerModule,
     MatSnackBarModule,
     MatDialogModule,
     MatSidenavModule,

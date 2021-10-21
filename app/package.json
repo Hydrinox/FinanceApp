@@ -3,18 +3,26 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "node server.js",
+    "heroku-postbuild": "ng build --prod",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
   "private": true,
+  "engines": {
+    "node": "14.17.5",
+    "npm": "6.14.14"
+  },
   "dependencies": {
+    "@angular-devkit/build-angular": "^0.1002.3",
     "@angular/animations": "^10.2.5",
     "@angular/cdk": "^10.2.7",
+    "@angular/cli": "^10.2.3",
     "@angular/common": "^10.2.5",
     "@angular/compiler": "^10.2.5",
+    "@angular/compiler-cli": "^10.2.5",
     "@angular/core": "^10.2.5",
     "@angular/flex-layout": "^12.0.0-beta.35",
     "@angular/forms": "^10.2.5",
@@ -24,13 +32,12 @@
     "@angular/router": "^10.2.5",
     "@juggle/resize-observer": "^3.3.1",
     "@swimlane/ngx-charts": "^12.0.1",
-    "cors": "^2.8.5",
     "echarts": "^5.2.1",
     "express": "^4.17.1",
-    "express-session": "^1.17.2",
-    "mongoose": "^6.0.4",
     "ngx-echarts": "^7.0.2",
+    "path": "^0.12.7",
     "rxjs": "^6.6.7",
+    "typescript": "^4.0.8",
     "zone.js": "~0.10.2"
   },
   "devDependencies": {
@@ -40,7 +47,7 @@
     "@types/echarts": "^4.9.10",
     "@types/jasmine": "~3.5.0",
     "@types/jasminewd2": "^2.0.10",
-    "@types/node": "^12.20.23",
+    "@types/node": "^12.20.33",
     "codelyzer": "^6.0.2",
     "jasmine-core": "~3.6.0",
     "jasmine-spec-reporter": "~5.0.0",
