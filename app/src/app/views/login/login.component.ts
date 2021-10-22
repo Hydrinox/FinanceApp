@@ -47,6 +47,7 @@ export class LoginComponent implements OnInit {
         err => {
           console.log("this is error", err);
           this.errorMsg = err.error.message;
+          this.utils.hideSpinner();
         },
         () => {
           this.router.navigate(['/dashboard']);
