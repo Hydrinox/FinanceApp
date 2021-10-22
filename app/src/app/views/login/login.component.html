@@ -4,6 +4,7 @@
             <div class="card-header primary-color">
                 <mat-card-title>Login</mat-card-title>
             </div>
+            <!-- Error/Success response messages section -->
             <div *ngIf="errorMsg" class="status-section warn-color">{{ errorMsg }}</div>
             <div *ngIf="successMsg" class="status-section primary-color">{{ successMsg }}</div>
             <form class="income-form" fxLayout="column" fxLayoutAlign="center"

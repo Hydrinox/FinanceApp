@@ -9,12 +9,13 @@ exports.authenticate = (req, res, next) => {
 }
 
 exports.signin = (req, res) => {
+    //Search for Username
     User.findOne({ username: req.body.username.toUpperCase() })
         .then(user => {
             if (!user) {
                 return res.status(404).send({ message: "User Not found" });
             }
-
+            //Compare entered password to stored password
             var passwordIsValid = bcrypt.compareSync(
                 req.body.password,
                 user.password
@@ -26,7 +27,7 @@ exports.signin = (req, res) => {
                     message: "Invalid Password"
                 });
             }
-
+            //Create/Send JWT in response
             var token = jwt.sign({ id: user.id }, config.secret, {
                 expiresIn: 1800 // 30 minutes
             });

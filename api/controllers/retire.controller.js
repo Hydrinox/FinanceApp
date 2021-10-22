@@ -28,6 +28,7 @@ exports.findRetirement = (req, res) => {
         });
 }
 
+//Find saved retirement by userID and update
 exports.updateRetirement = (req, res) => {
     const id = req.params.user;
     var options = { upsert: true, new: true, setDefaultsOnInsert: true };
