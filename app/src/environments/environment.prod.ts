@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  API_URL: 'https://noxfinanceapi.herokuapp.com',
+  API_URL: 'https://api.morrisfinance.net',
   loggedIn: false
 };

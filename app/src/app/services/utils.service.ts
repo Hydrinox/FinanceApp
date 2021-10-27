@@ -2,13 +2,15 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { StorageService } from './storage.service';
 import { environment } from "../../environments/environment";
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UtilsService {
+  baseURL: string = environment.API_URL;
 
-  constructor(private storage: StorageService, private route: Router) { }
+  constructor(private storage: StorageService, private route: Router, private http: HttpClient) { }
 
   displaySpinner() {
     let overlay = document.getElementById('spinner');
@@ -20,7 +22,8 @@ export class UtilsService {
     overlay?.classList.remove('show');
   }
 
-  logout() {
+  async logout() {
+    const clearCookiesRes = await this.http.get(`${this.baseURL}/auth/logout`).toPromise();
     this.storage.removeAll();
     environment.loggedIn = false;
     this.route.navigate(['/login'])

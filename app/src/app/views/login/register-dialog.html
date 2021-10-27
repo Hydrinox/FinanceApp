@@ -1,11 +1,18 @@
-<h1 mat-dialog-title class="primary-color">Register Account</h1>
+<div fxLayout="row">
+    <h1 mat-dialog-title class="primary-color">Register Account</h1>
+    <div fxFlex fxLayoutAlign="end start">
+        <button mat-button (click)="onNoClick()">
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+</div>
 <div *ngIf="errorMsg" class="error-section warn-color">{{ errorMsg }}</div>
 <div mat-dialog-content>
     <form (ngSubmit)="onSubmit(); wholeForm.form.markAsPristine();" #wholeForm="ngForm" fxLayout="column"
         fxLayoutAlign="center">
         <mat-form-field class="formField">
-            <input matInput type="text" placeholder="Email" #email="ngModel" name="email"
-                [(ngModel)]="registerForm.email" required>
+            <input matInput type="email" placeholder="Email" #email="ngModel" name="email"
+                [(ngModel)]="registerForm.email" required email>
             <div *ngIf="email.invalid && (email.dirty || email.touched)">
                 Enter email
             </div>

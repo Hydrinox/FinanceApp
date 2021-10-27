@@ -9,4 +9,6 @@ router.post("/register", controller.register);
 
 router.get("/authenticate", [verifyToken], controller.authenticate);
 
+router.get("/logout", controller.logout);
+
 module.exports = router;

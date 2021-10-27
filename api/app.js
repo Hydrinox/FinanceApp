@@ -4,7 +4,7 @@ const morgan = require('morgan');
 const config = require('./config');
 const mongoose = require('mongoose');
 const cors = require('cors');
-
+const cookieParser = require('cookie-parser');
 
 const verifyToken = require('./middleware/verifyToken')
 const expenseRoutes = require('./routes/expense');
@@ -17,7 +17,8 @@ mongoose.connect(process.env.MONGODB_URI || `mongodb://${config.dbHost}/${config
 app.use(morgan("dev"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(cors({ origin: `${config.clientUrl}` }));
+app.use(cors({ origin: [`${config.clientUrl}`, 'http://localhost:4200'], credentials: true }));
+app.use(cookieParser());
 
 
 app.use(function (req, res, next) {

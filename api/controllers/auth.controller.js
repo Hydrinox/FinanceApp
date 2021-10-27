@@ -23,27 +23,30 @@ exports.signin = (req, res) => {
 
             if (!passwordIsValid) {
                 return res.status(401).send({
-                    accessToken: null,
                     message: "Invalid Password"
                 });
             }
-            //Create/Send JWT in response
+            //Create and Send JWT in response
             var token = jwt.sign({ id: user.id }, config.secret, {
                 expiresIn: 1800 // 30 minutes
             });
 
 
-            res.status(200).send({
+            res.status(200).cookie(config.cookieName, token, { secure: true, httpOnly: true, sameSite: "strict" }).send({
                 id: user.id,
                 username: user.username,
                 email: user.email,
-                authToken: token,
                 createdAt: user.createdAt
             });
         })
         .catch(err => {
             res.status(500).send({ message: err.message });
         });
+}
+
+exports.logout = (req, res) => {
+    res.clearCookie(config.cookieName);
+    res.status(200).send({ success: true });
 }
 
 exports.register = (req, res) => {

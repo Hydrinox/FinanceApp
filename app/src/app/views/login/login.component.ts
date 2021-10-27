@@ -40,7 +40,6 @@ export class LoginComponent implements OnInit {
       this.utils.displaySpinner();
       this.subscription = this.auth.login(this.loginForm.username, this.loginForm.password).subscribe(
         res => {
-          this.storage.saveToken(res.authToken);
           this.storage.saveUser(res);
           environment.loggedIn = true;
         },
@@ -68,8 +67,11 @@ export class LoginComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.loginForm.username = result.username;
-      this.successMsg = 'Registered Successfully';
+      //if registration submitted, autofill username and show success message
+      if (result) {
+        this.loginForm.username = result.username;
+        this.successMsg = 'Registered Successfully';
+      }
     });
   }
 }

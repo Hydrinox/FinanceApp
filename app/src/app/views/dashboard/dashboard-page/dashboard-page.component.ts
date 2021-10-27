@@ -25,17 +25,24 @@ export class DashboardPageComponent implements OnInit {
 
 
   async ngOnInit() {
-    let user = this.storage.getUserID();
-    if (!user) { this.utils.logout(); }
-    else {
-      await this.budgetService.getExpenses(user).then(res => this.expenses = res);
-      await this.budgetService.getIncome(user).then(res => this.income = res);
-      await this.retirementService.getRetirement(user).then(res => {
-        this.retirement = this.retirementService.calculateRetirementTotal(res);
-        this.retirementForm = res;
-        this.totalContributions = res.startPrincipal + (res.retirementAge - res.currentAge) * 12 * res.contributions;
-      });
+    try {
+      let user = this.storage.getUserID();
+      if (!user) this.utils.logout();
+      else {
+        await this.budgetService.getExpenses(user).then(res => this.expenses = res);
+        await this.budgetService.getIncome(user).then(res => this.income = res);
+        await this.retirementService.getRetirement(user).then(res => {
+          this.retirement = this.retirementService.calculateRetirementTotal(res);
+          this.retirementForm = res;
+          this.totalContributions = res.startPrincipal + (res.retirementAge - res.currentAge) * 12 * res.contributions;
+        });
+      }
+      this.utils.hideSpinner();
     }
-    this.utils.hideSpinner();
+    catch (e) {
+      console.log(e);
+      this.utils.logout();
+      this.utils.hideSpinner();
+    }
   }
 }
