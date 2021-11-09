@@ -1,8 +1,9 @@
 .retire-chart {
-    height: 300px;
-    width: 700px;
+    height: 100%;
+    width: 80%;
 }
 
 .container{
-    display: inline-flex;
+    text-align: -moz-center;
+    text-align: -webkit-center;
 }
