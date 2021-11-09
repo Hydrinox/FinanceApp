@@ -10,7 +10,7 @@ import { UtilsService } from './utils.service';
 export class AuthGuardService implements CanActivate {
 
   constructor(private auth: AuthService, private utils: UtilsService) { }
-  //Checks if logged in
+  //Checks if logged in, send to login page if not
   canActivate() {
     if (this.auth.isAuthenticated()) {
       environment.loggedIn = true;

@@ -1,29 +1,31 @@
-<mat-card>
-    <mat-card-header>
-        <mat-card-title>Your Income</mat-card-title>
-    </mat-card-header>
-    <form class="income-form" fxLayout="column" fxLayoutAlign="center"
-        (ngSubmit)="saveIncome(); wholeForm.form.markAsPristine();" #wholeForm="ngForm">
-        <mat-form-field>
-            <span matPrefix>$&nbsp;</span>
-            <input matInput type="number" onkeydown="return event.keyCode !== 69" [(ngModel)]="incomeForm.value"
-                #value="ngModel" name="value" placeholder="Amount" required>
-        </mat-form-field>
+<div class="income-container">
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>Your Income</mat-card-title>
+        </mat-card-header>
+        <form class="income-form" fxLayout="column" fxLayoutAlign="center"
+            (ngSubmit)="saveIncome(); wholeForm.form.markAsPristine();" #wholeForm="ngForm">
+            <mat-form-field>
+                <span matPrefix>$&nbsp;</span>
+                <input matInput type="number" onkeydown="return event.keyCode !== 69" [(ngModel)]="incomeForm.value"
+                    #value="ngModel" name="value" placeholder="Amount" required>
+            </mat-form-field>
 
-        <mat-form-field>
-            <mat-label>Pay Frequency</mat-label>
-            <mat-select [(ngModel)]="incomeForm.frequency" #frequency="ngModel" name="frequency" required>
-                <mat-option value="yearly">Yearly</mat-option>
-                <mat-option value="monthly">Monthly</mat-option>
-                <mat-option value="biweekly">Biweekly</mat-option>
-            </mat-select>
-        </mat-form-field>
+            <mat-form-field>
+                <mat-label>Pay Frequency</mat-label>
+                <mat-select [(ngModel)]="incomeForm.frequency" #frequency="ngModel" name="frequency" required>
+                    <mat-option value="yearly">Yearly</mat-option>
+                    <mat-option value="monthly">Monthly</mat-option>
+                    <mat-option value="biweekly">Biweekly</mat-option>
+                </mat-select>
+            </mat-form-field>
 
-        <div class="button-container">
-            <button mat-raised-button color="primary" type="submit"
-                [disabled]="!wholeForm.form.valid || !wholeForm.form.dirty" aria-label="income save button">
-                Save
-            </button>
-        </div>
-    </form>
-</mat-card>
+            <div class="button-container">
+                <button mat-raised-button color="primary" type="submit"
+                    [disabled]="!wholeForm.form.valid || !wholeForm.form.dirty" aria-label="income save button">
+                    Save
+                </button>
+            </div>
+        </form>
+    </mat-card>
+</div>

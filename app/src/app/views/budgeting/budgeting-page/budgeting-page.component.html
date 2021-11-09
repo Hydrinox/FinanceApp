@@ -1,12 +1,21 @@
 <main @fadeInOut>
     <div class="header">Budgeting</div>
-    <!-- TODO:  implement bar chart: one column stacked with expenses, other is income -->
     <div>
         <app-budget-stacked-chart fxLayoutAlign="center start" [expenseData]="expenses" [incomeData]="income">
         </app-budget-stacked-chart>
     </div>
-    <div fxLayout="row" fxLayoutAlign="center start" class="form-container">
-        <app-income-form (incomeChanges)="displayIncome($event)"></app-income-form>
-        <app-expense-form fxFlex="50" (expenseChanges)="displayExpenses($event)"></app-expense-form>
+    <div fxLayout="column" fxLayoutAlign="center" class="form-container">
+        <mat-tab-group mat-align-tabs="center" class="tabs">
+            <mat-tab label="Expenses">
+                <div class="expense-tab">
+                    <app-expense-form (expenseChanges)="displayExpenses($event)"></app-expense-form>
+                </div>
+            </mat-tab>
+            <mat-tab label="Income">
+                <div class="income-tab">
+                    <app-income-form (incomeChanges)="displayIncome($event)"></app-income-form>
+                </div>
+            </mat-tab>
+        </mat-tab-group>
     </div>
 </main>

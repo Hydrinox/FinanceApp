@@ -3,8 +3,19 @@
     padding-top: 25px;
 }
 
-.header {
+.expense-tab {
+    padding-top: 16px;
     text-align: center;
-    font-size: xx-large;
-    padding: 25px;
+    width: 100%;
+}
+
+.income-tab {
+    padding-top: 16px;
+    margin: auto;
+    width: 30%
+}
+
+.tabs {
+    align-self: center;
+    width: 60%;
 }

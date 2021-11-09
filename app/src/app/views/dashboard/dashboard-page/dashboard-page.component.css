@@ -25,16 +25,9 @@ mat-divider {
     padding-top: 15px;
 }
 
-.header {
-    text-align: center;
-    font-size: xx-large;
-    padding: 25px;
-}
-
 .dashboard-container {
     margin-top: 100px;
 }
-
 
 .card-section {
     /* text-align: center; */
