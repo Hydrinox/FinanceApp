@@ -39,9 +39,14 @@ export class RetirementFormComponent implements OnInit {
   }
 
   async OnSubmit() {
-    await this.retirementCalc.updateRetirement(this.formModel);
-    this.retirementNumber = this.retirementCalc.calculateRetirementTotal(this.formModel);
-    this.retirementNumberEvent.emit(this.retirementCalc.calculateRetirementTotal(this.formModel));
-    this.timelineChangeEvent.emit(this.retirementCalc.calculateRetirementTimeline(this.formModel));
+    try {
+      await this.retirementCalc.updateRetirement(this.formModel);
+      this.retirementNumber = this.retirementCalc.calculateRetirementTotal(this.formModel);
+      this.retirementNumberEvent.emit(this.retirementCalc.calculateRetirementTotal(this.formModel));
+      this.timelineChangeEvent.emit(this.retirementCalc.calculateRetirementTimeline(this.formModel));
+    }
+    catch (err) {
+      this.utils.logout();
+    }
   }
 }

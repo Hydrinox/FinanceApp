@@ -49,7 +49,6 @@ export class RetirementChartComponent implements OnChanges {
                 this.lineChart.setOption({
                     series:
                         [
-                            { data: changes.retirementData.currentValue },
                             { data: changes.retirementData.currentValue }
                         ]
                 }

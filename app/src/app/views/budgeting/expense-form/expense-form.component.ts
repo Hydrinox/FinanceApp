@@ -40,28 +40,43 @@ export class ExpenseFormComponent implements OnInit {
 
   async addData(newItem: ExpenseItem) {
     if (newItem) {
-      await this.budgetService.updateExpense(newItem, this.userID);
-      this.expenseArray = await this.budgetService.getExpenses(this.userID);
-      this.expenseChanges.emit(this.expenseArray);
+      try {
+        await this.budgetService.updateExpense(newItem, this.userID);
+        this.expenseArray = await this.budgetService.getExpenses(this.userID);
+        this.expenseChanges.emit(this.expenseArray);
 
-      this.table.renderRows();
+        this.table.renderRows();
+      }
+      catch (err) {
+        this.utils.logout();
+      }
     }
   }
 
   async editData(oldItem: ExpenseItem, newItem: ExpenseItem) {
     if (newItem) {
-      await this.budgetService.updateExpense(newItem, this.userID, String(oldItem._id))
-      this.expenseArray = await this.budgetService.getExpenses(this.userID);
-      this.expenseChanges.emit(this.expenseArray);
+      try {
+        await this.budgetService.updateExpense(newItem, this.userID, String(oldItem._id))
+        this.expenseArray = await this.budgetService.getExpenses(this.userID);
+        this.expenseChanges.emit(this.expenseArray);
 
-      this.table.renderRows();
+        this.table.renderRows();
+      }
+      catch (err) {
+        this.utils.logout();
+      }
     }
   }
 
   async removeData(item: ExpenseItem) {
-    this.expenseArray = await this.budgetService.deleteExpense(item._id, this.userID);
-    this.expenseChanges.emit(this.expenseArray);
-    this.table.renderRows();
+    try {
+      this.expenseArray = await this.budgetService.deleteExpense(item._id, this.userID);
+      this.expenseChanges.emit(this.expenseArray);
+      this.table.renderRows();
+    }
+    catch (err) {
+      this.utils.logout();
+    }
   }
 
   openDialog(item?: ExpenseItem): void {

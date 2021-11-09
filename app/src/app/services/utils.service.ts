@@ -23,7 +23,7 @@ export class UtilsService {
   }
 
   async logout() {
-    const clearCookiesRes = await this.http.get(`${this.baseURL}/auth/logout`).toPromise();
+    await this.http.get(`${this.baseURL}/auth/logout`).toPromise();
     this.storage.removeAll();
     environment.loggedIn = false;
     this.route.navigate(['/login'])

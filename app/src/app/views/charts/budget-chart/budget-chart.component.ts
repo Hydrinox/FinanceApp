@@ -112,18 +112,5 @@ export class BudgetChartComponent implements OnChanges {
       )
     }, 60)
   }
-
-
-  onChartInit(e: any) {
-    this.chartInstance = e;
-    // console.log('on chart init:', e);
-  }
-
-  callMethod(type: string) {
-    if (this.chartInstance) {
-      const result = this.chartInstance[type]();
-      console.log("this is result", result);
-    }
-  }
 }
 

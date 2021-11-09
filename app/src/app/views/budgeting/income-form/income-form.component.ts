@@ -32,8 +32,13 @@ export class IncomeFormComponent implements OnInit {
   }
 
   async saveIncome() {
-    await this.budgetService.updateIncome(this.incomeForm)
-    this.incomeForm = await this.budgetService.getIncome(this.userID);
-    this.incomeChanges.emit(this.incomeForm);
+    try {
+      await this.budgetService.updateIncome(this.incomeForm)
+      this.incomeForm = await this.budgetService.getIncome(this.userID);
+      this.incomeChanges.emit(this.incomeForm);
+    }
+    catch (err) {
+      this.utils.logout();
+    }
   }
 }
