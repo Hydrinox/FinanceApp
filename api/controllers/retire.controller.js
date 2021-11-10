@@ -5,19 +5,6 @@ exports.findRetirement = (req, res) => {
     Retirement.find({ _id: req.params.user })
         .exec()
         .then(result => {
-            //if user doesn't have retirement, save/return default retirement
-            if (result.length === 0) {
-                defaultRetirementItem = new Retirement({
-                    currentAge: defaultRetirement.currentAge,
-                    retirementAge: defaultRetirement.retirementAge,
-                    startPrincipal: defaultRetirement.startPrincipal,
-                    contributions: defaultRetirement.contributions,
-                    growthRate: defaultRetirement.growthRate,
-                    _id: req.params.user
-                })
-                defaultRetirementItem.save();
-                result.push(defaultRetirementItem);
-            }
             res.status(200).json(result[0]);
         })
         .catch(err => {

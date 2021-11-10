@@ -5,7 +5,7 @@
         </app-budget-stacked-chart>
     </div>
     <div fxLayout="column" fxLayoutAlign="center" class="form-container">
-        <mat-tab-group mat-align-tabs="center" class="tabs">
+        <mat-tab-group mat-align-tabs="center" class="tabs" dynamicHeight>
             <mat-tab label="Expenses">
                 <div class="expense-tab">
                     <app-expense-form (expenseChanges)="displayExpenses($event)"></app-expense-form>
